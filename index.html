@@ -82,13 +82,14 @@
     z-index: 0;
   }
 
-  * { position: relative; z-index: 1; }
+  *:not(.mobile-menu):not(.mobile-menu *) { position: relative; z-index: 1; }
+  .mobile-menu { position: fixed; z-index: 99; }
 
   /* ── NAV ── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
-    z-index: 100;
+    z-index: 10000;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1147,11 +1148,13 @@
   @media (max-width: 768px) {
 
     html, body { overflow-x: hidden; width: 100%; }
-    * { max-width: 100%; word-break: break-word; }
+    *:not(.mobile-menu):not(.mobile-menu *) { max-width: 100%; word-break: break-word; }
 
     /* Nav */
     nav { padding: 0 20px !important; height: 64px; }
-    .nav-links li:not(:last-child) { display: none; }
+    .nav-links { display: none !important; }
+    .hamburger { display: flex !important; }
+    .mobile-menu { display: block !important; }
     .logo { font-size: 17px; }
 
     /* Hero */
@@ -1205,6 +1208,9 @@
     .metric-row { padding: 10px 12px !important; border-radius: 6px; flex-wrap: nowrap; gap: 8px; }
     .metric-row-label { font-size: 11px !important; line-height: 1.3; flex: 1; }
     .metric-row-value { font-size: 13px !important; white-space: nowrap; flex-shrink: 0; }
+    /* Move Know more button: hide from left panel, show below metrics card */
+    .solutions-panel-left .btn-primary { display: none !important; }
+    .b2b-know-more-mobile { display: flex !important; width: 100% !important; justify-content: center !important; margin-top: 8px !important; padding: 14px 20px !important; font-size: 14px !important; }
 
     /* Case studies */
     .case-grid { grid-template-columns: 1fr !important; gap: 14px !important; margin-top: 32px; }
@@ -1252,6 +1258,103 @@
     .footer-bottom { flex-direction: column !important; gap: 6px; text-align: center; margin-top: 28px; padding-top: 24px; }
     .footer-bottom p { font-size: 11px; }
   }
+
+  /* B2B know-more button: visible on desktop inside left panel, hidden on mobile */
+  .b2b-know-more-mobile { display: none; }
+
+  /* ── HAMBURGER BUTTON ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    z-index: 200;
+    flex-shrink: 0;
+  }
+  .hamburger:hover { background: var(--blue-dim); }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── MOBILE DRAWER ── */
+  .mobile-menu {
+    display: none;
+    position: fixed !important;
+    top: 64px;
+    left: 0; right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    z-index: 9999 !important;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.3s ease;
+    width: 100vw !important;
+    max-width: 100vw !important;
+  }
+  .mobile-menu.open {
+    max-height: 480px;
+    padding: 16px 0 24px;
+  }
+  .mobile-menu a {
+    display: block;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s, background 0.2s;
+  }
+  .mobile-menu a:hover,
+  .mobile-menu a:active { color: var(--text); background: var(--blue-dim); }
+  .mobile-menu-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 12px 24px;
+  }
+  .mobile-menu-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 24px;
+  }
+  .mobile-menu-toggle-row span {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .mobile-menu .mobile-cta {
+    margin: 12px 24px 0;
+    display: block;
+    background: var(--blue);
+    color: #000 !important;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 24px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .mobile-menu .mobile-cta:hover { background: #00cff5; }
 </style>
 </head>
 <body>
@@ -1276,7 +1379,26 @@
     </li>
     <li><a href="/contact.html" class="nav-cta">Let's Talk</a></li>
   </ul>
+  <!-- Hamburger (mobile only) -->
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="#solutions">Solutions</a>
+  <a href="#work">Case Studies</a>
+  <a href="#process">About</a>
+  <a href="/contact.html">Contact</a>
+  <div class="mobile-menu-divider"></div>
+  <div class="mobile-menu-toggle-row">
+    <span>🌙 Dark / Light ☀️</span>
+    <div class="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;"></div>
+  </div>
+  <div class="mobile-menu-divider"></div>
+  <a href="/contact.html" class="mobile-cta">Let's Talk →</a>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -1826,6 +1948,7 @@
           <span class="metric-row-label">Blogs ranking on page 1</span>
           <span class="metric-row-value amber">20+</span>
         </div>
+        <a href="/b2b-digital-marketing.html" class="btn-primary b2b-know-more-mobile">Know more! →</a>
       </div>
     </div>
 
@@ -2105,7 +2228,7 @@
     <h2 class="section-title reveal reveal-delay-1">Ready to engineer<br>your growth?</h2>
     <p class="section-sub reveal reveal-delay-2">Let's look at your numbers and tell you exactly what we'd do. No fluff. No generic proposals. Just a clear, data-backed plan.</p>
     <div class="reveal reveal-delay-3" style="margin-top: 40px;">
-      <a href="mailto:rohithk2026@gmail.com" class="btn-primary cta-btn">Book a Free Audit →</a>
+      <a href="/cdn-cgi/l/email-protection#dcaeb3b4b5a8b4b7eeeceeea9cbbb1bdb5b0f2bfb3b1" class="btn-primary cta-btn">Book a Free Audit →</a>
     </div>
   </div>
 </div>
@@ -2143,7 +2266,7 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function toggleTheme() {
     document.body.classList.toggle('light');
     localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
@@ -2172,7 +2295,39 @@
       p.classList.toggle('active', i === index);
     });
   }
-</script>
 
+  // ── HAMBURGER MENU ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Close drawer when a link is tapped
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Close drawer on outside tap
+  document.addEventListener('click', (e) => {
+    if (mobileMenu.classList.contains('open') &&
+        !mobileMenu.contains(e.target) &&
+        !hamburger.contains(e.target)) {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  });
+</script>
 </body>
 </html>
