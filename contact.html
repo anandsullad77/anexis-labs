@@ -702,6 +702,8 @@
       footer { padding: 48px 20px !important; }
     }
   </style>
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -759,7 +761,7 @@
     <h2>Get In Touch</h2>
     <p>Tell us about your project and goals</p>
 
-    <form action="https://formsubmit.co/anandsullad77@gmail.com" method="POST" id="contactForm">
+    <form id="contactForm" novalidate>
       <input type="hidden" name="_subject" value="New Contact Inquiry from Anexis Labs">
       <input type="hidden" name="_next" id="redirectUrl" value="">
       <input type="hidden" name="_captcha" value="false">
@@ -855,7 +857,7 @@
 
         <div class="info-box">
           <div class="info-label">Email</div>
-          <div class="info-value"><a href="mailto:anandsullad77@gmail.com">anandsullad77@gmail.com</a></div>
+          <div class="info-value"><a href="/cdn-cgi/l/email-protection#59383738373d2a2c3535383d6e6e193e34383035773a3634"><span class="__cf_email__" data-cfemail="bddcd3dcd3d9cec8d1d1dcd98a8afddad0dcd4d193ded2d0">[email&#160;protected]</span></a></div>
         </div>
 
         <div class="info-box">
@@ -882,7 +884,23 @@
   <p>&copy; 2025 Anexis Labs. Data-first. Process-driven. Engineer-built.</p>
 </footer>
 
-<script>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ================================================================
+  // SUPABASE CONFIG — replace these two values with yours
+  // Settings → API in your Supabase dashboard
+  // ================================================================
+  const SUPABASE_URL  = 'https://wqwlgamcltgbsmudk.supabase.co';   // e.g. https://abcdefgh.supabase.co
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNheXdxd2xnYW1jbHRnYnNtdWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDg0NzYsImV4cCI6MjA5MDk4NDQ3Nn0.kkyTj4mKV7yAXoEQK2r9PIQTwOhClQPoA-TXW2deUVk';
+
+  // NOTE: sb_publishable_ is a newer Supabase key format that the JS SDK v2 doesn't
+  // accept — replace SUPABASE_ANON with your standard anon key (starts with eyJ)
+  // from Supabase → Settings → API → Project API keys → anon / public
+  if (SUPABASE_ANON.startsWith('sb_publishable_')) {
+    console.warn('[Supabase] Invalid key format — use the eyJ... anon key from Settings → API, not sb_publishable_.');
+  }
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, { auth: { persistSession: false } });
+
   // ── THEME ──
   function toggleTheme() {
     document.body.classList.toggle('light');
@@ -900,11 +918,9 @@
     const isOpen = mobileMenu.classList.toggle('open');
     hamburger.classList.toggle('open', isOpen);
     hamburger.setAttribute('aria-expanded', isOpen);
-    // Prevent body scroll when menu is open
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
-  // Close drawer when a link is tapped
   mobileMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
@@ -914,7 +930,6 @@
     });
   });
 
-  // Close drawer on outside tap
   document.addEventListener('click', (e) => {
     if (mobileMenu.classList.contains('open') &&
         !mobileMenu.contains(e.target) &&
@@ -926,10 +941,109 @@
     }
   });
 
-  // ── FORM REDIRECT ──
-  const redirectField = document.getElementById('redirectUrl');
-  if (redirectField) {
-    redirectField.value = window.location.origin + '/thank-you.html';
+  // ── CONTACT FORM — saves to Supabase + sends email via FormSubmit ──
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const btn  = form.querySelector('.btn-submit');
+    const orig = btn.textContent;
+
+    // Grab field values
+    const data = {
+      name    : form.name.value.trim(),
+      email   : form.email.value.trim(),
+      company : form.company.value.trim()  || null,
+      phone   : form.phone.value.trim()    || null,
+      service : form.service.value         || null,
+      message : form.message.value.trim()  || null,
+      status  : 'new'
+    };
+
+    // Validation — all required fields + robot checkbox
+    if (!data.name || !data.email || !data.service || !data.message) {
+      showFormError('Please fill in all required fields.');
+      return;
+    }
+    if (!form.robotCheck.checked) {
+      showFormError('Please confirm you are not a robot.');
+      return;
+    }
+
+    clearFormMessages();
+    btn.disabled    = true;
+    btn.textContent = 'Sending…';
+
+    let supabaseOk = false;
+    let emailOk    = false;
+
+    // 1️⃣  Save lead to Supabase
+    try {
+      console.log('[Supabase] Attempting insert with data:', JSON.stringify(data));
+      const { data: insertedData, error } = await sb.from('Leads').insert([data]).select();
+      if (error) {
+        console.error('[Supabase] Insert FAILED');
+        console.error('  message:', error.message);
+        console.error('  code:', error.code);
+        console.error('  details:', error.details);
+        console.error('  hint:', error.hint);
+      } else {
+        console.log('[Supabase] Insert SUCCESS:', insertedData);
+        supabaseOk = true;
+      }
+    } catch (err) {
+      console.error('[Supabase] Exception:', err);
+    }
+
+    // 2️⃣  Send email via FormSubmit
+    try {
+      const fd = new FormData();
+      fd.append('name',     data.name);
+      fd.append('email',    data.email);
+      fd.append('company',  data.company || '');
+      fd.append('phone',    data.phone   || '');
+      fd.append('service',  data.service || '');
+      fd.append('message',  data.message || '');
+      fd.append('_subject', 'New Contact Inquiry from Anexis Labs');
+      fd.append('_captcha', 'false');
+      fd.append('_template','table');
+
+      const res = await fetch('https://formsubmit.co/anandsullad77@gmail.com', {
+        method : 'POST',
+        body   : fd
+      });
+      emailOk = res.ok;
+    } catch (err) {
+      console.error('FormSubmit exception:', err);
+    }
+
+    // 3️⃣  Handle result
+    if (supabaseOk || emailOk) {
+      console.log('[Form] Success — supabaseOk:', supabaseOk, '| emailOk:', emailOk);
+      setTimeout(() => {
+        window.location.href = window.location.origin + '/thank-you.html';
+      }, 500);
+    } else {
+      // Both failed — show error and re-enable button
+      showFormError('Something went wrong. Please try again or email us directly.');
+      btn.disabled    = false;
+      btn.textContent = orig;
+    }
+  });
+
+  // ── FORM MESSAGE HELPERS ──
+  function showFormError(msg) {
+    clearFormMessages();
+    const el = document.createElement('p');
+    el.id        = 'formMsg';
+    el.textContent = msg;
+    el.style.cssText = 'color:#e05a5a;font-size:14px;margin-top:12px;';
+    document.getElementById('contactForm').appendChild(el);
+  }
+
+  function clearFormMessages() {
+    const existing = document.getElementById('formMsg');
+    if (existing) existing.remove();
   }
 </script>
 </body>
