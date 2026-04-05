@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — Anexis Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #080b0f;
+    --bg2:      #0e1318;
+    --bg3:      #141c24;
+    --border:   rgba(255,255,255,0.06);
+    --border2:  rgba(255,255,255,0.12);
+    --blue:     #00B4D8;
+    --blue-dim: rgba(0,180,216,0.1);
+    --blue-mid: rgba(0,180,216,0.2);
+    --green:    #22c97b;
+    --amber:    #e8a020;
+    --text:     #eef2f7;
+    --muted:    #7a8fa6;
+    --faint:    #3a4a5c;
+    --nav-bg:   rgba(8,11,15,0.85);
+    --font-display: 'Manrope', sans-serif;
+    --font-body:    'DM Sans', sans-serif;
+  }
+
+  /* LIGHT MODE */
+  body.light {
+    --bg:       #f5f6f8;
+    --bg2:      #ffffff;
+    --bg3:      #eceef2;
+    --border:   rgba(0,0,0,0.07);
+    --border2:  rgba(0,0,0,0.13);
+    --blue:     #0090b0;
+    --blue-dim: rgba(0,144,176,0.08);
+    --blue-mid: rgba(0,144,176,0.15);
+    --green:    #1a9e5f;
+    --amber:    #c47d0a;
+    --text:     #0d1117;
+    --muted:    #5a6a7a;
+    --faint:    #a0aab4;
+    --nav-bg:   rgba(245,246,248,0.9);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── GRID BACKGROUND ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  * { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    height: 72px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0px;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: inline-block;
+    box-shadow: 0 0 12px var(--blue);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.8); }
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--blue);
+    color: #000 !important;
+    font-weight: 500 !important;
+    padding: 9px 22px;
+    border-radius: 6px;
+    font-size: 14px !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+
+  .nav-cta:hover {
+    background: #00cff5 !important;
+    color: #000 !important;
+    transform: translateY(-1px);
+  }
+
+  /* ── THANK YOU CONTENT ── */
+  .thank-you-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 60px 80px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .thank-you-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 32px;
+    border-radius: 50%;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #000;
+  }
+
+  .thank-you-headline {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .thank-you-sub {
+    font-size: 20px;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.6;
+  }
+
+  .thank-you-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: #000;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 15px;
+    padding: 14px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover {
+    background: #00cff5;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 15px;
+    padding: 14px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, transform 0.15s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--blue);
+    transform: translateY(-1px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 60px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 60px;
+  }
+
+  .footer-brand {
+    flex: 1;
+  }
+
+  .footer-brand .logo {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .footer-brand p {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 60px;
+  }
+
+  .footer-col h4 {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .footer-col a {
+    display: block;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--text); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .footer-bottom p {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 4px 0;
+  }
+
+  /* ── THEME TOGGLE ── */
+  .theme-toggle {
+    position: fixed;
+    top: 20px; right: 20px;
+    width: 48px; height: 24px;
+    border-radius: 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+    z-index: 101;
+  }
+
+  .theme-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--blue);
+    transition: transform 0.2s;
+  }
+
+  body.light .theme-toggle::after {
+    transform: translateX(24px);
+  }
+
+  .toggle-wrap {
+    position: fixed;
+    top: 16px; right: 16px;
+    z-index: 102;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .toggle-icon {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  body.light .toggle-wrap .toggle-icon:first-child { display: none; }
+  body:not(.light) .toggle-wrap .toggle-icon:last-child { display: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .thank-you-section { padding: 100px 20px 60px; }
+    .footer-inner { flex-direction: column; gap: 40px; }
+    .footer-links { flex-direction: column; gap: 40px; }
+    .thank-you-actions { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav>
+  <a href="anexis-labs (3).html" class="logo">
+    <span class="logo-dot"></span>
+    Anexis Labs
+  </a>
+  <ul class="nav-links">
+    <li><a href="anexis-labs (3).html#services">Services</a></li>
+    <li><a href="anexis-labs (3).html#work">Case Studies</a></li>
+    <li><a href="anexis-labs (3).html#process">Process</a></li>
+    <li><a href="anexis-labs (3).html#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:rohithk2026@gmail.com" class="nav-cta">Get Started</a>
+</nav>
+
+<!-- THEME TOGGLE -->
+<div class="toggle-wrap">
+  <span class="toggle-icon">🌙</span>
+  <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()"></div>
+  <span class="toggle-icon">☀️</span>
+</div>
+
+<!-- THANK YOU CONTENT -->
+<section class="thank-you-section">
+  <div class="thank-you-icon">✓</div>
+  <h1 class="thank-you-headline">Thank you!</h1>
+  <p class="thank-you-sub">Your message has been sent successfully. We'll review your inquiry and get back to you within 24 hours with a clear next step.</p>
+  <div class="thank-you-actions">
+    <a href="anexis-labs (3).html" class="btn-primary">Back to Home</a>
+    <a href="anexis-labs (3).html#contact-form" class="btn-secondary">Send Another Message</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="anexis-labs (3).html" class="logo">
+        <span class="logo-dot"></span>
+        Anexis Labs
+      </a>
+      <p>Data-first. Process-driven. Engineer-built.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <a href="anexis-labs (3).html#services">Performance Marketing</a>
+        <a href="anexis-labs (3).html#services">B2B Digital Marketing</a>
+        <a href="anexis-labs (3).html#services">LinkedIn Marketing</a>
+        <a href="anexis-labs (3).html#services">Personal Branding</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="anexis-labs (3).html#work">Case Studies</a>
+        <a href="anexis-labs (3).html#about">About</a>
+        <a href="anexis-labs (3).html#process">Process</a>
+        <a href="anexis-labs (3).html#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Anexis Labs. All rights reserved.</p>
+    <p>Bangalore, India · Global Clients</p>
+  </div>
+</footer>
+
+<script>
+  function toggleTheme() {
+    document.body.classList.toggle('light');
+    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  }
+
+  // Load saved preference
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light');
+  }
+</script>
+
+</body>
+</html>

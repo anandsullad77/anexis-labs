@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Anexis Labs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080b0f;
+      --bg2:      #0e1318;
+      --bg3:      #141c24;
+      --border:   rgba(255,255,255,0.06);
+      --border2:  rgba(255,255,255,0.12);
+      --blue:     #00B4D8;
+      --blue-dim: rgba(0,180,216,0.1);
+      --blue-mid: rgba(0,180,216,0.2);
+      --green:    #22c97b;
+      --amber:    #e8a020;
+      --text:     #eef2f7;
+      --muted:    #7a8fa6;
+      --faint:    #3a4a5c;
+      --nav-bg:   rgba(8,11,15,0.85);
+      --font-display: 'Manrope', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    /* LIGHT MODE */
+    body.light {
+      --bg:       #f5f6f8;
+      --bg2:      #ffffff;
+      --bg3:      #eceef2;
+      --border:   rgba(0,0,0,0.07);
+      --border2:  rgba(0,0,0,0.13);
+      --blue:     #0090b0;
+      --blue-dim: rgba(0,144,176,0.08);
+      --blue-mid: rgba(0,144,176,0.15);
+      --green:    #1a9e5f;
+      --amber:    #c47d0a;
+      --text:     #0d1117;
+      --muted:    #5a6a7a;
+      --faint:    #a0aab4;
+      --nav-bg:   rgba(245,246,248,0.9);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    * { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      height: 72px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0px;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      display: inline-block;
+      box-shadow: 0 0 12px var(--blue);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--blue);
+      color: #000 !important;
+      font-weight: 500 !important;
+      padding: 9px 22px;
+      border-radius: 6px;
+      font-size: 14px !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+
+    .nav-cta:hover {
+      background: #00cff5 !important;
+      color: #000 !important;
+      transform: translateY(-1px);
+    }
+
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg2);
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .toggle-icon {
+      font-size: 14px;
+    }
+
+    .theme-toggle {
+      width: 32px;
+      height: 20px;
+      background: var(--faint);
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: var(--bg2);
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: left 0.3s;
+    }
+
+    body.light .theme-toggle {
+      background: var(--blue);
+    }
+
+    body.light .theme-toggle::after {
+      left: 14px;
+    }
+
+    /* ── PAGE HEADER ── */
+    .contact-header {
+      padding: 140px 60px 80px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .contact-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+
+    .contact-header p {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ── CONTACT CONTAINER ── */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      padding: 80px 60px 120px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .form-wrapper {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 60px;
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.12);
+    }
+
+    .form-wrapper h2 {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .form-wrapper > p {
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-size: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 15px;
+      padding: 16px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    body.light .form-group input,
+    body.light .form-group textarea,
+    body.light .form-group select {
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--blue);
+      background: var(--blue-dim);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 28px 0;
+    }
+
+    .checkbox-group input {
+      width: 18px !important;
+      height: 18px !important;
+      accent-color: var(--blue);
+      border-radius: 4px;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    .checkbox-group label {
+      margin: 0;
+      color: var(--text);
+      font-weight: 400;
+      cursor: pointer;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--blue);
+      color: #000;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 16px 32px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 8px;
+    }
+
+    .btn-submit:hover {
+      background: #00cff5;
+      transform: translateY(-2px);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* RIGHT PANEL */
+    .info-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .info-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 40px;
+    }
+
+    .info-card h3 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .info-card > p {
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 20px;
+    }
+
+    .step-number {
+      width: 44px;
+      height: 44px;
+      background: var(--blue);
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .step-content h4 {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .company-info {
+      display: grid;
+      gap: 24px;
+    }
+
+    .info-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--blue);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .info-value {
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .info-value a {
+      color: var(--blue);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .info-value a:hover {
+      color: #00cff5;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 60px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 60px 40px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        padding: 0 40px;
+      }
+
+      .contact-header {
+        padding: 120px 40px 60px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        padding: 0 20px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+
+      .toggle-wrap {
+        display: none;
+      }
+
+      .contact-header {
+        padding: 100px 20px 40px;
+      }
+
+      .contact-header h1 {
+        font-size: 36px;
+      }
+
+      .form-wrapper,
+      .info-card {
+        padding: 32px 20px;
+        border-radius: 16px;
+      }
+
+      .form-wrapper h2 {
+        font-size: 28px;
+      }
+
+      .contact-container {
+        padding: 40px 20px 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">
+    <span class="logo-dot"></span>
+    Anexis Labs
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#solutions">Solutions</a></li>
+    <li><a href="/#work">Case Studies</a></li>
+    <li><a href="/#process">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+    <li>
+      <div class="toggle-wrap">
+        <span class="toggle-icon">🌙</span>
+        <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()"></div>
+        <span class="toggle-icon">☀️</span>
+      </div>
+    </li>
+    <li><a href="/" class="nav-cta">Back Home</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<section class="contact-header">
+  <h1>Let's Build Your Growth Strategy</h1>
+  <p>Fill out the form below and we'll be in touch within 24 hours to discuss how we can help scale your business.</p>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="contact-container">
+  <!-- FORM -->
+  <div class="form-wrapper">
+    <h2>Get In Touch</h2>
+    <p>Tell us about your project and goals</p>
+
+    <form action="https://formsubmit.co/anandsullad77@gmail.com" method="POST" id="contactForm">
+      <input type="hidden" name="_subject" value="New Contact Inquiry from Anexis Labs">
+      <input type="hidden" name="_next" id="redirectUrl" value="">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" name="name" required placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" name="email" required placeholder="your@email.com">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Company</label>
+          <input type="text" name="company" placeholder="Your company">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" name="phone" placeholder="Your phone number">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Service Interested In *</label>
+        <select name="service" required>
+          <option value="">Select a service</option>
+          <option value="Performance Marketing">Performance Marketing</option>
+          <option value="B2B Digital Marketing">B2B Digital Marketing</option>
+          <option value="LinkedIn Marketing">LinkedIn Marketing</option>
+          <option value="Personal Branding">Personal Branding</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Tell Us About Your Business *</label>
+        <textarea name="message" required placeholder="Share your goals, current challenges, and what you're looking to achieve..."></textarea>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" name="robotCheck" id="robotCheck" required>
+        <label for="robotCheck">I am not a robot</label>
+      </div>
+
+      <button type="submit" class="btn-submit">Send My Inquiry</button>
+    </form>
+  </div>
+
+  <!-- INFO PANEL -->
+  <div class="info-panel">
+    <!-- VALUE PROP -->
+    <div class="info-card">
+      <h3>Ready to Engineer Your Growth?</h3>
+      <p>Here's how we work with you:</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Consultation</h4>
+            <p>We'll schedule a call to understand your business, goals, and challenges.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Analysis</h4>
+            <p>Our team digs into your data, market, and competitors to build a clear strategy.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Execution</h4>
+            <p>We implement, test, measure, and scale what works. You always know what's happening.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPANY INFO -->
+    <div class="info-card">
+      <div class="company-info">
+        <div class="info-box">
+          <div class="info-label">Location</div>
+          <div class="info-value">Bangalore, India</div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-label">Email</div>
+          <div class="info-value"><a href="mailto:contact@anexislabs.com">contact@anexislabs.com</a></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-label">Response Time</div>
+          <div class="info-value">Within 24 hours</div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-label">Services</div>
+          <div class="info-value">
+            Performance Marketing<br>
+            B2B Digital Marketing<br>
+            LinkedIn Marketing<br>
+            Personal Branding
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 Anexis Labs. Data-first. Process-driven. Engineer-built.</p>
+</footer>
+
+<script>
+  // Set redirect URL for FormSubmit
+  const redirectField = document.getElementById('redirectUrl');
+  if (redirectField) {
+    redirectField.value = window.location.origin + '/thank-you.html';
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle('light');
+    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  }
+
+  // Load saved preference
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('#contactForm');
+    if (form) {
+      const submitButton = form.querySelector('button[type="submit"]');
+      
+      form.addEventListener('submit', (event) => {
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = 'Sending...';
+        }
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
