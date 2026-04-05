@@ -482,40 +482,224 @@
       }
     }
 
-    @media (max-width: 640px) {
-      nav {
-        padding: 0 20px;
-      }
+    /* ── HAMBURGER BUTTON ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      z-index: 200;
+    }
+    .hamburger:hover { background: var(--blue-dim); }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-      .nav-links {
-        gap: 20px;
-      }
+    /* ── MOBILE DRAWER ── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0; right: 0;
+      background: var(--nav-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      z-index: 99;
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+    }
+    .mobile-menu.open {
+      max-height: 480px;
+      padding: 16px 0 24px;
+    }
+    .mobile-menu a {
+      display: block;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+      border-radius: 0;
+    }
+    .mobile-menu a:hover,
+    .mobile-menu a:active { color: var(--text); background: var(--blue-dim); }
+    .mobile-menu a.active-link { color: var(--blue); }
+    .mobile-menu-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 12px 24px;
+    }
+    .mobile-menu-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 24px;
+    }
+    .mobile-menu-toggle-row span {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .mobile-menu .mobile-cta {
+      margin: 12px 24px 0;
+      display: block;
+      background: var(--blue);
+      color: #000 !important;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 14px 24px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .mobile-menu .mobile-cta:hover { background: #00cff5; }
 
-      .toggle-wrap {
-        display: none;
-      }
+    /* ── MOBILE (≤768px) — mirrors index.html exactly ── */
+    @media (max-width: 768px) {
+      html, body { overflow-x: hidden; width: 100%; }
+      * { max-width: 100%; word-break: break-word; }
 
+      /* Nav — show hamburger, hide desktop links */
+      nav { padding: 0 20px !important; height: 64px; }
+      .nav-links { display: none !important; }
+      .logo { font-size: 17px; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: block; }
+      .toggle-wrap .toggle-icon { display: none; }
+
+      /* Page header */
       .contact-header {
-        padding: 100px 20px 40px;
+        padding: 96px 20px 40px !important;
+        text-align: left;
       }
-
       .contact-header h1 {
-        font-size: 36px;
+        font-size: 32px !important;
+        letter-spacing: -0.5px !important;
+        line-height: 1.15 !important;
+        margin-bottom: 16px;
+      }
+      .contact-header p {
+        font-size: 15px !important;
+        margin: 0;
       }
 
-      .form-wrapper,
-      .info-card {
-        padding: 32px 20px;
-        border-radius: 16px;
-      }
-
-      .form-wrapper h2 {
-        font-size: 28px;
-      }
-
+      /* Container — single column, tight padding */
       .contact-container {
-        padding: 40px 20px 80px;
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+        padding: 32px 20px 64px !important;
       }
+
+      /* Form wrapper */
+      .form-wrapper {
+        padding: 28px 20px !important;
+        border-radius: 16px !important;
+      }
+      .form-wrapper h2 {
+        font-size: 26px !important;
+        margin-bottom: 8px;
+      }
+      .form-wrapper > p {
+        font-size: 14px !important;
+        margin-bottom: 28px !important;
+      }
+
+      /* Form rows — stack on mobile */
+      .form-row {
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+      }
+      .form-group {
+        margin-bottom: 20px !important;
+      }
+      .form-group label {
+        font-size: 13px !important;
+        margin-bottom: 8px !important;
+      }
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        font-size: 16px !important; /* prevents iOS zoom on focus */
+        padding: 13px 14px !important;
+        border-radius: 10px !important;
+      }
+      .form-group textarea {
+        min-height: 100px !important;
+      }
+
+      /* Checkbox */
+      .checkbox-group {
+        margin: 20px 0 !important;
+        gap: 10px;
+      }
+      .checkbox-group label {
+        font-size: 14px !important;
+      }
+
+      /* Submit button */
+      .btn-submit {
+        font-size: 15px !important;
+        padding: 15px 20px !important;
+        border-radius: 8px !important;
+      }
+
+      /* Info panel */
+      .info-panel { gap: 20px !important; }
+
+      .info-card {
+        padding: 24px 20px !important;
+        border-radius: 16px !important;
+      }
+      .info-card h3 {
+        font-size: 22px !important;
+        margin-bottom: 10px;
+      }
+      .info-card > p {
+        font-size: 14px !important;
+        margin-bottom: 20px !important;
+      }
+
+      /* Steps list */
+      .steps-list { gap: 16px !important; }
+      .step-item { gap: 14px !important; }
+      .step-number {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 15px !important;
+        flex-shrink: 0;
+      }
+      .step-content h4 { font-size: 15px !important; }
+      .step-content p { font-size: 13px !important; }
+
+      /* Company info */
+      .company-info { gap: 16px !important; }
+      .info-label { font-size: 11px !important; }
+      .info-value { font-size: 15px !important; }
+
+      /* Footer */
+      footer { padding: 48px 20px !important; }
     }
   </style>
 </head>
@@ -541,7 +725,26 @@
     </li>
     <li><a href="/" class="nav-cta">Back Home</a></li>
   </ul>
+  <!-- Hamburger (mobile only) -->
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="/#solutions">Solutions</a>
+  <a href="/#work">Case Studies</a>
+  <a href="/#process">About</a>
+  <a href="/contact.html" class="active-link">Contact</a>
+  <div class="mobile-menu-divider"></div>
+  <div class="mobile-menu-toggle-row">
+    <span>🌙 Dark / Light ☀️</span>
+    <div class="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;"></div>
+  </div>
+  <div class="mobile-menu-divider"></div>
+  <a href="/" class="mobile-cta">Back Home →</a>
+</div>
 
 <!-- HEADER -->
 <section class="contact-header">
@@ -652,7 +855,7 @@
 
         <div class="info-box">
           <div class="info-label">Email</div>
-          <div class="info-value"><a href="mailto:contact@anexislabs.com">contact@anexislabs.com</a></div>
+          <div class="info-value"><a href="mailto:anandsullad77@gmail.com">anandsullad77@gmail.com</a></div>
         </div>
 
         <div class="info-box">
@@ -680,36 +883,54 @@
 </footer>
 
 <script>
-  // Set redirect URL for FormSubmit
-  const redirectField = document.getElementById('redirectUrl');
-  if (redirectField) {
-    redirectField.value = window.location.origin + '/thank-you.html';
-  }
-
+  // ── THEME ──
   function toggleTheme() {
     document.body.classList.toggle('light');
     localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
   }
-
-  // Load saved preference
   if (localStorage.getItem('theme') === 'light') {
     document.body.classList.add('light');
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('#contactForm');
-    if (form) {
-      const submitButton = form.querySelector('button[type="submit"]');
-      
-      form.addEventListener('submit', (event) => {
-        if (submitButton) {
-          submitButton.disabled = true;
-          submitButton.textContent = 'Sending...';
-        }
-      });
+  // ── HAMBURGER MENU ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    // Prevent body scroll when menu is open
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Close drawer when a link is tapped
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Close drawer on outside tap
+  document.addEventListener('click', (e) => {
+    if (mobileMenu.classList.contains('open') &&
+        !mobileMenu.contains(e.target) &&
+        !hamburger.contains(e.target)) {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     }
   });
-</script>
 
+  // ── FORM REDIRECT ──
+  const redirectField = document.getElementById('redirectUrl');
+  if (redirectField) {
+    redirectField.value = window.location.origin + '/thank-you.html';
+  }
+</script>
 </body>
 </html>
