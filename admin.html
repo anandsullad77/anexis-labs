@@ -652,19 +652,144 @@
     .status-btn.active-contacted { background: var(--green-dim); color: var(--green); border-color: rgba(34,201,123,0.3); }
     .status-btn.active-closed { background: var(--amber-dim); color: var(--amber); border-color: rgba(232,160,32,0.3); }
 
-    /* RESPONSIVE */
+    /* ── NOTES / COMMENTS ── */
+    .notes-textarea {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 12px 16px;
+      outline: none;
+      resize: vertical;
+      min-height: 100px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .notes-textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px var(--blue-dim);
+    }
+    .notes-textarea::placeholder { color: var(--faint); }
+
+    .notes-save-btn {
+      margin-top: 10px;
+      background: var(--blue);
+      color: #000;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .notes-save-btn:hover { background: #00cff5; transform: translateY(-1px); }
+    .notes-save-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .notes-saved-msg {
+      font-size: 12px;
+      color: var(--green);
+      margin-top: 8px;
+      min-height: 16px;
+    }
+
+    /* ── MOBILE CARDS ── */
+    .lead-cards { display: none; }
+
+    .lead-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .lead-card:active { background: var(--bg3); border-color: var(--blue); }
+
+    .lc-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+    .lc-name { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--text); }
+    .lc-email { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .lc-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .lc-tag {
+      font-size: 11px; color: var(--muted);
+      background: var(--bg3); border: 1px solid var(--border);
+      padding: 3px 8px; border-radius: 5px;
+    }
+    .lc-message {
+      font-size: 13px; color: var(--faint);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-bottom: 12px;
+    }
+    .lc-footer { display: flex; justify-content: space-between; align-items: center; }
+    .lc-date { font-size: 11px; color: var(--faint); }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 0 20px; }
-      main { padding: 24px 20px 60px; }
+      main { padding: 28px 20px 60px; }
       .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .drawer { width: 100%; }
+      .drawer { width: min(440px, 100vw); }
       .search-box { width: 160px; }
     }
 
-    @media (max-width: 600px) {
-      .stats-row { grid-template-columns: 1fr 1fr; gap: 12px; }
-      .stat-value { font-size: 28px; }
-      th:nth-child(n+4), td:nth-child(n+4) { display: none; }
+    @media (max-width: 768px) {
+      /* Nav */
+      nav { padding: 0 16px; height: 60px; }
+      .nav-stat { display: none; }
+      .nav-badge { display: none; }
+      .nav-logo { font-size: 16px; }
+      .logout-btn { font-size: 12px; padding: 6px 12px; }
+
+      /* Main */
+      main { padding: 20px 16px 60px; }
+
+      /* Stats */
+      .stats-row { grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+      .stat-card { padding: 16px 18px; border-radius: 12px; }
+      .stat-value { font-size: 26px; }
+      .stat-label { font-size: 11px; }
+      .stat-sub { font-size: 11px; }
+
+      /* Toolbar */
+      .toolbar { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 14px; }
+      .toolbar-left { flex-direction: column; align-items: stretch; gap: 8px; }
+      .toolbar h2 { font-size: 19px; }
+      .filter-tabs {
+        overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; justify-content: flex-start;
+      }
+      .filter-tabs::-webkit-scrollbar { display: none; }
+      .filter-tab { white-space: nowrap; font-size: 12px; padding: 7px 12px; }
+      .toolbar > div:last-child { display: flex; gap: 8px; }
+      .search-box { flex: 1; width: auto; font-size: 14px; }
+      .refresh-btn { white-space: nowrap; padding: 9px 12px; }
+
+      /* Hide desktop table, show cards */
+      .table-wrap { display: none; }
+      .lead-cards { display: flex; flex-direction: column; gap: 10px; }
+
+      /* Drawer full width */
+      .drawer { width: 100%; padding: 24px 20px 80px; }
+      .drawer h3 { font-size: 20px; }
+      .drawer-section-value { font-size: 13px; }
+      .notes-textarea { font-size: 14px; }
+
+      /* Login */
+      .login-card { padding: 36px 24px; border-radius: 16px; }
+      .login-card h1 { font-size: 24px; }
     }
   </style>
 </head>
@@ -744,6 +869,9 @@
       </div>
     </div>
 
+    <!-- MOBILE CARDS -->
+    <div class="lead-cards" id="leadCards"></div>
+
     <!-- TABLE -->
     <div class="table-wrap">
       <table>
@@ -804,6 +932,13 @@
     <button class="status-btn" id="btnContacted" onclick="updateStatus('contacted')">🟢 Contacted</button>
     <button class="status-btn" id="btnClosed"    onclick="updateStatus('closed')">🟡 Closed</button>
   </div>
+
+  <div class="drawer-divider"></div>
+
+  <div class="drawer-section-label" style="margin-bottom:10px;">Notes & Comments</div>
+  <textarea class="notes-textarea" id="drawerNotes" placeholder="Add internal notes about this lead…"></textarea>
+  <button class="notes-save-btn" id="notesSaveBtn" onclick="saveNotes()">💾 Save Note</button>
+  <div class="notes-saved-msg" id="notesSavedMsg"></div>
 </div>
 
 <script>
@@ -814,9 +949,10 @@
 
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, { auth: { persistSession: false } });
 
-  let allLeads     = [];
+  let allLeads      = [];
   let currentFilter = 'all';
   let currentLead   = null;
+  const isMobile    = () => window.innerWidth <= 768;
 
   // ── AUTH ──
   function login() {
@@ -893,21 +1029,19 @@
     const search = (document.getElementById('searchBox').value || '').toLowerCase();
 
     let leads = allLeads;
-
     if (currentFilter !== 'all') {
       leads = leads.filter(l => l.status === currentFilter);
     }
-
     if (search) {
       leads = leads.filter(l =>
-        (l.name  || '').toLowerCase().includes(search) ||
-        (l.email || '').toLowerCase().includes(search) ||
+        (l.name    || '').toLowerCase().includes(search) ||
+        (l.email   || '').toLowerCase().includes(search) ||
         (l.company || '').toLowerCase().includes(search)
       );
     }
 
+    // ── DESKTOP TABLE ──
     const tbody = document.getElementById('leadsTableBody');
-
     if (leads.length === 0) {
       tbody.innerHTML = `
         <tr><td colspan="7">
@@ -916,27 +1050,55 @@
             <p>No leads found</p>
           </div>
         </td></tr>`;
-      return;
+    } else {
+      tbody.innerHTML = leads.map(lead => `
+        <tr onclick="openDrawer(${lead.id})">
+          <td>
+            <div class="td-name">${esc(lead.name)}</div>
+            <div class="td-email">${esc(lead.email)}</div>
+          </td>
+          <td class="td-email">${esc(lead.email)}</td>
+          <td class="td-company">${esc(lead.company || '—')}</td>
+          <td class="td-service">${esc(lead.service || '—')}</td>
+          <td><div class="td-message">${esc(lead.message || '—')}</div></td>
+          <td>
+            <button class="status-badge status-${lead.status || 'new'}" onclick="cycleStatus(event, ${lead.id})">
+              ${lead.status || 'new'}
+            </button>
+          </td>
+          <td class="td-date">${formatDate(lead.created_at)}</td>
+        </tr>
+      `).join('');
     }
 
-    tbody.innerHTML = leads.map(lead => `
-      <tr onclick="openDrawer(${lead.id})">
-        <td>
-          <div class="td-name">${esc(lead.name)}</div>
-          <div class="td-email">${esc(lead.email)}</div>
-        </td>
-        <td class="td-email">${esc(lead.email)}</td>
-        <td class="td-company">${esc(lead.company || '—')}</td>
-        <td class="td-service">${esc(lead.service || '—')}</td>
-        <td><div class="td-message">${esc(lead.message || '—')}</div></td>
-        <td>
-          <button class="status-badge status-${lead.status || 'new'}" onclick="cycleStatus(event, ${lead.id})">
-            ${lead.status || 'new'}
-          </button>
-        </td>
-        <td class="td-date">${formatDate(lead.created_at)}</td>
-      </tr>
-    `).join('');
+    // ── MOBILE CARDS ──
+    const cards = document.getElementById('leadCards');
+    if (leads.length === 0) {
+      cards.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><p>No leads found</p></div>`;
+    } else {
+      cards.innerHTML = leads.map(lead => `
+        <div class="lead-card" onclick="openDrawer(${lead.id})">
+          <div class="lc-top">
+            <div>
+              <div class="lc-name">${esc(lead.name)}</div>
+              <div class="lc-email">${esc(lead.email)}</div>
+            </div>
+            <button class="status-badge status-${lead.status || 'new'}" onclick="cycleStatus(event, ${lead.id})">
+              ${lead.status || 'new'}
+            </button>
+          </div>
+          <div class="lc-meta">
+            ${lead.company ? `<span class="lc-tag">🏢 ${esc(lead.company)}</span>` : ''}
+            ${lead.service ? `<span class="lc-tag">📌 ${esc(lead.service)}</span>` : ''}
+          </div>
+          ${lead.message ? `<div class="lc-message">${esc(lead.message)}</div>` : ''}
+          <div class="lc-footer">
+            <span class="lc-date">${formatDate(lead.created_at)}</span>
+            <span style="font-size:12px;color:var(--blue);">View details →</span>
+          </div>
+        </div>
+      `).join('');
+    }
   }
 
   // ── DRAWER ──
@@ -953,6 +1115,11 @@
     document.getElementById('drawerService').textContent = lead.service || '—';
     document.getElementById('drawerMessage').textContent = lead.message || '—';
     document.getElementById('drawerDate').textContent    = formatDate(lead.created_at);
+
+    // Load notes
+    document.getElementById('drawerNotes').value = lead.notes || '';
+    document.getElementById('notesSavedMsg').textContent = '';
+    document.getElementById('notesSaveBtn').disabled = false;
 
     updateDrawerStatusButtons(lead.status || 'new');
 
@@ -1014,6 +1181,37 @@
       updateStats();
       renderTable();
     }
+  }
+
+  // ── NOTES ──
+  async function saveNotes() {
+    if (!currentLead) return;
+    const notes = document.getElementById('drawerNotes').value;
+    const btn   = document.getElementById('notesSaveBtn');
+    const msg   = document.getElementById('notesSavedMsg');
+
+    btn.disabled    = true;
+    btn.textContent = 'Saving…';
+
+    const { error } = await sb
+      .from('Leads')
+      .update({ notes })
+      .eq('id', currentLead.id);
+
+    if (error) {
+      msg.style.color = 'var(--red)';
+      msg.textContent = 'Failed to save: ' + error.message;
+    } else {
+      currentLead.notes = notes;
+      const lead = allLeads.find(l => l.id === currentLead.id);
+      if (lead) lead.notes = notes;
+      msg.style.color = 'var(--green)';
+      msg.textContent = '✓ Saved';
+      setTimeout(() => { msg.textContent = ''; }, 3000);
+    }
+
+    btn.disabled    = false;
+    btn.textContent = '💾 Save Note';
   }
 
   // ── UTILS ──
