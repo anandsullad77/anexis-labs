@@ -1332,8 +1332,8 @@
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('adminScreen').style.display = 'block';
       sessionStorage.setItem('adminAuth', '1');
-      document.getElementById('leadsPanel').style.display    = '';
-      document.getElementById('analyticsPanel').style.display = 'none';
+      document.getElementById('leadsPanel').style.display     = 'block';
+      document.getElementById('analyticsPanel').style.display  = 'none';
       loadLeads();
     } else {
       document.getElementById('loginError').textContent = 'Incorrect password. Try again.';
@@ -1589,8 +1589,8 @@
 
   // ── TAB SWITCHING ──
   function switchTab(tab) {
-    document.getElementById('leadsPanel').style.display    = tab === 'leads'     ? '' : 'none';
-    document.getElementById('analyticsPanel').style.display = tab === 'analytics' ? '' : 'none';
+    document.getElementById('leadsPanel').style.display     = tab === 'leads'     ? 'block' : 'none';
+    document.getElementById('analyticsPanel').style.display = tab === 'analytics' ? 'block' : 'none';
     document.getElementById('tabLeads').classList.toggle('active',     tab === 'leads');
     document.getElementById('tabAnalytics').classList.toggle('active', tab === 'analytics');
     if (tab === 'analytics') loadAnalytics();
