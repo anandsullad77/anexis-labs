@@ -32,6 +32,39 @@
       --font-body:    'DM Sans', sans-serif;
     }
 
+    body.light-mode {
+      --bg:       #f4f6f9;
+      --bg2:      #ffffff;
+      --bg3:      #eef1f5;
+      --border:   rgba(0,0,0,0.08);
+      --border2:  rgba(0,0,0,0.15);
+      --text:     #0f1923;
+      --muted:    #5a6a7a;
+      --faint:    #a0aab4;
+      --nav-bg:   rgba(244,246,249,0.95);
+    }
+
+    body.light-mode::before {
+      background-image:
+        linear-gradient(rgba(0,180,216,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,180,216,0.04) 1px, transparent 1px);
+    }
+
+    /* Theme toggle button */
+    .theme-toggle-btn {
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      color: var(--muted);
+      font-size: 16px;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .theme-toggle-btn:hover { border-color: var(--blue); color: var(--blue); }
+
     html { scroll-behavior: smooth; }
 
     body {
@@ -1021,12 +1054,133 @@
     }
 
     /* ── RESPONSIVE ── */
+    /* ── PRIORITY TAGS ── */
+    .priority-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 9px; border-radius: 5px;
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      cursor: pointer; border: none; font-family: inherit;
+      transition: opacity 0.2s;
+    }
+    .priority-badge:hover { opacity: 0.75; }
+    .priority-hot  { background: rgba(224,90,90,0.15);  color: var(--red);   border: 1px solid rgba(224,90,90,0.25); }
+    .priority-warm { background: var(--amber-dim);       color: var(--amber); border: 1px solid rgba(232,160,32,0.25); }
+    .priority-cold { background: var(--blue-dim);        color: var(--blue);  border: 1px solid rgba(0,180,216,0.25); }
+    .priority-none { background: var(--bg3); color: var(--faint); border: 1px solid var(--border); }
+
+    /* Lead source tag */
+    .source-tag {
+      font-size: 11px; color: var(--muted);
+      background: var(--bg3); border: 1px solid var(--border);
+      padding: 2px 7px; border-radius: 4px; white-space: nowrap;
+    }
+
+    /* Pinned row */
+    tbody tr.pinned { background: rgba(0,180,216,0.04); }
+    tbody tr.pinned td:first-child { border-left: 2px solid var(--blue); }
+
+    /* ── PAGINATION ── */
+    .pagination {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      background: var(--bg3);
+    }
+    .pagination-info { font-size: 13px; color: var(--muted); }
+    .pagination-btns { display: flex; gap: 6px; }
+    .pg-btn {
+      background: var(--bg2); border: 1px solid var(--border);
+      color: var(--muted); font-family: inherit; font-size: 13px;
+      padding: 6px 12px; border-radius: 7px; cursor: pointer;
+      transition: all 0.2s; min-width: 36px; text-align: center;
+    }
+    .pg-btn:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
+    .pg-btn.active { background: var(--blue); color: #000; border-color: var(--blue); font-weight: 600; }
+    .pg-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* ── TREND CHART ── */
+    .trend-chart {
+      display: flex; align-items: flex-end; gap: 4px;
+      height: 80px; padding: 4px 0;
+    }
+    .trend-bar-col {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; gap: 4px; min-width: 0;
+    }
+    .trend-bar {
+      width: 100%; border-radius: 3px 3px 0 0;
+      background: var(--blue); opacity: 0.8;
+      transition: height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.2s;
+      min-height: 2px;
+    }
+    .trend-bar:hover { opacity: 1; }
+    .trend-label { font-size: 9px; color: var(--faint); white-space: nowrap; }
+
+    /* ── ANALYTICS SEARCH ── */
+    .analytics-search-wrap {
+      display: flex; gap: 10px; margin-bottom: 20px; align-items: center;
+    }
+    .analytics-search {
+      flex: 1; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text); font-family: inherit;
+      font-size: 14px; padding: 9px 16px; outline: none;
+      transition: border-color 0.2s; max-width: 340px;
+    }
+    .analytics-search:focus { border-color: var(--blue); }
+    .analytics-search::placeholder { color: var(--faint); }
+
+    /* Activity pagination */
+    .activity-pg {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);
+    }
+    .activity-pg-info { font-size: 12px; color: var(--muted); }
+
+    /* ── NEW ANALYTICS SECTIONS ── */
+    .analytics-three-col {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-bottom: 24px;
+    }
+
+    /* Device / source / country rows */
+    .dist-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 9px 0; border-bottom: 1px solid var(--border);
+    }
+    .dist-row:last-child { border-bottom: none; }
+    .dist-icon { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
+    .dist-label { font-size: 13px; color: var(--text); flex: 1; }
+    .dist-bar-wrap { width: 80px; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+    .dist-bar { height: 100%; border-radius: 3px; background: var(--blue); transition: width 0.5s; }
+    .dist-bar.green { background: var(--green); }
+    .dist-bar.amber { background: var(--amber); }
+    .dist-count { font-size: 13px; font-weight: 600; color: var(--text); width: 28px; text-align: right; }
+
+    /* A/B test section */
+    .ab-row {
+      display: flex; align-items: center; gap: 16px;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+    }
+    .ab-row:last-child { border-bottom: none; }
+    .ab-variant-badge {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px; flex-shrink: 0;
+    }
+    .ab-variant-badge.a { background: var(--blue-dim); color: var(--blue); }
+    .ab-variant-badge.b { background: var(--green-dim); color: var(--green); }
+    .ab-details { flex: 1; }
+    .ab-metric { font-size: 13px; color: var(--muted); }
+    .ab-metric strong { color: var(--text); }
+
     @media (max-width: 900px) {
       nav { padding: 0 20px; }
       main { padding: 28px 20px 60px; }
       .stats-row { grid-template-columns: repeat(2, 1fr); }
       .analytics-grid { grid-template-columns: repeat(2, 1fr); }
       .analytics-two-col { grid-template-columns: 1fr; }
+      .analytics-three-col { grid-template-columns: 1fr; }
       .drawer { width: min(440px, 100vw); }
       .search-box { width: 160px; }
     }
@@ -1111,6 +1265,7 @@
     </div>
     <div class="nav-right">
       <div class="nav-stat">Total leads: <strong id="navTotal">—</strong></div>
+      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
       <button class="logout-btn" onclick="logout()">Sign Out</button>
     </div>
   </nav>
@@ -1182,30 +1337,39 @@
             <th>Company</th>
             <th>Service</th>
             <th>Message</th>
+            <th>Priority</th>
             <th>Status</th>
             <th>Date</th>
+            <th>📌</th>
           </tr>
         </thead>
         <tbody id="leadsTableBody">
           <tr class="loading-row">
-            <td colspan="7"><span class="spinner"></span> Loading leads…</td>
+            <td colspan="9"><span class="spinner"></span> Loading leads…</td>
           </tr>
         </tbody>
       </table>
+      <div class="pagination" id="leadsPagination" style="display:none;">
+        <div class="pagination-info" id="pgInfo"></div>
+        <div class="pagination-btns" id="pgBtns"></div>
+      </div>
     </div>
     </div><!-- /leadsPanel -->
 
     <!-- ANALYTICS PANEL -->
     <div id="analyticsPanel">
 
-      <!-- Date Range -->
-      <div class="date-range-bar">
-        <button class="dr-btn active" onclick="setDateRange(7, this)">Last 7 days</button>
-        <button class="dr-btn" onclick="setDateRange(30, this)">Last 30 days</button>
-        <button class="dr-btn" onclick="setDateRange(90, this)">Last 90 days</button>
-        <button class="dr-btn" onclick="setDateRange(0, this)">All time</button>
-        <span class="dr-label" id="drLabel"></span>
-        <button class="refresh-btn" onclick="loadAnalytics()" style="margin-left:auto;">↻ Refresh</button>
+      <!-- Date Range + Search -->
+      <div class="analytics-search-wrap">
+        <input type="text" class="analytics-search" id="activitySearch" placeholder="🔍 Search events, pages, devices…" oninput="filterActivity()">
+        <div class="date-range-bar" style="margin-bottom:0;flex-wrap:wrap;">
+          <button class="dr-btn active" onclick="setDateRange(7, this)">7 days</button>
+          <button class="dr-btn" onclick="setDateRange(30, this)">30 days</button>
+          <button class="dr-btn" onclick="setDateRange(90, this)">90 days</button>
+          <button class="dr-btn" onclick="setDateRange(0, this)">All time</button>
+          <span class="dr-label" id="drLabel"></span>
+          <button class="refresh-btn" onclick="loadAnalytics()">↻ Refresh</button>
+        </div>
       </div>
 
       <!-- Top stat cards -->
@@ -1218,7 +1382,7 @@
         <div class="stat-card">
           <div class="stat-label">Unique Sessions</div>
           <div class="stat-value green" id="aStatSessions">—</div>
-          <div class="stat-sub">Distinct visitors</div>
+          <div class="stat-sub" id="aStatReturnSub">—</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">CTA Clicks</div>
@@ -1232,6 +1396,12 @@
         </div>
       </div>
 
+      <!-- Daily trend chart -->
+      <div class="analytics-section">
+        <div class="analytics-section-title"><span>📈</span> Daily Visitor Trend</div>
+        <div id="aTrendChart"><div class="analytics-empty"><div class="ei">📭</div><p>No data yet</p></div></div>
+      </div>
+
       <!-- Pages + CTAs -->
       <div class="analytics-two-col">
         <div class="analytics-section">
@@ -1241,6 +1411,22 @@
         <div class="analytics-section">
           <div class="analytics-section-title"><span>🖱️</span> Top CTA Clicks</div>
           <div id="aCtaBreakdown"><div class="analytics-empty"><div class="ei">📭</div><p>No data yet</p></div></div>
+        </div>
+      </div>
+
+      <!-- Device / Traffic Source / Country -->
+      <div class="analytics-three-col">
+        <div class="analytics-section">
+          <div class="analytics-section-title"><span>📱</span> Device Type</div>
+          <div id="aDeviceBreakdown"><div class="analytics-empty"><div class="ei">📭</div><p>No data</p></div></div>
+        </div>
+        <div class="analytics-section">
+          <div class="analytics-section-title"><span>🚦</span> Traffic Sources</div>
+          <div id="aTrafficBreakdown"><div class="analytics-empty"><div class="ei">📭</div><p>No data</p></div></div>
+        </div>
+        <div class="analytics-section">
+          <div class="analytics-section-title"><span>🌍</span> Top Countries</div>
+          <div id="aCountryBreakdown"><div class="analytics-empty"><div class="ei">📭</div><p>No data</p></div></div>
         </div>
       </div>
 
@@ -1256,10 +1442,29 @@
         </div>
       </div>
 
-      <!-- Recent activity -->
+      <!-- A/B Test + Service Selections -->
+      <div class="analytics-two-col">
+        <div class="analytics-section">
+          <div class="analytics-section-title"><span>🧪</span> A/B Test Variants</div>
+          <div id="aABTest"><div class="analytics-empty"><div class="ei">📭</div><p>No data yet</p></div></div>
+        </div>
+        <div class="analytics-section">
+          <div class="analytics-section-title"><span>🎯</span> Service Interest</div>
+          <div id="aServiceBreakdown"><div class="analytics-empty"><div class="ei">📭</div><p>No data yet</p></div></div>
+        </div>
+      </div>
+
+      <!-- Recent activity with pagination -->
       <div class="analytics-section">
         <div class="analytics-section-title"><span>⚡</span> Recent Activity</div>
         <div id="aActivityFeed"><div class="analytics-empty"><div class="ei">📭</div><p>No events yet</p></div></div>
+        <div class="activity-pg" id="activityPagination" style="display:none;">
+          <span class="activity-pg-info" id="activityPgInfo"></span>
+          <div style="display:flex;gap:6px;">
+            <button class="pg-btn" id="actPgPrev" onclick="changeActivityPage(-1)">← Prev</button>
+            <button class="pg-btn" id="actPgNext" onclick="changeActivityPage(1)">Next →</button>
+          </div>
+        </div>
       </div>
 
     </div><!-- /analyticsPanel -->
@@ -1297,6 +1502,21 @@
 
   <div class="drawer-divider"></div>
 
+  <div class="drawer-section-label" style="margin-bottom:12px;">Priority</div>
+  <div class="drawer-status-row" style="margin-bottom:20px;">
+    <button class="status-btn" id="btnHot"  onclick="updatePriority('hot')">🔴 Hot</button>
+    <button class="status-btn" id="btnWarm" onclick="updatePriority('warm')">🟡 Warm</button>
+    <button class="status-btn" id="btnCold" onclick="updatePriority('cold')">🔵 Cold</button>
+    <button class="status-btn" id="btnNoPri" onclick="updatePriority('')">— None</button>
+  </div>
+
+  <div class="drawer-section">
+    <div class="drawer-section-label">Lead Source</div>
+    <div class="drawer-section-value" id="drawerSource">—</div>
+  </div>
+
+  <div class="drawer-divider"></div>
+
   <div class="drawer-section-label" style="margin-bottom:12px;">Update Status</div>
   <div class="drawer-status-row">
     <button class="status-btn" id="btnNew"       onclick="updateStatus('new')">🔵 New</button>
@@ -1316,14 +1536,30 @@
   // ── CONFIG ──
   const SUPABASE_URL  = 'https://saywqwlgamcltgbsmudk.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNheXdxd2xnYW1jbHRnYnNtdWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDg0NzYsImV4cCI6MjA5MDk4NDQ3Nn0.kkyTj4mKV7yAXoEQK2r9PIQTwOhClQPoA-TXW2deUVk';
-  const ADMIN_PASS    = 'anexis2025';  // ← change this to your own password
+  const ADMIN_PASS    = 'anexis2025';
 
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, { auth: { persistSession: false } });
 
   let allLeads      = [];
   let currentFilter = 'all';
   let currentLead   = null;
+  let currentPage   = 1;
+  const PAGE_SIZE   = 15;
   const isMobile    = () => window.innerWidth <= 768;
+
+  // ── THEME ──
+  function toggleTheme() {
+    const isLight = document.body.classList.toggle('light-mode');
+    document.getElementById('themeToggleBtn').textContent = isLight ? '🌙' : '☀️';
+    localStorage.setItem('_ax_theme', isLight ? 'light' : 'dark');
+  }
+  (function initTheme() {
+    if (localStorage.getItem('_ax_theme') === 'light') {
+      document.body.classList.add('light-mode');
+      const btn = document.getElementById('themeToggleBtn');
+      if (btn) btn.textContent = '☀️';
+    }
+  })();
 
   // ── AUTH ──
   function login() {
@@ -1333,7 +1569,7 @@
       document.getElementById('adminScreen').style.display = 'block';
       sessionStorage.setItem('adminAuth', '1');
       document.getElementById('leadsPanel').style.display     = 'block';
-      document.getElementById('analyticsPanel').style.display  = 'none';
+      document.getElementById('analyticsPanel').style.display = 'none';
       loadLeads();
     } else {
       document.getElementById('loginError').textContent = 'Incorrect password. Try again.';
@@ -1349,31 +1585,42 @@
     document.getElementById('passwordInput').value = '';
   }
 
-  // Auto-login if session exists
   if (sessionStorage.getItem('adminAuth') === '1') {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('adminScreen').style.display = 'block';
+    document.getElementById('leadsPanel').style.display     = 'block';
+    document.getElementById('analyticsPanel').style.display = 'none';
     loadLeads();
   }
 
-  // ── DATA ──
+  // ── TAB SWITCHING ──
+  function switchTab(tab) {
+    document.getElementById('leadsPanel').style.display     = tab === 'leads'     ? 'block' : 'none';
+    document.getElementById('analyticsPanel').style.display = tab === 'analytics' ? 'block' : 'none';
+    document.getElementById('tabLeads').classList.toggle('active',     tab === 'leads');
+    document.getElementById('tabAnalytics').classList.toggle('active', tab === 'analytics');
+    if (tab === 'analytics') loadAnalytics();
+  }
+
+  // ── LEADS DATA ──
   async function loadLeads() {
     document.getElementById('leadsTableBody').innerHTML =
-      '<tr class="loading-row"><td colspan="7"><span class="spinner"></span> Loading leads…</td></tr>';
+      '<tr class="loading-row"><td colspan="9"><span class="spinner"></span> Loading leads…</td></tr>';
 
     const { data, error } = await sb
       .from('Leads')
       .select('*')
+      .order('pinned', { ascending: false })
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Fetch error:', error);
       document.getElementById('leadsTableBody').innerHTML =
-        `<tr class="loading-row"><td colspan="7" style="color:var(--red)">Failed to load leads: ${error.message}</td></tr>`;
+        `<tr class="loading-row"><td colspan="9" style="color:var(--red)">Failed to load leads: ${error.message}</td></tr>`;
       return;
     }
 
     allLeads = data || [];
+    currentPage = 1;
     updateStats();
     renderTable();
   }
@@ -1383,7 +1630,6 @@
     const newCount  = allLeads.filter(l => l.status === 'new').length;
     const contacted = allLeads.filter(l => l.status === 'contacted').length;
     const closed    = allLeads.filter(l => l.status === 'closed').length;
-
     document.getElementById('statTotal').textContent     = total;
     document.getElementById('statNew').textContent       = newCount;
     document.getElementById('statContacted').textContent = contacted;
@@ -1393,39 +1639,39 @@
 
   function setFilter(filter, el) {
     currentFilter = filter;
+    currentPage   = 1;
     document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
     renderTable();
   }
 
-  function renderTable() {
+  function getFilteredLeads() {
     const search = (document.getElementById('searchBox').value || '').toLowerCase();
-
     let leads = allLeads;
-    if (currentFilter !== 'all') {
-      leads = leads.filter(l => l.status === currentFilter);
-    }
-    if (search) {
-      leads = leads.filter(l =>
-        (l.name    || '').toLowerCase().includes(search) ||
-        (l.email   || '').toLowerCase().includes(search) ||
-        (l.company || '').toLowerCase().includes(search)
-      );
-    }
+    if (currentFilter !== 'all') leads = leads.filter(l => l.status === currentFilter);
+    if (search) leads = leads.filter(l =>
+      (l.name    || '').toLowerCase().includes(search) ||
+      (l.email   || '').toLowerCase().includes(search) ||
+      (l.company || '').toLowerCase().includes(search)
+    );
+    return leads;
+  }
 
-    // ── DESKTOP TABLE ──
+  function renderTable() {
+    const leads    = getFilteredLeads();
+    const total    = leads.length;
+    const pages    = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    if (currentPage > pages) currentPage = pages;
+    const start    = (currentPage - 1) * PAGE_SIZE;
+    const paginated = leads.slice(start, start + PAGE_SIZE);
+
+    // Desktop table
     const tbody = document.getElementById('leadsTableBody');
-    if (leads.length === 0) {
-      tbody.innerHTML = `
-        <tr><td colspan="7">
-          <div class="empty-state">
-            <div class="empty-icon">📭</div>
-            <p>No leads found</p>
-          </div>
-        </td></tr>`;
+    if (paginated.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><div class="empty-icon">📭</div><p>No leads found</p></div></td></tr>`;
     } else {
-      tbody.innerHTML = leads.map(lead => `
-        <tr onclick="openDrawer(${lead.id})">
+      tbody.innerHTML = paginated.map(lead => `
+        <tr onclick="openDrawer(${lead.id})" class="${lead.pinned ? 'pinned' : ''}">
           <td>
             <div class="td-name">${esc(lead.name)}</div>
             <div class="td-email">${esc(lead.email)}</div>
@@ -1435,30 +1681,41 @@
           <td class="td-service">${esc(lead.service || '—')}</td>
           <td><div class="td-message">${esc(lead.message || '—')}</div></td>
           <td>
+            <button class="priority-badge priority-${lead.priority || 'none'}" onclick="cyclePriority(event, ${lead.id})">
+              ${priorityLabel(lead.priority)}
+            </button>
+          </td>
+          <td>
             <button class="status-badge status-${lead.status || 'new'}" onclick="cycleStatus(event, ${lead.id})">
               ${lead.status || 'new'}
             </button>
           </td>
           <td class="td-date">${formatDate(lead.created_at)}</td>
+          <td>
+            <button style="background:none;border:none;cursor:pointer;font-size:16px;opacity:${lead.pinned?1:0.3}" 
+              title="${lead.pinned?'Unpin':'Pin to top'}"
+              onclick="togglePin(event, ${lead.id})">${lead.pinned ? '📌' : '📍'}</button>
+          </td>
         </tr>
       `).join('');
     }
 
-    // ── MOBILE CARDS ──
+    // Mobile cards
     const cards = document.getElementById('leadCards');
-    if (leads.length === 0) {
+    if (paginated.length === 0) {
       cards.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><p>No leads found</p></div>`;
     } else {
-      cards.innerHTML = leads.map(lead => `
-        <div class="lead-card" onclick="openDrawer(${lead.id})">
+      cards.innerHTML = paginated.map(lead => `
+        <div class="lead-card ${lead.pinned ? 'pinned' : ''}" onclick="openDrawer(${lead.id})">
           <div class="lc-top">
             <div>
-              <div class="lc-name">${esc(lead.name)}</div>
+              <div class="lc-name">${lead.pinned ? '📌 ' : ''}${esc(lead.name)}</div>
               <div class="lc-email">${esc(lead.email)}</div>
             </div>
-            <button class="status-badge status-${lead.status || 'new'}" onclick="cycleStatus(event, ${lead.id})">
-              ${lead.status || 'new'}
-            </button>
+            <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;">
+              <button class="status-badge status-${lead.status || 'new'}" onclick="cycleStatus(event, ${lead.id})">${lead.status || 'new'}</button>
+              ${lead.priority ? `<button class="priority-badge priority-${lead.priority}" onclick="cyclePriority(event,${lead.id})">${priorityLabel(lead.priority)}</button>` : ''}
+            </div>
           </div>
           <div class="lc-meta">
             ${lead.company ? `<span class="lc-tag">🏢 ${esc(lead.company)}</span>` : ''}
@@ -1472,6 +1729,72 @@
         </div>
       `).join('');
     }
+
+    renderPagination(total, pages);
+  }
+
+  function renderPagination(total, pages) {
+    const wrap = document.getElementById('leadsPagination');
+    if (!wrap) return;
+    if (pages <= 1) { wrap.style.display = 'none'; return; }
+    wrap.style.display = 'flex';
+    const start = (currentPage - 1) * PAGE_SIZE + 1;
+    const end   = Math.min(currentPage * PAGE_SIZE, total);
+    document.getElementById('pgInfo').textContent = `${start}–${end} of ${total}`;
+
+    let btns = `<button class="pg-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>←</button>`;
+    const range = pagRange(currentPage, pages);
+    range.forEach(p => {
+      if (p === '…') btns += `<button class="pg-btn" disabled>…</button>`;
+      else btns += `<button class="pg-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
+    });
+    btns += `<button class="pg-btn" onclick="goPage(${currentPage+1})" ${currentPage===pages?'disabled':''}>→</button>`;
+    document.getElementById('pgBtns').innerHTML = btns;
+  }
+
+  function pagRange(cur, total) {
+    if (total <= 7) return Array.from({length:total},(_,i)=>i+1);
+    if (cur <= 4) return [1,2,3,4,5,'…',total];
+    if (cur >= total-3) return [1,'…',total-4,total-3,total-2,total-1,total];
+    return [1,'…',cur-1,cur,cur+1,'…',total];
+  }
+
+  function goPage(p) {
+    const leads = getFilteredLeads();
+    const pages = Math.ceil(leads.length / PAGE_SIZE);
+    if (p < 1 || p > pages) return;
+    currentPage = p;
+    renderTable();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── PRIORITY ──
+  function priorityLabel(p) {
+    return p === 'hot' ? '🔴 Hot' : p === 'warm' ? '🟡 Warm' : p === 'cold' ? '🔵 Cold' : '— None';
+  }
+
+  async function cyclePriority(e, id) {
+    e.stopPropagation();
+    const lead  = allLeads.find(l => l.id === id);
+    if (!lead) return;
+    const cycle = { '': 'hot', 'hot': 'warm', 'warm': 'cold', 'cold': '' };
+    const next  = cycle[lead.priority || ''];
+    const { error } = await sb.from('Leads').update({ priority: next || null }).eq('id', id);
+    if (!error) { lead.priority = next; renderTable(); }
+  }
+
+  async function togglePin(e, id) {
+    e.stopPropagation();
+    const lead = allLeads.find(l => l.id === id);
+    if (!lead) return;
+    const next = !lead.pinned;
+    const { error } = await sb.from('Leads').update({ pinned: next }).eq('id', id);
+    if (!error) {
+      lead.pinned = next;
+      // Re-sort: pinned first
+      allLeads.sort((a,b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
+      renderTable();
+    }
   }
 
   // ── DRAWER ──
@@ -1479,7 +1802,6 @@
     const lead = allLeads.find(l => l.id === id);
     if (!lead) return;
     currentLead = lead;
-
     document.getElementById('drawerName').textContent    = lead.name || '—';
     document.getElementById('drawerEmail').textContent   = lead.email || '—';
     document.getElementById('drawerEmail').href          = `mailto:${lead.email}`;
@@ -1488,14 +1810,12 @@
     document.getElementById('drawerService').textContent = lead.service || '—';
     document.getElementById('drawerMessage').textContent = lead.message || '—';
     document.getElementById('drawerDate').textContent    = formatDate(lead.created_at);
-
-    // Load notes
-    document.getElementById('drawerNotes').value = lead.notes || '';
+    document.getElementById('drawerSource').textContent  = lead.lead_source || '—';
+    document.getElementById('drawerNotes').value         = lead.notes || '';
     document.getElementById('notesSavedMsg').textContent = '';
-    document.getElementById('notesSaveBtn').disabled = false;
-
+    document.getElementById('notesSaveBtn').disabled     = false;
     updateDrawerStatusButtons(lead.status || 'new');
-
+    updateDrawerPriorityButtons(lead.priority || '');
     document.getElementById('drawerOverlay').classList.add('open');
     document.getElementById('drawer').classList.add('open');
   }
@@ -1514,25 +1834,35 @@
     });
   }
 
+  function updateDrawerPriorityButtons(priority) {
+    ['Hot','Warm','Cold','NoPri'].forEach(p => {
+      const btn = document.getElementById('btn' + p);
+      if (!btn) return;
+      btn.className = 'status-btn';
+      const key = p === 'NoPri' ? '' : p.toLowerCase();
+      if (key === priority) btn.classList.add(key ? 'active-' + (key==='hot'?'closed':key==='warm'?'contacted':'new') : '');
+    });
+  }
+
   async function updateStatus(newStatus) {
     if (!currentLead) return;
-
-    const { error } = await sb
-      .from('Leads')
-      .update({ status: newStatus })
-      .eq('id', currentLead.id);
-
-    if (error) {
-      alert('Failed to update status: ' + error.message);
-      return;
-    }
-
+    const { error } = await sb.from('Leads').update({ status: newStatus }).eq('id', currentLead.id);
+    if (error) { alert('Failed to update status: ' + error.message); return; }
     currentLead.status = newStatus;
     const lead = allLeads.find(l => l.id === currentLead.id);
     if (lead) lead.status = newStatus;
-
     updateDrawerStatusButtons(newStatus);
-    updateStats();
+    updateStats(); renderTable();
+  }
+
+  async function updatePriority(newPriority) {
+    if (!currentLead) return;
+    const { error } = await sb.from('Leads').update({ priority: newPriority || null }).eq('id', currentLead.id);
+    if (error) { alert('Failed to update priority: ' + error.message); return; }
+    currentLead.priority = newPriority;
+    const lead = allLeads.find(l => l.id === currentLead.id);
+    if (lead) lead.priority = newPriority;
+    updateDrawerPriorityButtons(newPriority);
     renderTable();
   }
 
@@ -1540,20 +1870,10 @@
     e.stopPropagation();
     const lead = allLeads.find(l => l.id === id);
     if (!lead) return;
-
     const cycle = { 'new': 'contacted', 'contacted': 'closed', 'closed': 'new' };
     const next  = cycle[lead.status || 'new'];
-
-    const { error } = await sb
-      .from('Leads')
-      .update({ status: next })
-      .eq('id', id);
-
-    if (!error) {
-      lead.status = next;
-      updateStats();
-      renderTable();
-    }
+    const { error } = await sb.from('Leads').update({ status: next }).eq('id', id);
+    if (!error) { lead.status = next; updateStats(); renderTable(); }
   }
 
   // ── NOTES ──
@@ -1562,42 +1882,25 @@
     const notes = document.getElementById('drawerNotes').value;
     const btn   = document.getElementById('notesSaveBtn');
     const msg   = document.getElementById('notesSavedMsg');
-
-    btn.disabled    = true;
-    btn.textContent = 'Saving…';
-
-    const { error } = await sb
-      .from('Leads')
-      .update({ notes })
-      .eq('id', currentLead.id);
-
-    if (error) {
-      msg.style.color = 'var(--red)';
-      msg.textContent = 'Failed to save: ' + error.message;
-    } else {
+    btn.disabled = true; btn.textContent = 'Saving…';
+    const { error } = await sb.from('Leads').update({ notes }).eq('id', currentLead.id);
+    if (error) { msg.style.color = 'var(--red)'; msg.textContent = 'Failed: ' + error.message; }
+    else {
       currentLead.notes = notes;
       const lead = allLeads.find(l => l.id === currentLead.id);
       if (lead) lead.notes = notes;
-      msg.style.color = 'var(--green)';
-      msg.textContent = '✓ Saved';
+      msg.style.color = 'var(--green)'; msg.textContent = '✓ Saved';
       setTimeout(() => { msg.textContent = ''; }, 3000);
     }
-
-    btn.disabled    = false;
-    btn.textContent = '💾 Save Note';
-  }
-
-  // ── TAB SWITCHING ──
-  function switchTab(tab) {
-    document.getElementById('leadsPanel').style.display     = tab === 'leads'     ? 'block' : 'none';
-    document.getElementById('analyticsPanel').style.display = tab === 'analytics' ? 'block' : 'none';
-    document.getElementById('tabLeads').classList.toggle('active',     tab === 'leads');
-    document.getElementById('tabAnalytics').classList.toggle('active', tab === 'analytics');
-    if (tab === 'analytics') loadAnalytics();
+    btn.disabled = false; btn.textContent = '💾 Save Note';
   }
 
   // ── ANALYTICS ──
   let analyticsDateDays = 7;
+  let allEvents         = [];
+  let filteredEvents    = [];
+  let activityPage      = 1;
+  const ACTIVITY_PG     = 25;
 
   function setDateRange(days, el) {
     analyticsDateDays = days;
@@ -1607,155 +1910,309 @@
   }
 
   async function loadAnalytics() {
-    document.getElementById('drLabel').textContent = analyticsDateDays
-      ? `(last ${analyticsDateDays} days)` : '(all time)';
-
-    // Build date filter
+    document.getElementById('drLabel').textContent = analyticsDateDays ? `(last ${analyticsDateDays} days)` : '(all time)';
     let since = null;
     if (analyticsDateDays > 0) {
-      const d = new Date();
-      d.setDate(d.getDate() - analyticsDateDays);
+      const d = new Date(); d.setDate(d.getDate() - analyticsDateDays);
       since = d.toISOString();
     }
-
-    // Fetch all events in range
-    let q = sb.from('page_events').select('*').order('created_at', { ascending: false });
+    let q = sb.from('page_events').select('*').order('created_at', { ascending: false }).limit(5000);
     if (since) q = q.gte('created_at', since);
-
     const { data: events, error } = await q;
-    if (error) { console.error('Analytics fetch error:', error); return; }
+    if (error) { console.error('Analytics error:', error); return; }
+    allEvents = events || [];
+    filteredEvents = allEvents;
+    activityPage = 1;
+    renderAnalytics(allEvents);
+  }
+
+  function filterActivity() {
+    const q = (document.getElementById('activitySearch').value || '').toLowerCase();
+    if (!q) { filteredEvents = allEvents; }
+    else {
+      filteredEvents = allEvents.filter(e => {
+        const p = e.properties || {};
+        return (e.event_type||'').includes(q) ||
+               (e.page||'').includes(q) ||
+               (p.device||'').includes(q) ||
+               (p.country||'').toLowerCase().includes(q) ||
+               (p.label||'').toLowerCase().includes(q) ||
+               (p.text||'').toLowerCase().includes(q) ||
+               (p.traffic_source||'').includes(q);
+      });
+    }
+    activityPage = 1;
+    renderActivityFeed();
+  }
+
+  function renderAnalytics(events) {
     if (!events || events.length === 0) {
       ['aStatViews','aStatSessions','aStatClicks','aStatTime'].forEach(id => {
         document.getElementById(id).textContent = '0';
       });
-      document.getElementById('aStatViewsSub').textContent = 'No data yet';
-      ['aPageBreakdown','aCtaBreakdown','aScrollFunnel','aFormFunnel','aActivityFeed'].forEach(id => {
+      document.getElementById('aStatViewsSub').textContent  = 'No data yet';
+      document.getElementById('aStatReturnSub').textContent = 'No visits yet';
+      ['aPageBreakdown','aCtaBreakdown','aScrollFunnel','aFormFunnel',
+       'aDeviceBreakdown','aTrafficBreakdown','aCountryBreakdown',
+       'aABTest','aServiceBreakdown','aTrendChart'].forEach(id => {
         document.getElementById(id).innerHTML = '<div class="analytics-empty"><div class="ei">📭</div><p>No data yet. Add analytics.js to your pages to start tracking.</p></div>';
       });
+      document.getElementById('aActivityFeed').innerHTML = '<div class="analytics-empty"><div class="ei">📭</div><p>No events yet</p></div>';
       return;
     }
 
-    const views    = events.filter(e => e.event_type === 'page_view');
-    const clicks   = events.filter(e => e.event_type === 'cta_click' || e.event_type === 'click');
-    const timeEvts = events.filter(e => e.event_type === 'time_on_page');
-    const sessions = new Set(events.map(e => e.session_id)).size;
-    const avgTime  = timeEvts.length
-      ? Math.round(timeEvts.reduce((s, e) => s + ((e.properties && e.properties.seconds) || 0), 0) / timeEvts.length)
-      : 0;
+    const views     = events.filter(e => e.event_type === 'page_view');
+    const clicks    = events.filter(e => e.event_type === 'cta_click' || e.event_type === 'click');
+    const timeEvts  = events.filter(e => e.event_type === 'time_on_page');
+    const sessions  = new Set(events.map(e => e.session_id)).size;
+    const visitors  = new Set(events.map(e => e.properties && e.properties.visitor_id).filter(Boolean)).size;
+    const returnV   = events.filter(e => e.event_type === 'page_view' && e.properties && e.properties.is_return).length;
+    const avgTime   = timeEvts.length ? Math.round(timeEvts.reduce((s,e) => s + ((e.properties&&e.properties.seconds)||0), 0) / timeEvts.length) : 0;
 
     document.getElementById('aStatViews').textContent    = views.length;
-    document.getElementById('aStatViewsSub').textContent = `across ${Object.keys(views.reduce((a,e)=>{a[e.page]=1;return a},{})).length} pages`;
+    document.getElementById('aStatViewsSub').textContent = `across ${new Set(views.map(e=>e.page)).size} pages`;
     document.getElementById('aStatSessions').textContent = sessions;
+    document.getElementById('aStatReturnSub').textContent = `${returnV} return visits`;
     document.getElementById('aStatClicks').textContent   = clicks.length;
     document.getElementById('aStatTime').textContent     = avgTime > 0 ? avgTime + 's' : '—';
 
-    // Pages breakdown
-    const pageCounts = {};
-    views.forEach(e => { pageCounts[e.page] = (pageCounts[e.page] || 0) + 1; });
-    const maxPV = Math.max(...Object.values(pageCounts), 1);
-    const pageEntries = Object.entries(pageCounts).sort((a,b) => b[1]-a[1]);
-    document.getElementById('aPageBreakdown').innerHTML = pageEntries.length ? pageEntries.map(([p, c]) => `
-      <div class="page-row">
-        <div class="page-name" title="${p}">${p.length > 14 ? p.slice(0,12)+'…' : p}</div>
-        <div class="page-bar-wrap"><div class="page-bar" style="width:${Math.round((c/maxPV)*100)}%"></div></div>
-        <div class="page-num">${c}</div>
-      </div>
-    `).join('') : '<div class="analytics-empty"><div class="ei">📭</div><p>No views yet</p></div>';
+    // Trend chart
+    renderTrendChart(views);
 
-    // CTA breakdown
+    // Pages
+    const pageCounts = {};
+    views.forEach(e => { pageCounts[e.page] = (pageCounts[e.page]||0) + 1; });
+    const maxPV = Math.max(...Object.values(pageCounts), 1);
+    document.getElementById('aPageBreakdown').innerHTML = Object.entries(pageCounts)
+      .sort((a,b)=>b[1]-a[1]).map(([p,c]) => `
+        <div class="page-row">
+          <div class="page-name" title="${p}">${p.length>16?p.slice(0,14)+'…':p}</div>
+          <div class="page-bar-wrap"><div class="page-bar" style="width:${Math.round((c/maxPV)*100)}%"></div></div>
+          <div class="page-num">${c}</div>
+        </div>`).join('') || '<div class="analytics-empty"><div class="ei">📭</div><p>No views</p></div>';
+
+    // CTAs
     const ctaCounts = {};
     clicks.forEach(e => {
       const label = (e.properties && (e.properties.label || e.properties.text)) || 'Unknown';
-      ctaCounts[label] = (ctaCounts[label] || 0) + 1;
+      ctaCounts[label] = (ctaCounts[label]||0) + 1;
     });
     const maxCTA = Math.max(...Object.values(ctaCounts), 1);
-    const ctaEntries = Object.entries(ctaCounts).sort((a,b) => b[1]-a[1]).slice(0, 8);
-    document.getElementById('aCtaBreakdown').innerHTML = ctaEntries.length ? ctaEntries.map(([label, c]) => `
-      <div class="cta-row">
-        <div class="cta-name">${esc(label)}</div>
-        <div class="cta-bar-wrap"><div class="cta-bar" style="width:${Math.round((c/maxCTA)*100)}%"></div></div>
-        <div class="cta-count">${c}</div>
-      </div>
-    `).join('') : '<div class="analytics-empty"><div class="ei">📭</div><p>No clicks yet</p></div>';
+    document.getElementById('aCtaBreakdown').innerHTML = Object.entries(ctaCounts)
+      .sort((a,b)=>b[1]-a[1]).slice(0,8).map(([label,c]) => `
+        <div class="cta-row">
+          <div class="cta-name">${esc(label)}</div>
+          <div class="cta-bar-wrap"><div class="cta-bar" style="width:${Math.round((c/maxCTA)*100)}%"></div></div>
+          <div class="cta-count">${c}</div>
+        </div>`).join('') || '<div class="analytics-empty"><div class="ei">📭</div><p>No clicks</p></div>';
 
-    // Scroll depth funnel
-    const scrollEvts = events.filter(e => e.event_type === 'scroll_depth');
-    const scrollCounts = { 25: 0, 50: 0, 75: 0, 100: 0 };
-    const scrollSessions = { 25: new Set(), 50: new Set(), 75: new Set(), 100: new Set() };
-    scrollEvts.forEach(e => {
-      const pct = e.properties && e.properties.percent;
-      if (scrollCounts[pct] !== undefined) {
-        scrollSessions[pct].add(e.session_id);
-      }
+    // Device
+    const devCounts = {};
+    events.filter(e=>e.event_type==='page_view').forEach(e => {
+      const d = (e.properties&&e.properties.device) || 'unknown';
+      devCounts[d] = (devCounts[d]||0) + 1;
     });
-    [25,50,75,100].forEach(p => scrollCounts[p] = scrollSessions[p].size);
-    const maxScroll = Math.max(scrollCounts[25], 1);
-    const scrollColors = { 25: '', 50: 'green', 75: 'amber', 100: 'purple' };
+    const devIcons = { desktop:'🖥️', mobile:'📱', tablet:'📲', unknown:'❓' };
+    const maxDev = Math.max(...Object.values(devCounts), 1);
+    document.getElementById('aDeviceBreakdown').innerHTML = Object.entries(devCounts)
+      .sort((a,b)=>b[1]-a[1]).map(([d,c]) => `
+        <div class="dist-row">
+          <div class="dist-icon">${devIcons[d]||'❓'}</div>
+          <div class="dist-label">${d}</div>
+          <div class="dist-bar-wrap"><div class="dist-bar" style="width:${Math.round((c/maxDev)*100)}%"></div></div>
+          <div class="dist-count">${c}</div>
+        </div>`).join('') || '<div class="analytics-empty"><div class="ei">📭</div><p>No data</p></div>';
+
+    // Traffic sources
+    const srcCounts = {};
+    events.filter(e=>e.event_type==='page_view').forEach(e => {
+      const s = (e.properties&&e.properties.traffic_source) || 'direct';
+      srcCounts[s] = (srcCounts[s]||0) + 1;
+    });
+    const srcIcons = { direct:'🔗', organic_search:'🔍', social:'📣' };
+    const maxSrc = Math.max(...Object.values(srcCounts), 1);
+    document.getElementById('aTrafficBreakdown').innerHTML = Object.entries(srcCounts)
+      .sort((a,b)=>b[1]-a[1]).slice(0,6).map(([s,c]) => {
+        const icon = srcIcons[s] || (s.startsWith('referral') ? '↩️' : '🔗');
+        const label = s.startsWith('referral:') ? s.replace('referral:','') : s.replace('_',' ');
+        return `<div class="dist-row">
+          <div class="dist-icon">${icon}</div>
+          <div class="dist-label">${esc(label)}</div>
+          <div class="dist-bar-wrap"><div class="dist-bar green" style="width:${Math.round((c/maxSrc)*100)}%"></div></div>
+          <div class="dist-count">${c}</div>
+        </div>`;
+      }).join('') || '<div class="analytics-empty"><div class="ei">📭</div><p>No data</p></div>';
+
+    // Countries
+    const ctyCounts = {};
+    events.filter(e=>e.event_type==='page_view').forEach(e => {
+      const c = (e.properties&&e.properties.country) || 'Unknown';
+      ctyCounts[c] = (ctyCounts[c]||0) + 1;
+    });
+    const maxCty = Math.max(...Object.values(ctyCounts), 1);
+    document.getElementById('aCountryBreakdown').innerHTML = Object.entries(ctyCounts)
+      .sort((a,b)=>b[1]-a[1]).slice(0,6).map(([c,n]) => `
+        <div class="dist-row">
+          <div class="dist-icon">🌍</div>
+          <div class="dist-label">${esc(c)}</div>
+          <div class="dist-bar-wrap"><div class="dist-bar amber" style="width:${Math.round((n/maxCty)*100)}%"></div></div>
+          <div class="dist-count">${n}</div>
+        </div>`).join('') || '<div class="analytics-empty"><div class="ei">📭</div><p>No data</p></div>';
+
+    // Scroll depth
+    const scrollSessions = {25:new Set(),50:new Set(),75:new Set(),100:new Set()};
+    events.filter(e=>e.event_type==='scroll_depth').forEach(e => {
+      const pct = e.properties&&e.properties.percent;
+      if (scrollSessions[pct]) scrollSessions[pct].add(e.session_id);
+    });
+    const scrollCounts = {25:scrollSessions[25].size,50:scrollSessions[50].size,75:scrollSessions[75].size,100:scrollSessions[100].size};
+    const maxScr = Math.max(scrollCounts[25], 1);
+    const scrollColors = {25:'',50:'green',75:'amber',100:'purple'};
     document.getElementById('aScrollFunnel').innerHTML = [25,50,75,100].map(p => `
       <div class="funnel-row">
         <div class="funnel-label">${p}% depth</div>
-        <div class="funnel-bar-wrap"><div class="funnel-bar ${scrollColors[p]}" style="width:${scrollCounts[p] ? Math.round((scrollCounts[p]/maxScroll)*100) : 0}%"></div></div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar ${scrollColors[p]}" style="width:${scrollCounts[p]?Math.round((scrollCounts[p]/maxScr)*100):0}%"></div></div>
         <div class="funnel-count">${scrollCounts[p]}</div>
-      </div>
-    `).join('');
+      </div>`).join('');
 
     // Form funnel
-    const formStart  = new Set(events.filter(e => e.event_type === 'form_start').map(e => e.session_id)).size;
-    const formSubmit = new Set(events.filter(e => e.event_type === 'form_submit').map(e => e.session_id)).size;
-    const formDrop   = Math.max(formStart - formSubmit, 0);
-    const maxForm    = Math.max(formStart, 1);
-    document.getElementById('aFormFunnel').innerHTML = formStart === 0
+    const fStart  = new Set(events.filter(e=>e.event_type==='form_start').map(e=>e.session_id)).size;
+    const fSubmit = new Set(events.filter(e=>e.event_type==='form_submit').map(e=>e.session_id)).size;
+    const fDrop   = Math.max(fStart - fSubmit, 0);
+    const maxF    = Math.max(fStart, 1);
+    document.getElementById('aFormFunnel').innerHTML = fStart === 0
       ? '<div class="analytics-empty"><div class="ei">📭</div><p>No form interactions yet</p></div>'
-      : `
-      <div class="funnel-row">
-        <div class="funnel-label">Form opened</div>
-        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%"></div></div>
-        <div class="funnel-count">${formStart}</div>
-      </div>
-      <div class="funnel-row">
-        <div class="funnel-label">Submitted</div>
-        <div class="funnel-bar-wrap"><div class="funnel-bar green" style="width:${Math.round((formSubmit/maxForm)*100)}%"></div></div>
-        <div class="funnel-count">${formSubmit}</div>
-      </div>
-      <div class="funnel-row">
-        <div class="funnel-label">Dropped off</div>
-        <div class="funnel-bar-wrap"><div class="funnel-bar amber" style="width:${Math.round((formDrop/maxForm)*100)}%"></div></div>
-        <div class="funnel-count">${formDrop}</div>
-      </div>
-      ${formStart > 0 ? `<div style="margin-top:14px;font-size:12px;color:var(--muted);">Conversion rate: <strong style="color:var(--green)">${Math.round((formSubmit/formStart)*100)}%</strong></div>` : ''}
-    `;
+      : `<div class="funnel-row"><div class="funnel-label">Form opened</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%"></div></div><div class="funnel-count">${fStart}</div></div>
+         <div class="funnel-row"><div class="funnel-label">Submitted</div><div class="funnel-bar-wrap"><div class="funnel-bar green" style="width:${Math.round((fSubmit/maxF)*100)}%"></div></div><div class="funnel-count">${fSubmit}</div></div>
+         <div class="funnel-row"><div class="funnel-label">Dropped off</div><div class="funnel-bar-wrap"><div class="funnel-bar amber" style="width:${Math.round((fDrop/maxF)*100)}%"></div></div><div class="funnel-count">${fDrop}</div></div>
+         <div style="margin-top:14px;font-size:12px;color:var(--muted);">Conversion rate: <strong style="color:var(--green)">${Math.round((fSubmit/maxF)*100)}%</strong></div>`;
 
-    // Recent activity feed (last 30 events)
-    const dotClass = { page_view: 'view', cta_click: 'click', click: 'click', scroll_depth: 'scroll', form_start: 'form', form_submit: 'form', form_field_exit: 'form', time_on_page: 'time' };
-    const recent = events.slice(0, 30);
-    document.getElementById('aActivityFeed').innerHTML = recent.length ? `<div class="activity-feed">${recent.map(e => {
-      const cls  = dotClass[e.event_type] || 'view';
-      const desc = formatEventDesc(e);
-      return `
-        <div class="activity-item">
-          <div class="activity-dot ${cls}"></div>
-          <div>
-            <div class="activity-text">${desc}</div>
-            <div class="activity-time">${formatDate(e.created_at)}</div>
-          </div>
-          <div class="activity-page-tag">${esc(e.page || '/')}</div>
-        </div>
-      `;
-    }).join('')}</div>` : '<div class="analytics-empty"><div class="ei">📭</div><p>No events yet</p></div>';
+    // A/B test
+    const abData = {};
+    events.filter(e=>e.event_type==='page_view').forEach(e => {
+      const v = (e.properties&&e.properties.ab_variant) || '?';
+      if (!abData[v]) abData[v] = { views: 0, clicks: 0, sessions: new Set() };
+      abData[v].views++;
+      abData[v].sessions.add(e.session_id);
+    });
+    events.filter(e=>e.event_type==='cta_click').forEach(e => {
+      const v = (e.properties&&e.properties.ab_variant) || '?';
+      if (abData[v]) abData[v].clicks++;
+    });
+    document.getElementById('aABTest').innerHTML = Object.keys(abData).length === 0
+      ? '<div class="analytics-empty"><div class="ei">📭</div><p>No variant data yet</p></div>'
+      : Object.entries(abData).sort((a,b)=>a[0].localeCompare(b[0])).map(([v,d]) => {
+          const ctr = d.views > 0 ? Math.round((d.clicks/d.views)*100) : 0;
+          return `<div class="ab-row">
+            <div class="ab-variant-badge ${v.toLowerCase()==='a'?'a':'b'}">${esc(v)}</div>
+            <div class="ab-details">
+              <div class="ab-metric"><strong>${d.views}</strong> views · <strong>${d.clicks}</strong> clicks · <strong style="color:var(--green)">${ctr}%</strong> CTR</div>
+            </div>
+          </div>`;
+        }).join('');
+
+    // Service selections
+    const svcCounts = {};
+    events.filter(e=>e.event_type==='service_selected'||e.event_type==='form_submit').forEach(e => {
+      const s = (e.properties&&e.properties.service);
+      if (s) svcCounts[s] = (svcCounts[s]||0) + 1;
+    });
+    const maxSvc = Math.max(...Object.values(svcCounts), 1);
+    document.getElementById('aServiceBreakdown').innerHTML = Object.entries(svcCounts).length === 0
+      ? '<div class="analytics-empty"><div class="ei">📭</div><p>No service selections yet</p></div>'
+      : Object.entries(svcCounts).sort((a,b)=>b[1]-a[1]).map(([s,c]) => `
+          <div class="cta-row">
+            <div class="cta-name">${esc(s)}</div>
+            <div class="cta-bar-wrap"><div class="cta-bar" style="width:${Math.round((c/maxSvc)*100)}%"></div></div>
+            <div class="cta-count">${c}</div>
+          </div>`).join('');
+
+    // Activity feed
+    renderActivityFeed();
+  }
+
+  function renderTrendChart(views) {
+    const days = analyticsDateDays || 30;
+    const buckets = {};
+    const now = new Date();
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(now); d.setDate(d.getDate() - i);
+      const key = d.toISOString().slice(0, 10);
+      buckets[key] = 0;
+    }
+    views.forEach(e => {
+      const key = (e.created_at||'').slice(0, 10);
+      if (buckets[key] !== undefined) buckets[key]++;
+    });
+    const entries = Object.entries(buckets);
+    const maxV    = Math.max(...entries.map(e=>e[1]), 1);
+    const showEvery = days > 14 ? Math.ceil(days / 10) : 1;
+    document.getElementById('aTrendChart').innerHTML = `
+      <div class="trend-chart">
+        ${entries.map(([date, count], i) => `
+          <div class="trend-bar-col">
+            <div class="trend-bar" style="height:${Math.max(4,Math.round((count/maxV)*72))}px" title="${date}: ${count} views"></div>
+            <div class="trend-label">${i % showEvery === 0 ? date.slice(5) : ''}</div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  function renderActivityFeed() {
+    const events  = filteredEvents;
+    const total   = events.length;
+    const pages   = Math.max(1, Math.ceil(total / ACTIVITY_PG));
+    if (activityPage > pages) activityPage = pages;
+    const start   = (activityPage - 1) * ACTIVITY_PG;
+    const slice   = events.slice(start, start + ACTIVITY_PG);
+
+    const dotClass = { page_view:'view', cta_click:'click', click:'click', scroll_depth:'scroll', form_start:'form', form_submit:'form', form_field_exit:'form', time_on_page:'time', heatmap_click:'click', service_selected:'form' };
+    document.getElementById('aActivityFeed').innerHTML = slice.length
+      ? `<div class="activity-feed">${slice.map(e => {
+          const cls = dotClass[e.event_type] || 'view';
+          const p   = e.properties || {};
+          const tags = [p.device, p.country, p.ab_variant ? 'v'+p.ab_variant : null].filter(Boolean).join(' · ');
+          return `<div class="activity-item">
+            <div class="activity-dot ${cls}"></div>
+            <div style="flex:1;min-width:0;">
+              <div class="activity-text">${formatEventDesc(e)}</div>
+              <div class="activity-time">${formatDate(e.created_at)}${tags ? ' · <span style="color:var(--faint)">'+esc(tags)+'</span>' : ''}</div>
+            </div>
+            <div class="activity-page-tag">${esc(e.page||'/')}</div>
+          </div>`;
+        }).join('')}</div>`
+      : '<div class="analytics-empty"><div class="ei">📭</div><p>No matching events</p></div>';
+
+    const pg = document.getElementById('activityPagination');
+    if (total > ACTIVITY_PG) {
+      pg.style.display = 'flex';
+      document.getElementById('activityPgInfo').textContent = `${start+1}–${Math.min(start+ACTIVITY_PG,total)} of ${total} events`;
+      document.getElementById('actPgPrev').disabled = activityPage === 1;
+      document.getElementById('actPgNext').disabled = activityPage === pages;
+    } else {
+      pg.style.display = 'none';
+    }
+  }
+
+  function changeActivityPage(delta) {
+    const pages = Math.ceil(filteredEvents.length / ACTIVITY_PG);
+    activityPage = Math.max(1, Math.min(pages, activityPage + delta));
+    renderActivityFeed();
   }
 
   function formatEventDesc(e) {
     const p = e.properties || {};
     switch (e.event_type) {
-      case 'page_view':      return `Page viewed · ${esc(p.title || e.page)}`;
-      case 'cta_click':      return `CTA clicked: <strong>${esc(p.label || p.text || '?')}</strong>`;
-      case 'click':          return `Clicked: <strong>${esc(p.text || '?')}</strong>`;
-      case 'scroll_depth':   return `Scrolled to <strong>${p.percent}%</strong> of page`;
-      case 'time_on_page':   return `Spent <strong>${p.seconds}s</strong> on page`;
-      case 'form_start':     return `Started filling contact form`;
-      case 'form_submit':    return `Submitted contact form (${p.field_count || '?'} fields)`;
-      case 'form_field_exit':return `Left field: <strong>${esc(p.field || '?')}</strong> · ${p.filled ? 'filled' : 'empty'}`;
-      default:               return esc(e.event_type);
+      case 'page_view':       return `Page viewed · ${esc(p.title || e.page)}${p.is_return ? ' <span style="color:var(--green);font-size:11px;">(return)</span>' : ''}`;
+      case 'cta_click':       return `CTA clicked: <strong>${esc(p.label || p.text || '?')}</strong>`;
+      case 'click':           return `Clicked: <strong>${esc(p.text || '?')}</strong>`;
+      case 'scroll_depth':    return `Scrolled to <strong>${p.percent}%</strong> of page`;
+      case 'time_on_page':    return `Spent <strong>${p.seconds}s</strong> on page`;
+      case 'form_start':      return `Started filling contact form`;
+      case 'form_submit':     return `Submitted form · ${p.field_count||'?'} fields · service: <strong>${esc(p.service||'?')}</strong>`;
+      case 'form_field_exit': return `Left field: <strong>${esc(p.field||'?')}</strong> · ${p.filled ? 'filled' : 'empty'}`;
+      case 'heatmap_click':   return `Click at ${p.x_pct}%, ${p.y_pct}% of viewport`;
+      case 'service_selected':return `Selected service: <strong>${esc(p.service||'?')}</strong>`;
+      default:                return esc(e.event_type);
     }
   }
 
