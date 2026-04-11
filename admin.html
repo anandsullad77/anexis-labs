@@ -1178,7 +1178,7 @@
       nav { padding: 0 20px; }
       main { padding: 28px 20px 60px; }
       .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .analytics-grid { grid-template-columns: repeat(2, 1fr); }
+      .analytics-grid { grid-template-columns: repeat(3, 1fr); }
       .analytics-two-col { grid-template-columns: 1fr; }
       .analytics-three-col { grid-template-columns: 1fr; }
       .drawer { width: min(440px, 100vw); }
@@ -1305,11 +1305,6 @@
         <div class="stat-value amber" id="statClosed">—</div>
         <div class="stat-sub">Completed</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-label">Unique IPs</div>
-        <div class="stat-value blue" id="aStatIPs">—</div>
-        <div class="stat-sub">Distinct IP addresses</div>
-      </div>
     </div>
 
     <!-- TOOLBAR -->
@@ -1398,6 +1393,11 @@
           <div class="stat-label">Avg. Time on Page</div>
           <div class="stat-value white" id="aStatTime">—</div>
           <div class="stat-sub">seconds avg</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Unique IPs</div>
+          <div class="stat-value blue" id="aStatIPs">—</div>
+          <div class="stat-sub">Distinct IP addresses</div>
         </div>
       </div>
 
@@ -1952,7 +1952,7 @@
 
   function renderAnalytics(events) {
     if (!events || events.length === 0) {
-      ['aStatViews','aStatSessions','aStatClicks','aStatTime'].forEach(id => {
+      ['aStatViews','aStatSessions','aStatClicks','aStatTime','aStatIPs'].forEach(id => {
         document.getElementById(id).textContent = '0';
       });
       document.getElementById('aStatViewsSub').textContent  = 'No data yet';
