@@ -66,9 +66,10 @@
 
   let country = null;
   let city    = null;
+  let ip      = null;
   fetch('https://ipapi.co/json/')
     .then(r => r.json())
-    .then(d => { country = d.country_name || null; city = d.city || null; })
+    .then(d => { country = d.country_name || null; city = d.city || null; ip = d.ip || null; })
     .catch(() => {});
 
   async function track(event_type, properties) {
@@ -93,7 +94,8 @@
             traffic_source: trafficSource,
             ab_variant:     abVariant,
             country,
-            city
+            city,
+            ip
           }, properties || {}),
           referrer,
           user_agent: navigator.userAgent,
