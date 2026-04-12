@@ -1355,11 +1355,262 @@
     transition: background 0.2s;
   }
   .mobile-menu .mobile-cta:hover { background: #00cff5; }
+  /* ── PAGE LOADER ── */
+  #pageLoader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: #080b0f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+    overflow: hidden;
+  }
+
+  #pageLoader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* ── SCAN LINE — full width across entire loader ── */
+  #loaderScanLine {
+    position: absolute;
+    left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(0,180,216,0.1) 15%,
+      rgba(0,180,216,0.9) 45%,
+      #00B4D8 50%,
+      rgba(0,180,216,0.9) 55%,
+      rgba(0,180,216,0.1) 85%,
+      transparent 100%
+    );
+    animation: loaderScanFull 2s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+    box-shadow: 0 0 12px rgba(0,180,216,0.6), 0 0 24px rgba(0,180,216,0.2);
+  }
+
+  @keyframes loaderScanFull {
+    0%   { top: -3px; }
+    100% { top: 100%; }
+  }
+
+  /* ── NOISE LINES — full width, fire on glitch ── */
+  .loader-noise {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .loader-noise-1 {
+    top: 28%;
+    background: rgba(0,180,216,0.5);
+    animation: noiseFlash 2.5s 0.3s infinite;
+  }
+  .loader-noise-2 {
+    top: 55%;
+    background: rgba(34,201,123,0.4);
+    animation: noiseFlash 2.5s 0.45s infinite;
+  }
+  .loader-noise-3 {
+    top: 72%;
+    background: rgba(0,180,216,0.3);
+    animation: noiseFlash 2.5s 0.1s infinite;
+  }
+
+  @keyframes noiseFlash {
+    0%, 55%, 100% { opacity: 0; transform: scaleX(1); }
+    57%  { opacity: 1; transform: scaleX(1) translateX(-6px); }
+    59%  { opacity: 0.5; transform: scaleX(0.7) translateX(8px); }
+    61%  { opacity: 0; }
+    63%  { opacity: 0.7; transform: scaleX(0.9) translateX(-3px); }
+    65%  { opacity: 0; }
+  }
+
+  /* ── CORNER BRACKETS — fixed to loader edges ── */
+  .ldr-bracket {
+    position: absolute;
+    width: 24px; height: 24px;
+    z-index: 4;
+  }
+  .ldr-bracket.tl { top: 24px; left: 24px; border-top: 2px solid #00B4D8; border-left: 2px solid #00B4D8; }
+  .ldr-bracket.tr { top: 24px; right: 24px; border-top: 2px solid #00B4D8; border-right: 2px solid #00B4D8; }
+  .ldr-bracket.bl { bottom: 24px; left: 24px; border-bottom: 2px solid #00B4D8; border-left: 2px solid #00B4D8; }
+  .ldr-bracket.br { bottom: 24px; right: 24px; border-bottom: 2px solid #00B4D8; border-right: 2px solid #00B4D8; }
+
+  /* ── CENTER CONTENT ── */
+  .loader-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* ── GLITCH LOGO ── */
+  .loader-logo {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(36px, 8vw, 64px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: #eef2f7;
+    position: relative;
+    animation: mainGlitch 2.5s infinite;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .loader-logo::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: #00B4D8;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    opacity: 0;
+    animation: glitchLayerTop 2.5s infinite;
+  }
+
+  .loader-logo::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: #22c97b;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    opacity: 0;
+    animation: glitchLayerBot 2.5s infinite;
+  }
+
+  @keyframes mainGlitch {
+    0%, 50%, 100% { transform: none; text-shadow: none; }
+    52% { transform: translateX(-5px) skewX(-6deg);
+          text-shadow: 4px 0 #00B4D8, -4px 0 #22c97b; }
+    54% { transform: translateX(4px) skewX(4deg);
+          text-shadow: -3px 0 #00B4D8, 3px 0 #22c97b; }
+    56% { transform: translateX(-2px);
+          text-shadow: 2px 0 #00B4D8, -2px 0 #22c97b; }
+    58% { transform: none; text-shadow: none; }
+    60% { transform: translateX(3px) skewX(-2deg);
+          text-shadow: -4px 0 #e8a020, 4px 0 #00B4D8; }
+    62% { transform: none; text-shadow: none; }
+  }
+
+  @keyframes glitchLayerTop {
+    0%, 50%, 100% { opacity: 0; transform: none; }
+    52% { opacity: 1; transform: translateX(-6px); }
+    54% { opacity: 0.8; transform: translateX(5px); }
+    56% { opacity: 0.6; transform: translateX(-3px); }
+    58% { opacity: 0; }
+    60% { opacity: 0.5; transform: translateX(4px); }
+    62% { opacity: 0; transform: none; }
+  }
+
+  @keyframes glitchLayerBot {
+    0%, 50%, 100% { opacity: 0; transform: none; }
+    52% { opacity: 0.9; transform: translateX(6px); }
+    54% { opacity: 0.7; transform: translateX(-4px); }
+    56% { opacity: 0.5; transform: translateX(3px); }
+    58% { opacity: 0; }
+    60% { opacity: 0.6; transform: translateX(-5px); }
+    62% { opacity: 0; transform: none; }
+  }
+
+  /* ── TAGLINE ── */
+  .loader-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #3a4a5c;
+    animation: subFlicker 2.5s infinite;
+  }
+
+  @keyframes subFlicker {
+    0%, 49%, 100% { color: #3a4a5c; }
+    51% { color: #00B4D8; opacity: 0.4; }
+    53% { color: #3a4a5c; }
+    57% { color: #00B4D8; opacity: 0.7; }
+    59% { color: #3a4a5c; }
+  }
+
+  /* ── STATUS TEXT ── */
+  .loader-status {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: #3a4a5c;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    z-index: 5;
+  }
+
+  .loader-cursor {
+    display: inline-block;
+    width: 7px; height: 15px;
+    background: #00B4D8;
+    animation: cursorBlink 0.75s step-end infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Prevent scroll during load */
+  body.loading { overflow: hidden; }
+
 </style>
 </head>
-<body>
+<body class="loading">
 
-<!-- NAV -->
+<!-- ── PAGE LOADER ── -->
+<div id="pageLoader">
+  <!-- Scan line — spans full screen width -->
+  <div id="loaderScanLine"></div>
+
+  <!-- Full-screen noise lines -->
+  <div class="loader-noise loader-noise-1"></div>
+  <div class="loader-noise loader-noise-2"></div>
+  <div class="loader-noise loader-noise-3"></div>
+
+  <!-- Corner brackets anchored to screen edges -->
+  <div class="ldr-bracket tl"></div>
+  <div class="ldr-bracket tr"></div>
+  <div class="ldr-bracket bl"></div>
+  <div class="ldr-bracket br"></div>
+
+  <!-- Center content -->
+  <div class="loader-center">
+    <div class="loader-logo" data-text="Anexis Labs">Anexis Labs</div>
+    <div class="loader-sub">Engineered for growth</div>
+  </div>
+
+  <!-- Status line -->
+  <div class="loader-status">
+    <span id="loaderStatusText">Initializing</span>
+    <span class="loader-cursor"></span>
+  </div>
+</div>
 <nav>
   <a href="#" class="logo">
     <span class="logo-dot"></span>
@@ -2268,6 +2519,52 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── PAGE LOADER ──
+  (function () {
+    const loader   = document.getElementById('pageLoader');
+    const statusEl = document.getElementById('loaderStatusText');
+
+    const messages = [
+      'Initializing',
+      'Loading assets',
+      'Compiling data',
+      'Engineered for growth'
+    ];
+
+    let msgIndex = 0;
+
+    // Cycle status messages
+    const msgInterval = setInterval(function () {
+      msgIndex = (msgIndex + 1) % messages.length;
+      if (statusEl) statusEl.textContent = messages[msgIndex];
+    }, 520);
+
+    function hideLoader() {
+      clearInterval(msgInterval);
+      if (statusEl) statusEl.textContent = 'Ready';
+      document.body.classList.remove('loading');
+      loader.classList.add('hidden');
+      // Remove from DOM after transition completes
+      setTimeout(function () {
+        if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 700);
+    }
+
+    // Hide after page fully loads — minimum 1.8s so animation is seen
+    const minTime   = 1800;
+    const startTime = Date.now();
+
+    window.addEventListener('load', function () {
+      const elapsed   = Date.now() - startTime;
+      const remaining = Math.max(0, minTime - elapsed);
+      setTimeout(hideLoader, remaining);
+    });
+
+    // Safety fallback — never block the user beyond 4s
+    setTimeout(hideLoader, 4000);
+  })();
+
+  // ── THEME ──
   function toggleTheme() {
     document.body.classList.toggle('light');
     localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
@@ -2330,6 +2627,5 @@
     }
   });
 </script>
-<script src="analytics.js"></script>
 </body>
 </html>
