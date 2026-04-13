@@ -122,6 +122,28 @@
     gap: 40px;
     list-style: none;
   }
+  .nav-links li {
+    position: relative;
+  }
+  .nav-links > li.has-dropdown-item {
+    padding-bottom: 14px;
+    margin-bottom: -14px;
+  }
+  .dropdown-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-arrow {
+    font-size: 10px;
+    line-height: 1;
+    color: var(--muted);
+    transition: transform 0.18s ease, color 0.18s ease;
+  }
+  .nav-links > li:hover .nav-arrow {
+    transform: rotate(180deg);
+    color: var(--blue);
+  }
   .nav-links a {
     color: var(--muted);
     text-decoration: none;
@@ -131,6 +153,98 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--text); }
+  .nav-links li .dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    min-width: 420px;
+    padding: 18px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.96);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 22px 48px rgba(15,23,42,0.14);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 30;
+    backdrop-filter: blur(20px);
+  }
+  body:not(.light) .nav-links li .dropdown {
+    background: rgba(10,22,34,0.96);
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 24px 54px rgba(2,6,23,0.48);
+  }
+  .nav-links > li:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+  .nav-links li .dropdown::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 30px;
+    width: 14px;
+    height: 14px;
+    background: inherit;
+    border-left: 1px solid rgba(0,0,0,0.08);
+    border-top: 1px solid rgba(0,0,0,0.08);
+    transform: rotate(45deg);
+  }
+  body:not(.light) .nav-links li .dropdown::before {
+    border-left-color: rgba(255,255,255,0.09);
+    border-top-color: rgba(255,255,255,0.09);
+  }
+  .solutions-dropdown {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .nav-links li .dropdown a.solution-menu-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 6px;
+    min-height: 112px;
+    padding: 16px;
+    color: #334155;
+    background: rgba(0,0,0,0.02);
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 16px;
+    text-decoration: none;
+    white-space: normal;
+    transition: color 0.18s, background 0.18s, border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+  }
+  body:not(.light) .nav-links li .dropdown a.solution-menu-card {
+    color: #d7e1ea;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-links li .dropdown a.solution-menu-card:hover {
+    color: var(--text);
+    background: var(--blue-dim);
+    border-color: rgba(0,180,216,0.24);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  }
+  .solution-menu-title {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: inherit;
+    line-height: 1.3;
+  }
+  .solution-menu-desc {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--muted);
+  }
   .nav-cta {
     background: var(--blue);
     color: #000 !important;
@@ -1115,9 +1229,29 @@
 
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="#principles">Principles</a></li>
-        <li><a href="#rituals">Team Rhythm</a></li>
-        <li><a href="#expectations">Expectations</a></li>
+        <li class="has-dropdown-item">
+          <a href="index.html#services" class="dropdown-trigger">Solutions <span class="nav-arrow">▼</span></a>
+          <div class="dropdown solutions-dropdown">
+            <a href="index.html#services" class="solution-menu-card">
+              <span class="solution-menu-title">B2B Digital Marketing</span>
+              <span class="solution-menu-desc">SEO, content, positioning, and demand generation for long-cycle growth.</span>
+            </a>
+            <a href="index.html#services" class="solution-menu-card">
+              <span class="solution-menu-title">Performance Marketing</span>
+              <span class="solution-menu-desc">Paid search, paid social, landing page strategy, and conversion-focused campaigns.</span>
+            </a>
+            <a href="index.html#services" class="solution-menu-card">
+              <span class="solution-menu-title">LinkedIn Marketing</span>
+              <span class="solution-menu-desc">Thoughtful LinkedIn strategy for authority, pipeline, and executive visibility.</span>
+            </a>
+            <a href="index.html#services" class="solution-menu-card">
+              <span class="solution-menu-title">Personal Branding</span>
+              <span class="solution-menu-desc">Founder and leadership brand building with a clear voice and consistent market presence.</span>
+            </a>
+          </div>
+        </li>
+        <li><a href="index.html#work">Case Studies</a></li>
+        <li><a href="index.html#about">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <div class="desktop-actions">
@@ -1136,9 +1270,13 @@
 </div>
 
 <div class="mobile-nav" id="mobileNav">
-  <a href="#principles" onclick="toggleMenu()">Principles</a>
-  <a href="#rituals" onclick="toggleMenu()">Team Rhythm</a>
-  <a href="#expectations" onclick="toggleMenu()">Expectations</a>
+  <a href="index.html#services" onclick="toggleMenu()">Solutions</a>
+  <a href="index.html#services" onclick="toggleMenu()" style="padding-left: 24px;">B2B Digital Marketing</a>
+  <a href="index.html#services" onclick="toggleMenu()" style="padding-left: 24px;">Performance Marketing</a>
+  <a href="index.html#services" onclick="toggleMenu()" style="padding-left: 24px;">LinkedIn Marketing</a>
+  <a href="index.html#services" onclick="toggleMenu()" style="padding-left: 24px;">Personal Branding</a>
+  <a href="index.html#work" onclick="toggleMenu()">Case Studies</a>
+  <a href="index.html#about" onclick="toggleMenu()">About Us</a>
   <a href="contact.html" onclick="toggleMenu()">Contact</a>
   <a href="contact.html" class="nav-cta" onclick="toggleMenu()">Talk to a Strategist</a>
 </div>
