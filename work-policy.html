@@ -879,47 +879,268 @@
     .footer-bottom { flex-direction: column !important; gap: 6px; text-align: center; margin-top: 28px; padding-top: 24px; }
     .footer-bottom p { font-size: 11px; }
   }
+
+  *:not(.mobile-nav):not(.mobile-nav *) { position: relative; z-index: 1; }
+  .mobile-nav { position: fixed; z-index: 99; }
+  .mobile-menu,
+  .toggle-wrap,
+  .theme-toggle {
+    display: none !important;
+  }
+  .nav-wrapper {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 1160px;
+    z-index: 100;
+  }
+  nav {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px 0 22px;
+    min-height: 72px;
+    height: auto;
+    background: rgba(255,255,255,0.98);
+    border: none;
+    border-radius: 100px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.06);
+    gap: 20px;
+  }
+  body:not(.light) nav {
+    background: rgba(13,18,24,0.97);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    height: 100%;
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    flex: 1;
+    min-width: 0;
+    margin-left: auto;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: nowrap;
+  }
+  .nav-links > li > a {
+    color: #3a3a4a;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    padding: 9px 14px;
+    border-radius: 100px;
+    transition: color 0.18s, background 0.18s;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  body:not(.light) .nav-links > li > a {
+    color: #b8c8d8;
+  }
+  .nav-links > li > a:hover {
+    color: var(--blue);
+    background: var(--blue-dim);
+  }
+  .nav-cta {
+    font-family: var(--font-body);
+    background: var(--blue) !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 11px 18px !important;
+    border-radius: 100px !important;
+    text-decoration: none;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s !important;
+    letter-spacing: 0.1px;
+    line-height: 1;
+  }
+  .nav-cta:hover {
+    background: #00cff5 !important;
+    color: #000 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 18px rgba(0,180,216,0.32) !important;
+  }
+  .desktop-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .mobile-actions {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+  }
+  .theme-toggle-btn {
+    background: none;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  body:not(.light) .theme-toggle-btn,
+  body:not(.light) .hamburger {
+    border-color: rgba(255,255,255,0.18);
+  }
+  .theme-toggle-btn:hover,
+  .hamburger:hover {
+    background: var(--blue-dim);
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+  .hamburger {
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0;
+    gap: 4px;
+    background: none;
+  }
+  .hamburger span {
+    width: 16px;
+    height: 2px;
+  }
+  .mobile-nav-toggle-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    font-size: 15px;
+  }
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 78px;
+    left: 0;
+    right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 32px 24px;
+    z-index: 99;
+    flex-direction: column;
+    gap: 0;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.2s;
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
+  .mobile-nav a:hover { color: var(--text); }
+  .mobile-nav .nav-cta {
+    margin-top: 12px;
+    text-align: center;
+  }
+  @media (max-width: 860px) {
+    .nav-wrapper {
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-width: 100%;
+      transform: none;
+    }
+    nav {
+      padding: 0 24px;
+      min-height: 68px;
+      border-radius: 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    }
+    .nav-right,
+    .nav-links,
+    .desktop-actions {
+      display: none !important;
+    }
+    .mobile-actions { display: flex; }
+    .hamburger { display: flex !important; }
+    .mobile-nav { top: 68px; }
+    .hero { padding-top: 100px !important; }
+  }
 </style>
 </head>
-<body>
+<body class="light">
+<div class="nav-wrapper">
+  <nav>
+    <a href="index.html" class="logo">
+      <span class="logo-dot"></span>
+      Anexis Labs
+    </a>
+
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#principles">Principles</a></li>
+        <li><a href="#rituals">Team Rhythm</a></li>
+        <li><a href="#expectations">Expectations</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="desktop-actions">
+        <button class="theme-toggle-btn" type="button" onclick="toggleTheme()" aria-label="Toggle theme" data-theme-toggle>☀</button>
+        <a href="contact.html" class="nav-cta">Talk to a Strategist</a>
+      </div>
+    </div>
+
+    <div class="mobile-actions">
+      <button class="theme-toggle-btn mobile-nav-toggle-btn" type="button" onclick="toggleTheme()" aria-label="Toggle theme" data-theme-toggle>☀</button>
+      <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 </div>
 
-<nav>
-  <a href="/index.html" class="logo">
-    <span class="logo-dot"></span>
-    Anexis Labs
-  </a>
-  <ul class="nav-links">
-    <li><a href="#principles">Principles</a></li>
-    <li><a href="#rituals">Rituals</a></li>
-    <li><a href="#expectations">Expectations</a></li>
-    <li><a href="/contact.html">Contact</a></li>
-    <li>
-      <div class="toggle-wrap">
-        <span class="toggle-icon">Dark</span>
-        <div class="theme-toggle" onclick="toggleTheme()"></div>
-        <span class="toggle-icon">Light</span>
-      </div>
-    </li>
-    <li><a href="/contact.html" class="nav-cta">Let's Talk</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
-  <a href="#principles">Principles</a>
-  <a href="#rituals">Rituals</a>
-  <a href="#expectations">Expectations</a>
-  <a href="/contact.html">Contact</a>
-  <div class="mobile-menu-divider"></div>
-  <div class="mobile-menu-toggle-row">
-    <span>Dark / Light</span>
-    <div class="theme-toggle" onclick="toggleTheme()" style="cursor:pointer;"></div>
-  </div>
-  <div class="mobile-menu-divider"></div>
-  <a href="/contact.html" class="mobile-cta">Let's Talk -></a>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#principles" onclick="toggleMenu()">Principles</a>
+  <a href="#rituals" onclick="toggleMenu()">Team Rhythm</a>
+  <a href="#expectations" onclick="toggleMenu()">Expectations</a>
+  <a href="contact.html" onclick="toggleMenu()">Contact</a>
+  <a href="contact.html" class="nav-cta" onclick="toggleMenu()">Talk to a Strategist</a>
 </div>
 
 <div class="hero">
@@ -1079,7 +1300,7 @@
   </section>
 </div>
 
-<section>
+<section id="rituals">
   <div class="process-header">
     <div class="section-label reveal">Team Rhythm</div>
     <h2 class="section-title reveal reveal-delay-1">A simple cadence for distributed teams.</h2>
@@ -1190,14 +1411,36 @@
   (function () {
   })();
 
+  function updateThemeToggleIcons() {
+    const icon = document.body.classList.contains('light') ? '☀' : '☾';
+    document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+      btn.textContent = icon;
+    });
+  }
+
+  function toggleMenu() {
+    const mobileNav = document.getElementById('mobileNav');
+    const hamburgerBtn = document.querySelector('.mobile-actions .hamburger');
+    const isOpen = mobileNav.classList.toggle('open');
+    if (hamburgerBtn) {
+      hamburgerBtn.classList.toggle('open', isOpen);
+      hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+      hamburgerBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    }
+  }
+
   function toggleTheme() {
     document.body.classList.toggle('light');
     localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    updateThemeToggleIcons();
   }
 
-  if (localStorage.getItem('theme') === 'light') {
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.remove('light');
+  } else {
     document.body.classList.add('light');
   }
+  updateThemeToggleIcons();
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -1209,31 +1452,28 @@
 
   document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
+  const hamburger = document.querySelector('.mobile-actions .hamburger');
+  const mobileNav = document.getElementById('mobileNav');
 
-  hamburger.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('open');
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
-
-  mobileMenu.querySelectorAll('a').forEach((link) => {
+  mobileNav.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      mobileNav.classList.remove('open');
+      if (hamburger) {
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open menu');
+      }
     });
   });
 
   document.addEventListener('click', (e) => {
-    if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
-      mobileMenu.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+    if (mobileNav.classList.contains('open') && !mobileNav.contains(e.target) && (!hamburger || !hamburger.contains(e.target))) {
+      mobileNav.classList.remove('open');
+      if (hamburger) {
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open menu');
+      }
     }
   });
 </script>

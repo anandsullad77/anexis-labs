@@ -2254,7 +2254,7 @@ body:not(.light) .testi-logo-wrap {
   body.loading { overflow: hidden; }
 </style>
 </head>
-<body class="loading">
+<body class="loading light">
 
 <div id="pageLoader">
   <div id="loaderScanLine"></div>
@@ -2990,7 +2990,9 @@ body:not(.light) .testi-logo-wrap {
     updateThemeToggleIcons();
   }
 
-  if (localStorage.getItem('theme') !== 'dark') {
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.remove('light');
+  } else {
     document.body.classList.add('light');
   }
   updateThemeToggleIcons();
