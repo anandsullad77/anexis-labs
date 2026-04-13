@@ -1,0 +1,31 @@
+name: Website Quality Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  html-and-links:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check HTML files exist
+        run: |
+          echo "Checking HTML files..."
+          ls -la
+          find . -name "*.html"
+
+      - name: Validate internal links in HTML files
+        uses: anishathalye/proof-html@v2
+        with:
+          directory: .
+          check_html: true
+          enforce_https: false
+          external_links: false
