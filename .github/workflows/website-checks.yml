@@ -16,16 +16,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check HTML files exist
-        run: |
-          echo "Checking HTML files..."
-          ls -la
-          find . -name "*.html"
-
-      - name: Validate internal links in HTML files
+      - name: Validate HTML and internal links
         uses: anishathalye/proof-html@v2
         with:
           directory: .
           check_html: true
           enforce_https: false
-          external_links: false
+          disable_external: true
