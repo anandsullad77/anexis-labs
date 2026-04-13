@@ -2043,7 +2043,7 @@ body:not(.light) .testi-logo-wrap {
     align-items: center;
     justify-content: center;
     gap: 24px;
-    transition: opacity 0.7s ease, visibility 0.7s ease;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
     overflow: hidden;
   }
 
@@ -2950,10 +2950,10 @@ body:not(.light) .testi-logo-wrap {
       if (loader) loader.classList.add('hidden');
       setTimeout(function () {
         if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
-      }, 700);
+      }, 500);
     }
 
-    const minTime = 1800;
+    const minTime = 1200;
     const startTime = Date.now();
 
     window.addEventListener('load', function () {
@@ -2962,7 +2962,7 @@ body:not(.light) .testi-logo-wrap {
       setTimeout(hideLoader, remaining);
     });
 
-    setTimeout(hideLoader, 4000);
+    setTimeout(hideLoader, 3000);
   })();
 
   function updateThemeToggleIcons() {
