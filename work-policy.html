@@ -76,8 +76,6 @@
       linear-gradient(rgba(0,144,176,0.05) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0,144,176,0.05) 1px, transparent 1px);
   }
-  *:not(.mobile-menu):not(.mobile-menu *) { position: relative; z-index: 1; }
-  .mobile-menu { position: fixed; z-index: 99; }
   nav {
     position: fixed;
     top: 0;
@@ -301,7 +299,7 @@
     grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
     gap: 56px;
     align-items: center;
-    padding: 120px 60px 80px;
+    padding: 98px 60px 80px;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -834,111 +832,14 @@
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 40px;
-    height: 40px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 8px;
-    transition: background 0.2s;
-    z-index: 200;
-    flex-shrink: 0;
-  }
-  .hamburger:hover { background: var(--blue-dim); }
-  .hamburger span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
-    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
-    transform-origin: center;
-  }
-  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .mobile-menu {
-    display: none;
-    position: fixed !important;
-    top: 64px;
-    left: 0;
-    right: 0;
-    background: var(--nav-bg);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-bottom: 1px solid var(--border);
-    z-index: 9999 !important;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease, padding 0.3s ease;
-    width: 100vw !important;
-    max-width: 100vw !important;
-  }
-  .mobile-menu.open {
-    max-height: 480px;
-    padding: 16px 0 24px;
-  }
-  .mobile-menu a {
-    display: block;
-    padding: 14px 24px;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s, background 0.2s;
-  }
-  .mobile-menu a:hover,
-  .mobile-menu a:active { color: var(--text); background: var(--blue-dim); }
-  .mobile-menu-divider {
-    height: 1px;
-    background: var(--border);
-    margin: 12px 24px;
-  }
-  .mobile-menu-toggle-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 24px;
-  }
-  .mobile-menu-toggle-row span {
-    font-size: 14px;
-    color: var(--muted);
-    font-weight: 400;
-  }
-  .mobile-menu .mobile-cta {
-    margin: 12px 24px 0;
-    display: block;
-    background: var(--blue);
-    color: #000 !important;
-    font-weight: 600;
-    font-size: 15px;
-    padding: 14px 24px;
-    border-radius: 8px;
-    text-align: center;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  .mobile-menu .mobile-cta:hover { background: #00cff5; }
   @media (max-width: 768px) {
     html, body { overflow-x: hidden; width: 100%; }
-    *:not(.mobile-menu):not(.mobile-menu *) { max-width: 100%; word-break: break-word; }
-    nav { padding: 0 20px !important; height: 64px; }
-    .nav-links { display: none !important; }
-    .hamburger { display: flex !important; }
-    .mobile-menu { display: block !important; }
     .logo { font-size: 17px; }
-    .toggle-wrap .toggle-icon { display: none; }
     .hero {
       grid-template-columns: 1fr;
       gap: 24px;
       min-height: auto;
-      padding: 96px 20px 56px !important;
+      padding: 84px 20px 56px !important;
     }
     .hero-label { font-size: 10px; margin-bottom: 20px; }
     .hero-headline { font-size: 34px !important; letter-spacing: -0.5px !important; line-height: 1.15 !important; }
@@ -1132,30 +1033,40 @@
     padding: 0;
     flex-shrink: 0;
   }
-  body:not(.light) .theme-toggle-btn,
-  body:not(.light) .hamburger {
+  body:not(.light) .theme-toggle-btn {
     border-color: rgba(255,255,255,0.18);
   }
-  .theme-toggle-btn:hover,
-  .hamburger:hover {
+  .theme-toggle-btn:hover {
     background: var(--blue-dim);
     border-color: var(--blue);
     color: var(--blue);
   }
   .hamburger {
-    width: 36px;
-    height: 36px;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0;
-    gap: 4px;
+    display: none;
+    flex-direction: column;
+    gap: 5px;
     background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    flex-shrink: 0;
   }
   .hamburger span {
-    width: 16px;
+    display: block;
+    width: 22px;
     height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .hamburger:hover {
+    background: none;
+  }
+  .hamburger.open span:nth-child(1),
+  .hamburger.open span:nth-child(2),
+  .hamburger.open span:nth-child(3) {
+    transform: none !important;
+    opacity: 1 !important;
   }
   .mobile-nav-toggle-btn {
     width: 34px;
@@ -1169,6 +1080,7 @@
     top: 78px;
     left: 0;
     right: 0;
+    bottom: 0;
     background: var(--nav-bg);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
@@ -1176,6 +1088,9 @@
     z-index: 99;
     flex-direction: column;
     gap: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
   .mobile-nav.open { display: flex; }
   .mobile-nav a {
@@ -1190,7 +1105,13 @@
   .mobile-nav a:hover { color: var(--text); }
   .mobile-nav .nav-cta {
     margin-top: 12px;
+    background: var(--blue);
+    color: #fff !important;
+    font-weight: 600 !important;
+    padding: 12px 20px;
+    border-radius: 100px;
     text-align: center;
+    border: none;
   }
   @media (max-width: 860px) {
     .nav-wrapper {
@@ -1214,9 +1135,11 @@
     }
     .mobile-actions { display: flex; }
     .hamburger { display: flex !important; }
-    .mobile-nav { top: 68px; }
+    .mobile-nav { top: 68px; bottom: 0; }
     .hero { padding-top: 100px !important; }
   }
+  html.menu-open,
+  body.menu-open { overflow: hidden; }
 </style>
 </head>
 <body class="light">
@@ -1230,28 +1153,31 @@
     <div class="nav-right">
       <ul class="nav-links">
         <li class="has-dropdown-item">
-          <a href="index.html#services" class="dropdown-trigger">Solutions <span class="nav-arrow">▼</span></a>
+          <a href="index.html#solutions" class="dropdown-trigger">
+            <span>Solutions</span>
+            <span class="nav-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" focusable="false" aria-hidden="true"><path d="M4 6.5 8 10.5 12 6.5"/></svg></span>
+          </a>
           <div class="dropdown solutions-dropdown">
-            <a href="index.html#services" class="solution-menu-card">
+            <a href="b2b-digital-marketing.html" class="solution-menu-card">
               <span class="solution-menu-title">B2B Digital Marketing</span>
-              <span class="solution-menu-desc">SEO, content, positioning, and demand generation for long-cycle growth.</span>
+              <span class="solution-menu-desc">Lead generation systems built for longer sales cycles and high-value deals.</span>
             </a>
-            <a href="index.html#services" class="solution-menu-card">
+            <a href="index.html#solutions" class="solution-menu-card">
               <span class="solution-menu-title">Performance Marketing</span>
-              <span class="solution-menu-desc">Paid search, paid social, landing page strategy, and conversion-focused campaigns.</span>
+              <span class="solution-menu-desc">Conversion-focused paid campaigns across Google, Meta, and other growth channels.</span>
             </a>
-            <a href="index.html#services" class="solution-menu-card">
+            <a href="index.html#solutions" class="solution-menu-card">
               <span class="solution-menu-title">LinkedIn Marketing</span>
-              <span class="solution-menu-desc">Thoughtful LinkedIn strategy for authority, pipeline, and executive visibility.</span>
+              <span class="solution-menu-desc">Organic and paid LinkedIn strategies to build authority and attract decision-makers.</span>
             </a>
-            <a href="index.html#services" class="solution-menu-card">
+            <a href="index.html#solutions" class="solution-menu-card">
               <span class="solution-menu-title">Personal Branding</span>
-              <span class="solution-menu-desc">Founder and leadership brand building with a clear voice and consistent market presence.</span>
+              <span class="solution-menu-desc">Thought-leadership content and positioning that turns founders into trust magnets.</span>
             </a>
           </div>
         </li>
         <li><a href="index.html#work">Case Studies</a></li>
-        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="index.html#process">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
       <div class="desktop-actions">
@@ -1270,13 +1196,13 @@
 </div>
 
 <div class="mobile-nav" id="mobileNav">
-  <a href="index.html#services" onclick="toggleMenu()">Solutions</a>
-  <a href="index.html#services" onclick="toggleMenu()" style="padding-left: 24px;">B2B Digital Marketing</a>
-  <a href="index.html#services" onclick="toggleMenu()" style="padding-left: 24px;">Performance Marketing</a>
-  <a href="index.html#services" onclick="toggleMenu()" style="padding-left: 24px;">LinkedIn Marketing</a>
-  <a href="index.html#services" onclick="toggleMenu()" style="padding-left: 24px;">Personal Branding</a>
+  <a href="index.html#solutions" onclick="toggleMenu()">Solutions</a>
+  <a href="b2b-digital-marketing.html" style="padding-left:32px; font-size:13px; opacity:0.8;" onclick="toggleMenu()">B2B Digital Marketing</a>
+  <a href="index.html#solutions" style="padding-left:32px; font-size:13px; opacity:0.8;" onclick="toggleMenu()">Performance Marketing</a>
+  <a href="index.html#solutions" style="padding-left:32px; font-size:13px; opacity:0.8;" onclick="toggleMenu()">LinkedIn Marketing</a>
+  <a href="index.html#solutions" style="padding-left:32px; font-size:13px; opacity:0.8;" onclick="toggleMenu()">Personal Branding</a>
   <a href="index.html#work" onclick="toggleMenu()">Case Studies</a>
-  <a href="index.html#about" onclick="toggleMenu()">About Us</a>
+  <a href="index.html#process" onclick="toggleMenu()">About Us</a>
   <a href="contact.html" onclick="toggleMenu()">Contact</a>
   <a href="contact.html" class="nav-cta" onclick="toggleMenu()">Talk to a Strategist</a>
 </div>
@@ -1560,6 +1486,8 @@
     const mobileNav = document.getElementById('mobileNav');
     const hamburgerBtn = document.querySelector('.mobile-actions .hamburger');
     const isOpen = mobileNav.classList.toggle('open');
+    document.body.classList.toggle('menu-open', isOpen);
+    document.documentElement.classList.toggle('menu-open', isOpen);
     if (hamburgerBtn) {
       hamburgerBtn.classList.toggle('open', isOpen);
       hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
@@ -1596,6 +1524,8 @@
   mobileNav.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       mobileNav.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      document.documentElement.classList.remove('menu-open');
       if (hamburger) {
         hamburger.classList.remove('open');
         hamburger.setAttribute('aria-expanded', 'false');
@@ -1607,6 +1537,8 @@
   document.addEventListener('click', (e) => {
     if (mobileNav.classList.contains('open') && !mobileNav.contains(e.target) && (!hamburger || !hamburger.contains(e.target))) {
       mobileNav.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      document.documentElement.classList.remove('menu-open');
       if (hamburger) {
         hamburger.classList.remove('open');
         hamburger.setAttribute('aria-expanded', 'false');

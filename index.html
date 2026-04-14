@@ -1699,7 +1699,7 @@
   .mobile-nav {
     display: none;
     position: fixed;
-    top: 78px; left: 0; right: 0;
+    top: 78px; left: 0; right: 0; bottom: 0;
     background: var(--nav-bg);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
@@ -1707,6 +1707,9 @@
     z-index: 99;
     flex-direction: column;
     gap: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
   .mobile-nav.open { display: flex; }
   .mobile-nav a {
@@ -1752,9 +1755,11 @@
     }
     .mobile-actions { display: flex; }
     .hamburger { display: flex; }
-    .mobile-nav { top: 68px; }
+    .mobile-nav { top: 68px; bottom: 0; }
     .hero { padding-top: 100px; }
   }
+  html.menu-open,
+  body.menu-open { overflow: hidden; }
 
 
   @media (max-width: 860px) {
@@ -2979,7 +2984,10 @@ body:not(.light) .testi-logo-wrap {
     const mobileNav = document.getElementById('mobileNav');
     const hamburgerBtn = document.querySelector('.mobile-actions .hamburger');
     const isOpen = mobileNav.classList.toggle('open');
+    document.body.classList.toggle('menu-open', isOpen);
+    document.documentElement.classList.toggle('menu-open', isOpen);
     if (hamburgerBtn) {
+      hamburgerBtn.classList.toggle('open', isOpen);
       hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
       hamburgerBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
     }
@@ -3005,6 +3013,37 @@ body:not(.light) .testi-logo-wrap {
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const hamburger = document.querySelector('.mobile-actions .hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      document.documentElement.classList.remove('menu-open');
+      if (hamburger) {
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open menu');
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (mobileNav.classList.contains('open') &&
+        !mobileNav.contains(e.target) &&
+        (!hamburger || !hamburger.contains(e.target))) {
+      mobileNav.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      document.documentElement.classList.remove('menu-open');
+      if (hamburger) {
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open menu');
+      }
+    }
+  });
 
   function switchTab(index) {
     document.querySelectorAll('.solutions-tab').forEach((t, i) => {
