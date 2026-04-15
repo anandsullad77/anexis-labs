@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B2B Marketing Insights & Strategy Blog | Anexis Labs</title>
+<meta name="description" content="Practical B2B marketing strategy, founder branding, website optimization, and content systems from Anexis Labs. Built for founders and growth teams who think in systems.">
+<meta property="og:title" content="B2B Marketing Insights & Strategy Blog | Anexis Labs">
+<meta property="og:description" content="Practical B2B marketing strategy, founder branding, website optimization, and content systems from Anexis Labs.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080b0f;
+    --bg2: #0e1318;
+    --bg3: #141c24;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.12);
+    --blue: #00B4D8;
+    --blue-dim: rgba(0,180,216,0.1);
+    --blue-mid: rgba(0,180,216,0.18);
+    --text: #eef2f7;
+    --muted: #7a8fa6;
+    --faint: #3a4a5c;
+    --font-display: 'Manrope', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  body.light {
+    --bg: #f5f6f8;
+    --bg2: #ffffff;
+    --bg3: #eceef2;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.12);
+    --blue: #0090b0;
+    --blue-dim: rgba(0,144,176,0.08);
+    --blue-mid: rgba(0,144,176,0.14);
+    --text: #0d1117;
+    --muted: #5a6a7a;
+    --faint: #a0aab4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.38;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  * { position: relative; z-index: 1; }
+
+  .nav-wrapper {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 1160px;
+    z-index: 100;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 72px;
+    padding: 0 18px 0 22px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.98);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.06);
+    gap: 20px;
+  }
+
+  body:not(.light) nav {
+    background: rgba(13,18,24,0.97);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+  }
+
+  .logo {
+    color: var(--text);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-mark {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 14px var(--blue);
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-left: auto;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .nav-links a {
+    color: #3a3a4a;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 9px 14px;
+    border-radius: 100px;
+    transition: color 0.18s, background 0.18s;
+    white-space: nowrap;
+  }
+
+  body:not(.light) .nav-links a { color: #b8c8d8; }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--blue);
+    background: var(--blue-dim);
+  }
+
+  .desktop-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .theme-toggle-btn {
+    background: none;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+
+  body:not(.light) .theme-toggle-btn { border-color: rgba(255,255,255,0.18); }
+
+  .theme-toggle-btn:hover {
+    background: var(--blue-dim);
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  .nav-cta,
+  .btn-primary,
+  .read-link {
+    background: var(--blue);
+    color: #001018;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+  }
+
+  .nav-cta {
+    padding: 11px 18px;
+    border-radius: 100px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-cta:hover,
+  .btn-primary:hover,
+  .read-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0,180,216,0.28);
+    background: #00cff5;
+  }
+
+  main { width: 100%; }
+
+  .hero {
+    min-height: 76vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 160px 60px 80px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    gap: 36px;
+    align-items: end;
+  }
+
+  .hero-label,
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 20px;
+  }
+
+  .hero-label::before,
+  .section-label::before {
+    content: "";
+    width: 20px;
+    height: 1px;
+    background: var(--blue);
+  }
+
+  .hero h1,
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 0.98;
+    letter-spacing: -3px;
+    margin-bottom: 18px;
+  }
+
+  .hero-sub,
+  .section-sub {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 720px;
+  }
+
+  .hero-actions {
+    margin-top: 34px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 15px 24px;
+    border-radius: 14px;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-secondary {
+    text-decoration: none;
+    color: var(--text);
+    border: 1px solid var(--border2);
+    background: transparent;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--blue);
+    background: var(--blue-dim);
+  }
+
+  .hero-panel {
+    background:
+      radial-gradient(circle at top right, rgba(0,180,216,0.16), transparent 45%),
+      linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid var(--border2);
+    border-radius: 28px;
+    padding: 28px;
+    backdrop-filter: blur(12px);
+  }
+
+  .panel-kicker {
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .panel-list {
+    list-style: none;
+    display: grid;
+    gap: 16px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .panel-list li {
+    padding: 16px 18px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+  }
+
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 110px 60px;
+  }
+
+  .featured-grid,
+  .blog-grid {
+    display: grid;
+    gap: 24px;
+    margin-top: 42px;
+  }
+
+  .featured-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  }
+
+  .blog-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .featured-card,
+  .blog-card,
+  .newsletter-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    overflow: hidden;
+  }
+
+  .featured-card {
+    min-height: 520px;
+    display: grid;
+    align-content: end;
+    padding: 34px;
+    background:
+      linear-gradient(180deg, rgba(8,11,15,0.05), rgba(8,11,15,0.92)),
+      radial-gradient(circle at top left, rgba(0,180,216,0.2), transparent 42%),
+      url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80") center/cover;
+  }
+
+  body.light .featured-card {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.95)),
+      radial-gradient(circle at top left, rgba(0,144,176,0.18), transparent 42%),
+      url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80") center/cover;
+  }
+
+  .card-tag {
+    display: inline-flex;
+    width: fit-content;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: var(--blue-dim);
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .featured-card h3,
+  .blog-card h3 {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.06;
+    letter-spacing: -1.5px;
+    margin-bottom: 14px;
+  }
+
+  .featured-card p,
+  .blog-card p,
+  .newsletter-card p {
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+
+  .blog-card {
+    padding: 0 0 28px;
+  }
+
+  .blog-thumb {
+    aspect-ratio: 16 / 10;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .blog-body {
+    padding: 26px 26px 0;
+  }
+
+  .blog-card h3 {
+    font-size: 22px;
+    letter-spacing: -0.8px;
+  }
+
+  .read-link {
+    padding: 13px 18px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .mini-list {
+    display: grid;
+    gap: 18px;
+  }
+
+  .mini-post {
+    padding: 24px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+  }
+
+  .mini-post h4 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: 1.1;
+    letter-spacing: -0.8px;
+    margin: 12px 0 10px;
+  }
+
+  .newsletter-card {
+    margin-top: 18px;
+    padding: 26px;
+    background:
+      radial-gradient(circle at top right, rgba(0,180,216,0.15), transparent 48%),
+      var(--bg2);
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+
+  .newsletter-form input {
+    flex: 1 1 220px;
+    min-width: 0;
+    padding: 15px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+  }
+
+  .newsletter-form button {
+    border: 0;
+    cursor: pointer;
+    padding: 15px 20px;
+    border-radius: 14px;
+    font: inherit;
+  }
+
+  /* ── FEATURED ARTICLE (horizontal editorial card) ── */
+  .featured-article {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    text-decoration: none;
+    color: inherit;
+    margin-top: 36px;
+    transition: border-color 0.22s, box-shadow 0.22s;
+  }
+
+  .featured-article:hover {
+    border-color: rgba(0,180,216,0.4);
+    box-shadow: 0 12px 40px rgba(0,180,216,0.08);
+  }
+
+  .featured-article-image {
+    min-height: 420px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .featured-article-content {
+    padding: 44px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    border-left: 1px solid var(--border);
+  }
+
+  .featured-article-title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.2vw, 34px);
+    line-height: 1.12;
+    letter-spacing: -1.2px;
+    color: var(--text);
+  }
+
+  .featured-article-summary {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .featured-article-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+
+  .featured-article-meta .dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .featured-article-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 6px;
+    transition: gap 0.18s;
+  }
+
+  .featured-article:hover .featured-article-cta { gap: 12px; }
+
+  /* ── SECONDARY CARDS ── */
+  .secondary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .secondary-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.22s, box-shadow 0.22s;
+  }
+
+  .secondary-card:hover {
+    border-color: rgba(0,180,216,0.4);
+    box-shadow: 0 8px 28px rgba(0,180,216,0.07);
+  }
+
+  .secondary-card-image {
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .secondary-card-body {
+    padding: 22px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .secondary-card-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  .secondary-card-meta {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .secondary-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: auto;
+    padding-top: 8px;
+    transition: gap 0.18s;
+  }
+
+  .secondary-card:hover .secondary-card-cta { gap: 10px; }
+
+  /* ── NEWSLETTER STRIP ── */
+  .newsletter-strip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .newsletter-strip-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 52px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .newsletter-strip-text { flex: 1 1 340px; }
+
+  .newsletter-strip-text h3 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.5vw, 30px);
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+
+  .newsletter-strip-text p {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 400px;
+  }
+
+  .newsletter-strip .newsletter-form {
+    flex: 1 1 340px;
+    margin-top: 0;
+  }
+
+  .insights-strip {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .insights-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 60px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .insight-box {
+    padding: 18px 20px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .insight-number {
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--blue);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .insight-label {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 60px;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand p {
+    font-size: 13px;
+    color: var(--faint);
+    margin-top: 12px;
+    font-style: italic;
+    font-weight: 300;
+    max-width: 240px;
+    line-height: 1.6;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+
+  .footer-col h4 {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .footer-col a {
+    display: block;
+    color: var(--faint);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--text); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .footer-bottom p {
+    font-size: 12px;
+    color: var(--faint);
+    font-weight: 300;
+  }
+
+  .footer-bottom a {
+    color: var(--faint);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-bottom a:hover { color: var(--text); }
+
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: auto;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.22s, opacity 0.22s;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── MOBILE NAV OVERLAY ── */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0; bottom: 0;
+    background: var(--bg);
+    padding: 24px 28px;
+    flex-direction: column;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    z-index: 99;
+    border-top: 1px solid var(--border);
+  }
+
+  .mobile-nav.open { display: flex; }
+
+  .mobile-nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.2s;
+  }
+
+  .mobile-nav a:last-child { border-bottom: none; }
+  .mobile-nav a:hover { color: var(--text); }
+
+  .mobile-nav .mobile-cta {
+    display: block;
+    margin-top: 20px;
+    background: var(--blue);
+    color: #001018;
+    font-weight: 700;
+    padding: 14px 20px;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 15px;
+    border: none;
+    text-decoration: none;
+  }
+
+  body.menu-open { overflow: hidden; }
+
+  /* ── TABLET (≤1040px) ── */
+  @media (max-width: 1040px) {
+    .hero { grid-template-columns: 1fr; padding-top: 140px; }
+
+    /* featured: image stacks above content */
+    .featured-article { grid-template-columns: 1fr; }
+    .featured-article-image { min-height: 300px; aspect-ratio: 16 / 9; }
+    .featured-article-content { border-left: none; border-top: 1px solid var(--border); }
+
+    /* 3-col blog grid → 2 col */
+    .blog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    /* 4-col insights → 2 col */
+    .insights-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  /* ── MOBILE NAV (≤860px) ── */
+  @media (max-width: 860px) {
+    .nav-wrapper {
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-width: 100%;
+      transform: none;
+    }
+
+    nav {
+      border-radius: 0;
+      min-height: 68px;
+      padding: 0 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    }
+
+    .nav-right { display: none !important; }
+    .hamburger { display: flex; }
+
+    /* hero padding-top accounts for flush 68px nav */
+    .hero { padding-top: 100px; }
+  }
+
+  /* ── MOBILE (≤720px) ── */
+  @media (max-width: 720px) {
+    .hero,
+    section,
+    footer,
+    .insights-inner {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .hero {
+      padding-top: 88px;
+      padding-bottom: 48px;
+    }
+
+    .hero h1,
+    .section-title {
+      letter-spacing: -1.4px;
+      font-size: clamp(34px, 8vw, 56px);
+    }
+
+    /* 2-col blog grid → 1 col */
+    .blog-grid { grid-template-columns: 1fr; }
+
+    /* secondary cards → 1 col */
+    .secondary-grid { grid-template-columns: 1fr; }
+
+    /* newsletter strip */
+    .newsletter-strip-inner { padding: 36px 20px; flex-direction: column; gap: 28px; }
+    .newsletter-strip .newsletter-form { flex-basis: 100%; }
+
+    .featured-article-content { padding: 28px 22px; }
+
+    /* 2-col insights → 2 col (keep 2x2 layout) */
+    .insights-inner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .featured-card,
+    .blog-card,
+    .newsletter-card {
+      border-radius: 20px;
+    }
+
+    .featured-card { min-height: 420px; padding: 24px; }
+
+    .section-sub { font-size: 16px; }
+
+    footer { padding-top: 40px; padding-bottom: 40px; }
+    .footer-inner { flex-direction: column; gap: 28px; }
+    .footer-links { flex-wrap: wrap; gap: 28px; }
+    .footer-bottom { flex-direction: column; gap: 6px; text-align: center; margin-top: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="nav-wrapper">
+    <nav>
+      <a href="index.html" class="logo">
+        <span class="logo-mark"></span>
+        <span>Anexis Labs</span>
+      </a>
+
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="blogs.html" class="active">Blogs</a></li>
+          <li><a href="index.html#work">Case Studies</a></li>
+          <li><a href="index.html#process">About Us</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+
+        <div class="desktop-actions">
+          <button class="theme-toggle-btn" type="button" onclick="toggleTheme()" aria-label="Toggle theme" data-theme-toggle></button>
+          <a href="index.html#contact" class="nav-cta">Talk to a Strategist</a>
+        </div>
+      </div>
+      <button class="hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="blogs.html">Blogs</a>
+    <a href="index.html#work">Case Studies</a>
+    <a href="index.html#process">About Us</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="index.html#contact" class="mobile-cta">Talk to a Strategist</a>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="hero-label">Insights &amp; Strategy</div>
+        <h1>B2B marketing thinking built on first principles.</h1>
+        <p class="hero-sub">
+          Every article here is written for founders and growth leads who want systems that compound — not tactics that evaporate after a week. From website conversion to founder visibility, we write about what actually moves the needle in B2B services.
+        </p>
+        <div class="hero-actions">
+          <a href="#featured" class="btn-primary">Read Featured Article</a>
+          <a href="#all-posts" class="btn-secondary">Browse All Articles</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <div class="panel-kicker">What We Cover</div>
+        <ul class="panel-list">
+          <li><strong>B2B Content Systems</strong> — how to build inbound engines that generate qualified leads consistently.</li>
+          <li><strong>Website &amp; Conversion</strong> — fixing the messaging, proof, and flow before spending on traffic.</li>
+          <li><strong>Founder Branding</strong> — making your expertise visible in a way that builds trust at scale.</li>
+          <li><strong>Performance Marketing</strong> — what to tighten before increasing ad spend.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="featured">
+      <div class="section-label">Featured</div>
+
+      <a class="featured-article" href="blogs/how-b2b-companies-turn-content-into-repeatable-inbound-system.html">
+        <div class="featured-article-image" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80');"></div>
+        <div class="featured-article-content">
+          <div class="card-tag">Featured Article</div>
+          <h3 class="featured-article-title">How B2B companies can turn content into a repeatable inbound system.</h3>
+          <p class="featured-article-summary">A practical framework for using your blog, LinkedIn presence, and service pages as one coordinated system that creates trust before a sales call ever starts.</p>
+          <div class="featured-article-meta">
+            <span>By Anand</span><span class="dot"></span>
+            <span>April 15, 2026</span><span class="dot"></span>
+            <span>8 min read</span>
+          </div>
+          <span class="featured-article-cta">
+            Read Article
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <div class="secondary-grid">
+        <a class="secondary-card" href="blogs/why-your-website-should-support-sales-conversations.html">
+          <div class="secondary-card-image" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80');"></div>
+          <div class="secondary-card-body">
+            <div class="card-tag">Growth</div>
+            <h4 class="secondary-card-title">Why your website should support sales conversations, not just look polished.</h4>
+            <div class="secondary-card-meta">April 12, 2026 &middot; 6 min read</div>
+            <span class="secondary-card-cta">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="secondary-card" href="blogs/what-personal-branding-means-for-founders-in-b2b-services.html">
+          <div class="secondary-card-image" style="background-image:url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=900&q=80');"></div>
+          <div class="secondary-card-body">
+            <div class="card-tag">Brand</div>
+            <h4 class="secondary-card-title">What personal branding actually means for founders in B2B services.</h4>
+            <div class="secondary-card-meta">April 8, 2026 &middot; 7 min read</div>
+            <span class="secondary-card-cta">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <div class="newsletter-strip">
+      <div class="newsletter-strip-inner">
+        <div class="newsletter-strip-text">
+          <div class="section-label" style="margin-bottom:12px;">Newsletter</div>
+          <h3>Stay ahead. One article, every two weeks.</h3>
+          <p>No roundups, no recycled content — only the frameworks we use with real B2B clients.</p>
+        </div>
+        <form class="newsletter-form" onsubmit="return false;">
+          <input type="email" placeholder="Your work email">
+          <button type="submit" class="btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+
+    <section id="all-posts">
+      <div class="section-label">All Posts</div>
+      <h2 class="section-title">Every article, in one place.</h2>
+      <p class="section-sub">
+        Practical strategy for B2B founders and growth leads. Each piece is built around a single idea and written to be actionable — not just readable.
+      </p>
+
+      <div class="blog-grid">
+        <article class="blog-card">
+          <div class="blog-thumb" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80');"></div>
+          <div class="blog-body">
+            <div class="card-tag">B2B Marketing</div>
+            <h3>Why most service websites fail before traffic even becomes the problem.</h3>
+            <div class="card-meta">
+              <span>April 10, 2026</span>
+              <span>6 min read</span>
+            </div>
+            <p>Message clarity, trust placement, and a clear next step — fix these before you even think about getting more visitors.</p>
+            <a href="blogs/why-most-service-websites-fail-before-traffic.html" class="read-link">Read More</a>
+          </div>
+        </article>
+
+        <article class="blog-card">
+          <div class="blog-thumb" style="background-image:url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80');"></div>
+          <div class="blog-body">
+            <div class="card-tag">LinkedIn</div>
+            <h3>A founder-led content workflow that does not take over your calendar.</h3>
+            <div class="card-meta">
+              <span>April 5, 2026</span>
+              <span>5 min read</span>
+            </div>
+            <p>Build a repeatable content engine from voice notes, sales calls, and one weekly strategy session — without daily posting pressure.</p>
+            <a href="blogs/founder-led-content-workflow.html" class="read-link">Read More</a>
+          </div>
+        </article>
+
+        <article class="blog-card">
+          <div class="blog-thumb" style="background-image:url('https://images.unsplash.com/photo-1516321165247-4aa89a48be28?auto=format&fit=crop&w=900&q=80');"></div>
+          <div class="blog-body">
+            <div class="card-tag">Performance</div>
+            <h3>What to fix before spending more on ads for a high-ticket service business.</h3>
+            <div class="card-meta">
+              <span>March 29, 2026</span>
+              <span>7 min read</span>
+            </div>
+            <p>Paid traffic amplifies what already exists. If your offer, landing page, and qualification flow are unclear, more budget makes it worse.</p>
+            <a href="blogs/what-to-fix-before-spending-more-on-ads.html" class="read-link">Read More</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <span class="logo-mark"></span>
+          <span>Anexis Labs</span>
+        </a>
+        <p>The engineer's approach to marketing.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Solutions</h4>
+          <a href="b2b-digital-marketing.html">B2B Digital Marketing</a>
+          <a href="#">Performance Marketing</a>
+          <a href="#">LinkedIn Marketing</a>
+          <a href="#">Personal Branding</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">Case Studies</a>
+          <a href="index.html#process">About</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="blogs.html">Blog</a>
+          <a href="work-policy.html">Work Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Anexis Labs. All rights reserved.</p>
+      <p>Bangalore, India &middot; Global Clients</p>
+      <p><a href="privacy-policy.html">Privacy Policy</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function updateThemeToggleIcons() {
+      const icon = document.body.classList.contains('light') ? '☀' : '☾';
+      document.querySelectorAll('[data-theme-toggle]').forEach(function(btn) {
+        btn.textContent = icon;
+      });
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+      updateThemeToggleIcons();
+    }
+
+    function toggleMobileNav() {
+      var nav = document.getElementById('mobile-nav');
+      var btn = document.querySelector('.hamburger');
+      if (!nav) return;
+      var isOpen = nav.classList.toggle('open');
+      if (btn) btn.classList.toggle('open', isOpen);
+      document.body.classList.toggle('menu-open', isOpen);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.mobile-nav a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          var nav = document.getElementById('mobile-nav');
+          var btn = document.querySelector('.hamburger');
+          if (nav) nav.classList.remove('open');
+          if (btn) btn.classList.remove('open');
+          document.body.classList.remove('menu-open');
+        });
+      });
+    });
+
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.remove('light');
+    } else {
+      document.body.classList.add('light');
+    }
+    updateThemeToggleIcons();
+  </script>
+</body>
+</html>
