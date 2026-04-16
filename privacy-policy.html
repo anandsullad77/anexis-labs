@@ -359,6 +359,7 @@
     line-height: 1.15;
     color: var(--text);
     margin-bottom: 20px;
+    scroll-margin-top: 108px;
   }
 
   .policy-section p {
@@ -1137,6 +1138,120 @@
       line-height: 1.5;
     }
   }
+  /* ── HERO GLOW ── */
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 60px;
+    left: -80px;
+    width: 560px;
+    height: 280px;
+    background: radial-gradient(ellipse at 30% 50%, rgba(0,180,216,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .page-header > * { position: relative; z-index: 1; }
+
+  /* ── READING PROGRESS ── */
+  #reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--blue), #00e5ff);
+    z-index: 9999;
+    transition: width 0.1s linear;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ── BACK TO TOP ── */
+  #back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.25s, visibility 0.25s, transform 0.25s, background 0.2s, color 0.2s;
+    z-index: 900;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  }
+  #back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+  #back-to-top:hover { background: var(--blue-dim); color: var(--blue); border-color: rgba(0,180,216,0.4); }
+
+  /* ── MOBILE POLICY TOC ── */
+  .policy-mobile-toc {
+    display: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 32px;
+  }
+  .policy-mobile-toc-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .policy-mobile-toc-toggle:hover { background: var(--bg3); border-color: var(--blue); }
+  .policy-mobile-toc-toggle svg { transition: transform 0.25s; flex-shrink: 0; }
+  .policy-mobile-toc-toggle.open svg { transform: rotate(180deg); }
+  .policy-mobile-toc-list {
+    display: none;
+    flex-direction: column;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+  }
+  .policy-mobile-toc-list.open { display: flex; }
+  .policy-mobile-toc-list a {
+    padding: 11px 18px;
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.18s, background 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .policy-mobile-toc-list a:last-child { border-bottom: none; }
+  .policy-mobile-toc-list a:hover { color: var(--blue); background: var(--blue-dim); }
+  .policy-mobile-toc-list a .toc-num {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--blue);
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    min-width: 22px;
+  }
+
+  @media (max-width: 900px) {
+    .policy-mobile-toc { display: block; }
+  }
+
   @media (max-width: 420px) {
     nav {
       padding: 0 20px;
@@ -1162,6 +1277,13 @@
 </style>
 </head>
 <body class="light">
+
+  <div id="reading-progress" aria-hidden="true"></div>
+  <button id="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 12V4M4 7.5 8 4l4 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
 
 <div class="nav-wrapper">
   <nav>
@@ -1230,9 +1352,32 @@
   <div class="page-header-label">Legal · Transparency</div>
   <h1>Privacy <span>Policy.</span></h1>
   <div class="page-header-meta">
-    <div class="meta-chip"><span>📅</span> Last updated: April 2025</div>
+    <div class="meta-chip"><span>📅</span> Last updated: April 2026</div>
     <div class="meta-chip"><span>📍</span> Bangalore, India</div>
     <div class="meta-chip"><span>🌐</span> Applies globally</div>
+  </div>
+</div>
+
+<!-- MOBILE TOC — visible on ≤900px -->
+<div class="policy-mobile-toc">
+  <button class="policy-mobile-toc-toggle" id="policyMobileTocToggle" onclick="togglePolicyToc()" aria-expanded="false">
+    <span>Jump to section</span>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <div class="policy-mobile-toc-list" id="policyMobileTocList">
+    <a href="#overview" onclick="closePolicyToc()"><span class="toc-num">01</span> Overview</a>
+    <a href="#data-we-collect" onclick="closePolicyToc()"><span class="toc-num">02</span> Data We Collect</a>
+    <a href="#how-we-use" onclick="closePolicyToc()"><span class="toc-num">03</span> How We Use Data</a>
+    <a href="#cookies" onclick="closePolicyToc()"><span class="toc-num">04</span> Cookies &amp; Tracking</a>
+    <a href="#sharing" onclick="closePolicyToc()"><span class="toc-num">05</span> Data Sharing</a>
+    <a href="#retention" onclick="closePolicyToc()"><span class="toc-num">06</span> Data Retention</a>
+    <a href="#your-rights" onclick="closePolicyToc()"><span class="toc-num">07</span> Your Rights</a>
+    <a href="#security" onclick="closePolicyToc()"><span class="toc-num">08</span> Security</a>
+    <a href="#children" onclick="closePolicyToc()"><span class="toc-num">09</span> Children's Privacy</a>
+    <a href="#changes" onclick="closePolicyToc()"><span class="toc-num">10</span> Policy Changes</a>
+    <a href="#contact" onclick="closePolicyToc()"><span class="toc-num">11</span> Contact Us</a>
   </div>
 </div>
 
@@ -1544,7 +1689,7 @@
         <a href="/#process">About</a>
         <a href="/#process">Process</a>
         <a href="/contact.html">Contact</a>
-        <a href="/privacy.html" style="color:var(--blue);">Privacy Policy</a>
+        <a href="privacy-policy.html" style="color:var(--blue);">Privacy Policy</a>
       </div>
     </div>
   </div>
@@ -1619,6 +1764,45 @@
       }
     }
   });
+
+  // ── READING PROGRESS ──
+  var progressBar = document.getElementById('reading-progress');
+  function updateProgress() {
+    if (!progressBar) return;
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0) + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  // ── BACK TO TOP ──
+  var backToTop = document.getElementById('back-to-top');
+  if (backToTop) {
+    window.addEventListener('scroll', function () {
+      backToTop.classList.toggle('visible', window.scrollY > window.innerHeight * 0.35);
+    }, { passive: true });
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ── MOBILE POLICY TOC ──
+  function togglePolicyToc() {
+    var list = document.getElementById('policyMobileTocList');
+    var btn  = document.getElementById('policyMobileTocToggle');
+    if (!list || !btn) return;
+    var open = list.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+  }
+  function closePolicyToc() {
+    var list = document.getElementById('policyMobileTocList');
+    var btn  = document.getElementById('policyMobileTocToggle');
+    if (!list || !btn) return;
+    list.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
 
   // ── SCROLL REVEAL ──
   const revealObs = new IntersectionObserver((entries) => {

@@ -416,9 +416,9 @@
 
   .blog-thumb {
     aspect-ratio: 16 / 10;
-    background-size: cover;
-    background-position: center;
     border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
   }
 
   .blog-body {
@@ -598,10 +598,16 @@
 
   .secondary-card-image {
     aspect-ratio: 16 / 9;
-    background-size: cover;
-    background-position: center;
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .secondary-card-image-inner {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
   }
 
   .secondary-card-body {
@@ -962,6 +968,186 @@
     .footer-links { flex-wrap: wrap; gap: 28px; }
     .footer-bottom { flex-direction: column; gap: 6px; text-align: center; margin-top: 28px; }
   }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.10s; }
+  .reveal-delay-2 { transition-delay: 0.20s; }
+  .reveal-delay-3 { transition-delay: 0.30s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── HERO GLOW ── */
+  .hero-left { position: relative; }
+  .hero-orb {
+    position: absolute;
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,180,216,0.13) 0%, transparent 68%);
+    top: -120px; left: -140px;
+    pointer-events: none; z-index: 0;
+  }
+  .hero-label,
+  .hero h1,
+  .hero-sub,
+  .hero-actions { position: relative; z-index: 1; }
+
+  /* ── BLOG CARD HOVER & IMAGE ZOOM ── */
+  .blog-card {
+    transition: transform 0.32s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.32s cubic-bezier(0.22,1,0.36,1),
+                border-color 0.32s ease;
+    overflow: hidden;
+  }
+  .blog-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 28px 56px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,180,216,0.22);
+    border-color: rgba(0,180,216,0.28);
+  }
+  .blog-thumb {
+    overflow: hidden;
+    position: relative;
+  }
+  .blog-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.18));
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.32s ease;
+  }
+  .blog-card:hover .blog-thumb::after { opacity: 1; }
+  .blog-thumb-inner {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
+  }
+  .blog-card:hover .blog-thumb-inner { transform: scale(1.07); }
+
+  /* ── FEATURED ARTICLE IMPROVEMENTS ── */
+  .featured-article {
+    transition: transform 0.32s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.32s ease,
+                border-color 0.32s ease;
+  }
+  .featured-article:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 64px rgba(0,180,216,0.1), 0 0 0 1px rgba(0,180,216,0.3);
+  }
+  .featured-article-image {
+    overflow: hidden;
+    position: relative;
+  }
+  .featured-article-image::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(0,180,216,0.12) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  /* ── SECONDARY CARD IMPROVEMENTS ── */
+  .secondary-card {
+    transition: transform 0.32s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.32s ease,
+                border-color 0.32s ease !important;
+  }
+  .secondary-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 20px 48px rgba(0,0,0,0.14), 0 0 0 1px rgba(0,180,216,0.24) !important;
+  }
+  .secondary-card:hover .secondary-card-image-inner { transform: scale(1.06); }
+
+  /* ── IMPROVED TAGS ── */
+  .card-tag {
+    font-family: var(--font-display);
+    letter-spacing: 0.8px;
+  }
+
+  /* ── READ LINK ARROW ANIMATION ── */
+  .read-link {
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+  .read-link::after {
+    content: '→';
+    font-size: 13px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.2s, transform 0.2s;
+    margin-left: 0;
+  }
+  .blog-card:hover .read-link::after {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ── NEWSLETTER STRIP GLOW ── */
+  .newsletter-strip {
+    position: relative;
+    overflow: hidden;
+  }
+  .newsletter-strip::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,180,216,0.09) 0%, transparent 65%);
+    right: -100px; top: -200px;
+    pointer-events: none;
+  }
+  .newsletter-form input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0,180,216,0.14);
+  }
+  .newsletter-form button {
+    background: var(--blue);
+    color: #001018;
+    font-weight: 700;
+    transition: background 0.2s, transform 0.18s, box-shadow 0.18s;
+  }
+  .newsletter-form button:hover {
+    background: #00cff5;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0,180,216,0.28);
+  }
+
+  /* ── INSIGHT BOX HOVER ── */
+  .insight-box {
+    transition: background 0.25s, border-color 0.25s, transform 0.25s;
+  }
+  .insight-box:hover {
+    background: rgba(0,180,216,0.07);
+    border-color: rgba(0,180,216,0.24);
+    transform: translateY(-2px);
+  }
+
+  /* ── HERO PANEL ITEM HOVER ── */
+  .panel-list li {
+    transition: background 0.22s, border-color 0.22s;
+  }
+  .panel-list li:hover {
+    background: rgba(0,180,216,0.07);
+    border-color: rgba(0,180,216,0.22);
+  }
+
+  /* ── HERO ANIMATION ── */
+  .hero-left .hero-label { animation: fadeUp 0.6s ease forwards 0.15s; opacity: 0; }
+  .hero-left h1          { animation: fadeUp 0.7s ease forwards 0.30s; opacity: 0; }
+  .hero-left .hero-sub   { animation: fadeUp 0.7s ease forwards 0.45s; opacity: 0; }
+  .hero-left .hero-actions { animation: fadeUp 0.7s ease forwards 0.60s; opacity: 0; }
+  .hero-panel            { animation: fadeUp 0.7s ease forwards 0.50s; opacity: 0; }
 </style>
 </head>
 <body>
@@ -1003,7 +1189,8 @@
 
   <main>
     <section class="hero">
-      <div>
+      <div class="hero-left">
+        <div class="hero-orb" aria-hidden="true"></div>
         <div class="hero-label">Insights &amp; Strategy</div>
         <h1>B2B marketing thinking built on first principles.</h1>
         <p class="hero-sub">
@@ -1027,9 +1214,9 @@
     </section>
 
     <section id="featured">
-      <div class="section-label">Featured</div>
+      <div class="section-label reveal">Featured</div>
 
-      <a class="featured-article" href="blogs/how-b2b-companies-turn-content-into-repeatable-inbound-system.html">
+      <a class="featured-article reveal reveal-delay-1" href="blogs/how-b2b-companies-turn-content-into-repeatable-inbound-system.html">
         <div class="featured-article-image" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80');"></div>
         <div class="featured-article-content">
           <div class="card-tag">Featured Article</div>
@@ -1048,8 +1235,10 @@
       </a>
 
       <div class="secondary-grid">
-        <a class="secondary-card" href="blogs/why-your-website-should-support-sales-conversations.html">
-          <div class="secondary-card-image" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80');"></div>
+        <a class="secondary-card reveal reveal-delay-1" href="blogs/why-your-website-should-support-sales-conversations.html">
+          <div class="secondary-card-image">
+            <div class="secondary-card-image-inner" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
           <div class="secondary-card-body">
             <div class="card-tag">Growth</div>
             <h4 class="secondary-card-title">Why your website should support sales conversations, not just look polished.</h4>
@@ -1061,8 +1250,10 @@
           </div>
         </a>
 
-        <a class="secondary-card" href="blogs/what-personal-branding-means-for-founders-in-b2b-services.html">
-          <div class="secondary-card-image" style="background-image:url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=900&q=80');"></div>
+        <a class="secondary-card reveal reveal-delay-2" href="blogs/what-personal-branding-means-for-founders-in-b2b-services.html">
+          <div class="secondary-card-image">
+            <div class="secondary-card-image-inner" style="background-image:url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
           <div class="secondary-card-body">
             <div class="card-tag">Brand</div>
             <h4 class="secondary-card-title">What personal branding actually means for founders in B2B services.</h4>
@@ -1091,15 +1282,17 @@
     </div>
 
     <section id="all-posts">
-      <div class="section-label">All Posts</div>
-      <h2 class="section-title">Every article, in one place.</h2>
-      <p class="section-sub">
+      <div class="section-label reveal">All Posts</div>
+      <h2 class="section-title reveal reveal-delay-1">Every article, in one place.</h2>
+      <p class="section-sub reveal reveal-delay-2">
         Practical strategy for B2B founders and growth leads. Each piece is built around a single idea and written to be actionable — not just readable.
       </p>
 
       <div class="blog-grid">
-        <article class="blog-card">
-          <div class="blog-thumb" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80');"></div>
+        <article class="blog-card reveal">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
           <div class="blog-body">
             <div class="card-tag">B2B Marketing</div>
             <h3>Why most service websites fail before traffic even becomes the problem.</h3>
@@ -1112,8 +1305,10 @@
           </div>
         </article>
 
-        <article class="blog-card">
-          <div class="blog-thumb" style="background-image:url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80');"></div>
+        <article class="blog-card reveal reveal-delay-1">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
           <div class="blog-body">
             <div class="card-tag">LinkedIn</div>
             <h3>A founder-led content workflow that does not take over your calendar.</h3>
@@ -1126,8 +1321,10 @@
           </div>
         </article>
 
-        <article class="blog-card">
-          <div class="blog-thumb" style="background-image:url('https://images.unsplash.com/photo-1516321165247-4aa89a48be28?auto=format&fit=crop&w=900&q=80');"></div>
+        <article class="blog-card reveal reveal-delay-2">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1516321165247-4aa89a48be28?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
           <div class="blog-body">
             <div class="card-tag">Performance</div>
             <h3>What to fix before spending more on ads for a high-ticket service business.</h3>
@@ -1218,6 +1415,20 @@
       document.body.classList.add('light');
     }
     updateThemeToggleIcons();
+
+    // Scroll reveal
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      revealObserver.observe(el);
+    });
   </script>
 </body>
 </html>

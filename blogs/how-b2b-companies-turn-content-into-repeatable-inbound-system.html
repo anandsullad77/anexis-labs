@@ -13,6 +13,16 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Reading progress bar -->
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  <!-- Back to top -->
+  <button id="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 12V4M4 7.5 8 4l4 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
   <div class="nav-wrapper">
     <nav>
       <a href="../index.html" class="logo"><span class="logo-mark"></span><span>Anexis Labs</span></a>
@@ -46,11 +56,10 @@
   <main>
     <section class="article-hero">
       <div class="article-header">
-        <nav class="article-breadcrumb" aria-label="breadcrumb">
-          <a href="../index.html">Home</a><span>›</span>
-          <a href="../blogs.html">Blogs</a><span>›</span>
-          <span>Featured Article</span>
-        </nav>
+        <a href="../blogs.html" class="article-back">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          All articles
+        </a>
         <div class="article-kicker">Featured Article</div>
         <h1 class="hero-title">How B2B companies can turn content into a repeatable inbound system.</h1>
         <p class="hero-summary">A practical framework for using your website, blog, and LinkedIn presence as one coordinated system that creates trust before a sales call ever starts.</p>
@@ -58,6 +67,27 @@
       </div>
       <div class="article-banner" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80');"></div>
     </section>
+
+    <!-- Mobile TOC — visible on ≤1080px, sits above the article -->
+    <div class="mobile-toc-wrap" id="mobile-toc-wrap">
+      <button class="mobile-toc-toggle" id="mobile-toc-toggle" onclick="toggleMobileToc()" aria-expanded="false" aria-controls="mobile-toc-list">
+        <span>Jump to section</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="mobile-toc-list" id="mobile-toc-list" role="navigation" aria-label="Article sections">
+        <ul>
+          <li><a href="#define" onclick="closeMobileToc()">Map the buyer path</a></li>
+          <li><a href="#roles" onclick="closeMobileToc()">Give every channel a role</a></li>
+          <li><a href="#engine" onclick="closeMobileToc()">Build a content engine</a></li>
+          <li><a href="#sourcing" onclick="closeMobileToc()">Where to find topics</a></li>
+          <li><a href="#measurement" onclick="closeMobileToc()">Measure what matters</a></li>
+          <li><a href="#common-mistakes" onclick="closeMobileToc()">Three common mistakes</a></li>
+          <li><a href="#close" onclick="closeMobileToc()">Make handoffs obvious</a></li>
+        </ul>
+      </div>
+    </div>
 
     <section class="article-layout">
       <article class="article-body">
@@ -158,6 +188,13 @@
 
         <p>Building a repeatable inbound system is not a content volume problem. It's a clarity and consistency problem. When you're clear about who you're writing for, which stage of the journey each piece serves, and what you want the reader to do next — content becomes one of the most predictable growth levers a B2B service business has.</p>
 
+        <!-- End-of-article CTA -->
+        <div class="article-cta">
+          <h3>Ready to build a content system that generates real pipeline?</h3>
+          <p>We help B2B teams turn scattered content efforts into a coordinated inbound system — mapped to the buyer journey and built to convert.</p>
+          <a href="../index.html#contact" class="btn-primary">Talk to a Strategist &rarr;</a>
+        </div>
+
       </article>
 
       <aside class="article-sidebar">
@@ -221,5 +258,6 @@
   </footer>
 
   <script src="theme.js"></script>
+  <script src="blog.js"></script>
 </body>
 </html>
