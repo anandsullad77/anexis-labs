@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Measure B2B Marketing ROI Without Getting Lost in Vanity Metrics | Anexis Labs</title>
+<meta name="description" content="Most B2B marketing reports track the wrong numbers. Here's how to build a measurement framework that connects marketing activity directly to revenue — and tells you what to do next.">
+<meta name="keywords" content="B2B marketing ROI, how to measure marketing ROI, B2B marketing metrics, marketing attribution B2B, B2B reporting framework">
+<meta property="og:title" content="How to Measure B2B Marketing ROI Without Getting Lost in Vanity Metrics">
+<meta property="og:description" content="Impressions and follower counts feel like progress but don't predict revenue. Here's the measurement framework B2B service businesses actually need.">
+<meta property="og:type" content="article">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  <button id="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 12V4M4 7.5 8 4l4 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <div class="nav-wrapper">
+    <nav>
+      <a href="../index.html" class="logo"><span class="logo-mark"></span><span>Anexis Labs</span></a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../blogs.html" class="active">Blogs</a></li>
+          <li><a href="../index.html#work">Case Studies</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+        <div class="desktop-actions">
+          <button class="theme-toggle-btn" type="button" onclick="toggleTheme()" aria-label="Toggle theme" data-theme-toggle></button>
+          <a href="../index.html#contact" class="nav-cta">Talk to a Strategist</a>
+        </div>
+      </div>
+      <button class="hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="../index.html">Home</a>
+    <a href="../blogs.html">Blogs</a>
+    <a href="../index.html#work">Case Studies</a>
+    <a href="../index.html#process">About Us</a>
+    <a href="../index.html#contact">Contact</a>
+    <a href="../index.html#contact" class="mobile-cta">Talk to a Strategist</a>
+  </div>
+
+  <main>
+    <section class="article-hero">
+      <div class="article-header">
+        <a href="../blogs.html" class="article-back">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          All articles
+        </a>
+        <div class="article-kicker">Strategy</div>
+        <h1 class="hero-title">How to measure B2B marketing ROI without getting lost in vanity metrics.</h1>
+        <p class="hero-summary">Most B2B marketing reports are full of numbers that feel important but have no relationship to revenue. Building a measurement framework means identifying the few metrics that actually predict pipeline — and ignoring the rest.</p>
+        <div class="hero-meta"><span>By Anand</span><span>March 25, 2026</span><span>7 min read</span></div>
+      </div>
+      <div class="article-banner" style="background-image:url('https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=1400&q=80');"></div>
+    </section>
+
+    <div class="mobile-toc-wrap" id="mobile-toc-wrap">
+      <button class="mobile-toc-toggle" id="mobile-toc-toggle" onclick="toggleMobileToc()" aria-expanded="false" aria-controls="mobile-toc-list">
+        <span>Jump to section</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="mobile-toc-list" id="mobile-toc-list" role="navigation" aria-label="Article sections">
+        <ul>
+          <li><a href="#why-hard" onclick="closeMobileToc()">Why measuring ROI is hard</a></li>
+          <li><a href="#vanity" onclick="closeMobileToc()">The vanity metric trap</a></li>
+          <li><a href="#metrics" onclick="closeMobileToc()">Metrics that actually matter</a></li>
+          <li><a href="#attribution" onclick="closeMobileToc()">Solving attribution</a></li>
+          <li><a href="#reporting" onclick="closeMobileToc()">What a useful report looks like</a></li>
+          <li><a href="#cadence" onclick="closeMobileToc()">Review cadence</a></li>
+          <li><a href="#close" onclick="closeMobileToc()">Measure what moves deals</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <section class="article-layout">
+      <article class="article-body">
+
+        <p>There are two kinds of B2B marketing teams: those that can walk into a board meeting and explain exactly how marketing contributed to last quarter's revenue, and those that present a slide full of impressions, follower growth, and email open rates and hope no one asks too many questions.</p>
+
+        <p>The gap between these two teams is not budget or headcount. It is measurement discipline. And the reason most B2B marketing measurement is poor is not that people lack tools — it is that the tools default to tracking what is easy to measure rather than what matters for business outcomes.</p>
+
+        <h2 id="why-hard">Why measuring B2B marketing ROI is genuinely difficult</h2>
+
+        <p>B2B sales cycles are long. For many service businesses, the time between first touch and closed deal is ninety days to twelve months. Marketing activity that runs today may produce revenue that closes in Q3 next year — and by then, the attribution has become murky, the original source has been overwritten by later touches, and the connection between the campaign and the contract is lost in the noise.</p>
+
+        <p>B2B purchase decisions are also multi-stakeholder. The person who reads a blog post is often not the person who signs the contract. A CFO who approved a deal may have first heard about the company through a LinkedIn post, then asked a direct report to evaluate options, then received a proposal that included a case study. Which marketing asset gets credit? In most CRMs, the answer is "none of them, because no one logged it."</p>
+
+        <p>These are real constraints. The right response is not to give up on measurement but to build a framework that acknowledges the complexity and focuses on the signals that are actually trackable and meaningful.</p>
+
+        <h2 id="vanity">The vanity metric trap and why it persists</h2>
+
+        <p>Vanity metrics — impressions, reach, follower counts, page views, email open rates — persist in marketing reports because they are easy to produce, tend to go up over time, and look like progress without requiring any explanation of business impact. They are not meaningless in isolation, but they become harmful when they dominate the measurement conversation and displace the metrics that actually connect to revenue.</p>
+
+        <p>The most common vanity metric in B2B marketing is website traffic. A business that reports "traffic grew 40% this quarter" may have genuinely improved its organic reach — or may have attracted a larger audience of people who will never buy. Without knowing what the traffic did, the number is ambiguous. Traffic growth only matters if it is correlated with inquiry growth from the right type of visitor.</p>
+
+        <p>Social media engagement has the same problem. A post that generates hundreds of likes from a non-buyer audience is a worse result than a post that generates five thoughtful comments from decision-makers at target accounts. Engagement metrics need to be qualified by who is engaging, and that data is rarely reported.</p>
+
+        <h2 id="metrics">The metrics that actually predict revenue</h2>
+
+        <p>For a B2B service business, the metrics worth tracking consistently are:</p>
+
+        <p><strong>ICP match rate.</strong> Of the inquiries that arrive, what percentage meet your ideal client profile criteria? This is the most direct signal of whether your positioning and content are attracting the right buyers. If the ICP match rate is 25%, three-quarters of your sales effort is being wasted on unqualified leads regardless of how good your sales process is.</p>
+
+        <p><strong>Qualified pipeline value generated per channel.</strong> Not lead volume per channel — qualified pipeline value. For each marketing channel, what is the aggregate value of deals that reached a meaningful stage in the sales process and that originated from that channel? This allows direct comparison across channels that may have very different lead volumes but similar or different pipeline contributions.</p>
+
+        <p><strong>Content-influenced close rate.</strong> For deals that closed, what proportion of buyers had engaged with your content before or during the sales process? This is harder to track but highly informative. If buyers who read at least one article close at twice the rate of those who didn't, that is a strong signal about the role content plays in building purchase confidence.</p>
+
+        <p><strong>Discovery call to proposal rate.</strong> This is a joint marketing and sales signal. If a high proportion of discovery calls are not progressing to proposal stage, either the qualification is failing before the call or the positioning is creating mismatched expectations. Marketing owns the expectation-setting that happens before a buyer ever speaks to a salesperson.</p>
+
+        <p><strong>Cost per qualified lead, not cost per lead.</strong> The denominator matters. A channel that generates 100 leads at £5 each but with an ICP match rate of 10% costs £500 per qualified lead. A channel that generates 20 leads at £25 each with an ICP match rate of 70% costs £36 per qualified lead. The second channel is dramatically more efficient despite appearing more expensive on a cost-per-lead basis.</p>
+
+        <h2 id="attribution">How to approach attribution without perfect data</h2>
+
+        <p>Perfect attribution is not achievable in most B2B service businesses. The goal is not accuracy to the last click but a directional understanding of which channels and content types are contributing to pipeline. That requires a few consistent practices.</p>
+
+        <p>Ask every new client how they first heard about you, and how they found you when they were ready to engage — these are often different answers. The first question reveals brand awareness sources; the second reveals the trigger for action. Both are valuable and neither appears reliably in analytics tools.</p>
+
+        <p>Track "last meaningful touch" rather than last click. The contact form source in your analytics is typically the last-click channel, which is often branded search or direct. The meaningful channel is the one that built enough trust that the buyer eventually sought out your website to submit a form. That often can't be tracked in GA4 alone — it requires asking.</p>
+
+        <p>Build a simple first-party attribution log: a spreadsheet or CRM field where every new qualified inquiry is tagged with the channel or piece of content that drove the inquiry, based on what the prospect told you. Over six to twelve months, this dataset becomes significantly more useful than any automated attribution model.</p>
+
+        <h2 id="reporting">What a useful B2B marketing report looks like</h2>
+
+        <p>A useful marketing report covers three time horizons: this month's leading indicators, this quarter's pipeline metrics, and trailing twelve months' revenue contribution. Each answers a different question.</p>
+
+        <p>The monthly leading indicators section covers content production volume, organic reach to ICP audience, new qualified connections or opt-ins, and website visits from target industries. These numbers don't predict this month's revenue — they predict pipeline three to six months from now.</p>
+
+        <p>The quarterly pipeline metrics section covers total inquiries, ICP match rate, qualified pipeline value created, discovery-to-proposal conversion rate, and channel attribution breakdown. This is the section that explains where revenue is coming from and which acquisition sources are performing.</p>
+
+        <p>The trailing twelve months section covers revenue by client acquisition source, average deal value trends, and content-influenced revenue as a proportion of total. This is the section that justifies marketing investment in terms a CFO or business owner can evaluate against other uses of capital.</p>
+
+        <h2 id="cadence">The review cadence that actually works</h2>
+
+        <p>Weekly vanity metric check-ins encourage short-term optimisation and distract from the longer cycle of B2B marketing. The right cadence for a B2B service business is a monthly review of leading indicators and a quarterly review of pipeline and revenue contribution.</p>
+
+        <p>Monthly reviews should take thirty minutes and focus on: are the right leading indicators trending in the right direction? Is ICP match rate stable or improving? Are there any early signals of a channel that is underperforming or over-performing versus expectations?</p>
+
+        <p>Quarterly reviews should take two hours and answer the question: given what we know about which channels and content types are producing qualified pipeline, what should we change, increase, or stop in the next quarter? This is where strategic marketing decisions should be made — not in response to a bad week of traffic or a post that underperformed.</p>
+
+        <h2 id="close">Measure what moves deals, ignore what doesn't</h2>
+
+        <p>The discipline of B2B marketing measurement is not adding more metrics — it is having the confidence to remove the ones that aren't connected to revenue outcomes. Every metric on a dashboard that doesn't inform a decision is noise that makes the signal harder to find.</p>
+
+        <p>When a B2B service business can answer three questions confidently — where are our qualified leads coming from, what is the cost of acquiring them, and what closes them — it has everything it needs to make good marketing decisions. Building to that clarity takes six to twelve months of consistent tracking, but it is the foundation on which every other marketing investment decision should be made.</p>
+
+        <!-- End-of-article CTA -->
+        <div class="article-cta">
+          <h3>Want a reporting framework that connects marketing activity to revenue?</h3>
+          <p>We build measurement systems for B2B service businesses that replace vanity dashboards with the pipeline and revenue metrics that actually inform decisions.</p>
+          <a href="../index.html#contact" class="btn-primary">Talk to a Strategist &rarr;</a>
+        </div>
+
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">In This Article</h3>
+          <ul class="toc">
+            <li><a href="#why-hard">Why measuring ROI is hard</a></li>
+            <li><a href="#vanity">The vanity metric trap</a></li>
+            <li><a href="#metrics">Metrics that actually matter</a></li>
+            <li><a href="#attribution">Solving attribution</a></li>
+            <li><a href="#reporting">What a useful report looks like</a></li>
+            <li><a href="#cadence">Review cadence</a></li>
+            <li><a href="#close">Measure what moves deals</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Related Posts</h3>
+          <ul class="related-links">
+            <li><a href="why-b2b-companies-attract-wrong-leads.html">Why B2B companies keep attracting the wrong leads</a></li>
+            <li><a href="what-to-fix-before-spending-more-on-ads.html">What to fix before spending more on ads</a></li>
+            <li><a href="how-b2b-companies-turn-content-into-repeatable-inbound-system.html">Turn content into a repeatable inbound system</a></li>
+            <li><a href="../blogs.html">Back to all posts</a></li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <span class="logo-mark"></span>
+          <span>Anexis Labs</span>
+        </a>
+        <p>The engineer's approach to marketing.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Solutions</h4>
+          <a href="../b2b-digital-marketing.html">B2B Digital Marketing</a>
+          <a href="#">Performance Marketing</a>
+          <a href="#">LinkedIn Marketing</a>
+          <a href="#">Personal Branding</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">Case Studies</a>
+          <a href="../index.html#process">About</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="../blogs.html">Blog</a>
+          <a href="../work-policy.html">Work Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Anexis Labs. All rights reserved.</p>
+      <p>Bangalore, India &middot; Global Clients</p>
+      <p><a href="../privacy-policy.html">Privacy Policy</a></p>
+    </div>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script src="blog.js"></script>
+</body>
+</html>

@@ -2051,6 +2051,30 @@ body:not(.light) .testi-logo-wrap {
     overflow: hidden;
   }
 
+  /* Noise texture — matches body::before */
+  #pageLoader::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.38;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Grid pattern — matches body::after */
+  #pageLoader::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
   #pageLoader.hidden {
     opacity: 0;
     visibility: hidden;
@@ -2061,22 +2085,39 @@ body:not(.light) .testi-logo-wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Radial glow behind content */
+  .ldr-content::before {
+    content: "";
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,180,216,0.12) 0%, transparent 65%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: -1;
   }
 
   /* Glowing mark */
   .ldr-mark {
     position: relative;
-    width: 44px;
-    height: 44px;
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
   }
 
   .ldr-dot {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: #00B4D8;
     box-shadow: 0 0 18px rgba(0,180,216,0.95), 0 0 36px rgba(0,180,216,0.4);
@@ -2144,10 +2185,10 @@ body:not(.light) .testi-logo-wrap {
 
   /* Progress line */
   .ldr-bar-track {
-    width: 96px;
-    height: 1px;
+    width: 120px;
+    height: 2px;
     background: rgba(255,255,255,0.07);
-    margin-top: 40px;
+    margin-top: 20px;
     border-radius: 1px;
     overflow: hidden;
     opacity: 0;
@@ -2865,10 +2906,18 @@ body:not(.light) .testi-logo-wrap {
       if (loader) loader.classList.add('hidden');
       setTimeout(function () {
         if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
-      }, 750);
+      }, 700);
     }
 
-    const minTime = 1500;
+    // Only show loader once per session
+    if (sessionStorage.getItem('loaderShown')) {
+      hideLoader();
+      return;
+    }
+
+    sessionStorage.setItem('loaderShown', '1');
+
+    const minTime = 1000;
     const startTime = Date.now();
 
     window.addEventListener('load', function () {
@@ -2877,7 +2926,7 @@ body:not(.light) .testi-logo-wrap {
       setTimeout(hideLoader, remaining);
     });
 
-    setTimeout(hideLoader, 3200);
+    setTimeout(hideLoader, 2000);
   })();
 
   function updateThemeToggleIcons() {

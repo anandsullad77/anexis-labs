@@ -411,7 +411,7 @@
   }
 
   .blog-card {
-    padding: 0 0 28px;
+    padding: 0;
   }
 
   .blog-thumb {
@@ -422,21 +422,20 @@
   }
 
   .blog-body {
-    padding: 26px 26px 0;
+    padding: 24px 26px 20px;
+    flex: 1;
   }
 
   .blog-card h3 {
-    font-size: 22px;
-    letter-spacing: -0.8px;
+    font-size: 20px;
+    letter-spacing: -0.6px;
+    margin-bottom: 10px;
   }
 
-  .read-link {
-    padding: 13px 18px;
-    border-radius: 14px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  .blog-card p {
     font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
   }
 
   .mini-list {
@@ -874,18 +873,30 @@
 
   /* ── TABLET (≤1040px) ── */
   @media (max-width: 1040px) {
-    .hero { grid-template-columns: 1fr; padding-top: 140px; }
+    .hero {
+      grid-template-columns: 1fr;
+      padding-top: 140px;
+      padding-bottom: 40px;
+      min-height: 0;
+      gap: 28px;
+    }
+
+    /* Limit hero panel width on tablet so it doesn't stretch full width */
+    .hero-panel { max-width: 640px; }
 
     /* featured: image stacks above content */
     .featured-article { grid-template-columns: 1fr; }
-    .featured-article-image { min-height: 300px; aspect-ratio: 16 / 9; }
-    .featured-article-content { border-left: none; border-top: 1px solid var(--border); }
+    .featured-article-image { min-height: 280px; aspect-ratio: 16 / 9; }
+    .featured-article-content { border-left: none; border-top: 1px solid var(--border); padding: 32px 28px; }
 
     /* 3-col blog grid → 2 col */
     .blog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
     /* 4-col insights → 2 col */
     .insights-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    /* Section padding reduced on tablet */
+    #featured, #all-posts { padding-top: 48px; padding-bottom: 48px; }
   }
 
   /* ── MOBILE NAV (≤860px) ── */
@@ -910,7 +921,8 @@
     .hamburger { display: flex; }
 
     /* hero padding-top accounts for flush 68px nav */
-    .hero { padding-top: 100px; }
+    .hero { padding-top: 100px; padding-bottom: 32px; }
+    #featured, #all-posts { padding-top: 40px; padding-bottom: 40px; }
   }
 
   /* ── MOBILE (≤720px) ── */
@@ -925,14 +937,17 @@
 
     .hero {
       padding-top: 88px;
-      padding-bottom: 48px;
+      padding-bottom: 20px;
+      min-height: 0;
     }
 
-    .hero h1,
-    .section-title {
-      letter-spacing: -1.4px;
-      font-size: clamp(34px, 8vw, 56px);
-    }
+    /* Reduce section vertical padding — 110px is too much on mobile */
+    #featured, #all-posts { padding-top: 32px; padding-bottom: 32px; }
+
+    .hero h1 { letter-spacing: -1.4px; font-size: clamp(32px, 8vw, 52px); }
+    .section-title { font-size: clamp(28px, 8vw, 44px); letter-spacing: -1.2px; margin-bottom: 10px; }
+    .post-count-badge { margin-left: 8px; font-size: 10px; padding: 2px 8px; }
+    .section-sub { font-size: 15px; margin-bottom: 0; }
 
     /* 2-col blog grid → 1 col */
     .blog-grid { grid-template-columns: 1fr; }
@@ -940,28 +955,25 @@
     /* secondary cards → 1 col */
     .secondary-grid { grid-template-columns: 1fr; }
 
-    /* newsletter strip */
-    .newsletter-strip-inner { padding: 36px 20px; flex-direction: column; gap: 28px; }
-    .newsletter-strip .newsletter-form { flex-basis: 100%; }
+    /* newsletter strip — full stack */
+    .newsletter-strip-inner { padding: 36px 20px; flex-direction: column; gap: 24px; justify-content: flex-start; }
+    .newsletter-strip-text { flex: 0 0 auto; }
+    .newsletter-strip .newsletter-form { flex: 0 0 auto; width: 100%; flex-direction: column; }
+    .newsletter-strip .newsletter-form input { flex-basis: auto; width: 100%; }
+    .newsletter-strip .newsletter-form button { width: 100%; }
 
-    .featured-article-content { padding: 28px 22px; }
-
-    /* 2-col insights → 2 col (keep 2x2 layout) */
-    .insights-inner {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      padding-left: 20px;
-      padding-right: 20px;
-    }
+    /* featured article */
+    .featured-article-image { min-height: 200px; }
+    .featured-article-content { padding: 24px 20px; gap: 12px; }
+    .featured-article-title { font-size: 20px; letter-spacing: -0.6px; }
 
     .featured-card,
     .blog-card,
     .newsletter-card {
-      border-radius: 20px;
+      border-radius: 18px;
     }
 
-    .featured-card { min-height: 420px; padding: 24px; }
-
-    .section-sub { font-size: 16px; }
+    .featured-card { min-height: 380px; padding: 24px; }
 
     footer { padding-top: 40px; padding-bottom: 40px; }
     .footer-inner { flex-direction: column; gap: 28px; }
@@ -1073,24 +1085,6 @@
     letter-spacing: 0.8px;
   }
 
-  /* ── READ LINK ARROW ANIMATION ── */
-  .read-link {
-    gap: 6px;
-    position: relative;
-    overflow: hidden;
-  }
-  .read-link::after {
-    content: '→';
-    font-size: 13px;
-    opacity: 0;
-    transform: translateX(-8px);
-    transition: opacity 0.2s, transform 0.2s;
-    margin-left: 0;
-  }
-  .blog-card:hover .read-link::after {
-    opacity: 1;
-    transform: translateX(0);
-  }
 
   /* ── NEWSLETTER STRIP GLOW ── */
   .newsletter-strip {
@@ -1133,14 +1127,6 @@
     transform: translateY(-2px);
   }
 
-  /* ── HERO PANEL ITEM HOVER ── */
-  .panel-list li {
-    transition: background 0.22s, border-color 0.22s;
-  }
-  .panel-list li:hover {
-    background: rgba(0,180,216,0.07);
-    border-color: rgba(0,180,216,0.22);
-  }
 
   /* ── HERO ANIMATION ── */
   .hero-left .hero-label { animation: fadeUp 0.6s ease forwards 0.15s; opacity: 0; }
@@ -1148,6 +1134,314 @@
   .hero-left .hero-sub   { animation: fadeUp 0.7s ease forwards 0.45s; opacity: 0; }
   .hero-left .hero-actions { animation: fadeUp 0.7s ease forwards 0.60s; opacity: 0; }
   .hero-panel            { animation: fadeUp 0.7s ease forwards 0.50s; opacity: 0; }
+
+  /* ── TOPIC CHIPS (hero panel redesign) ── */
+  .topic-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .topic-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px 16px;
+    border-radius: 16px;
+    border: 1px solid var(--border2);
+    background: rgba(255,255,255,0.025);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.22s, border-color 0.22s, transform 0.22s;
+  }
+  .topic-chip:hover {
+    background: var(--blue-dim);
+    border-color: rgba(0,180,216,0.3);
+    transform: translateY(-2px);
+  }
+  .topic-chip-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topic-chip-icon {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: var(--blue-dim);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .topic-chip-count {
+    background: var(--bg3);
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 999px;
+    letter-spacing: 0.3px;
+  }
+  .topic-chip:hover .topic-chip-count {
+    background: rgba(0,180,216,0.15);
+    color: var(--blue);
+  }
+  .topic-chip-name {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .topic-chip-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .panel-stat-row {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .panel-stat-row span {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .panel-stat-row strong {
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  /* ── CATEGORY FILTER BAR ── */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    margin-bottom: 8px;
+    align-items: center;
+  }
+  .filter-bar-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 4px;
+  }
+  .filter-pill {
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    white-space: nowrap;
+  }
+  .filter-pill:hover {
+    background: var(--blue-dim);
+    border-color: rgba(0,180,216,0.3);
+    color: var(--blue);
+  }
+  .filter-pill.active {
+    background: var(--blue-dim);
+    border-color: rgba(0,180,216,0.45);
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  /* ── BLOG CARD AS FULL LINK ── */
+  a.blog-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+  .blog-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 26px 20px;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+  .blog-card-read {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 600;
+    transition: gap 0.18s;
+  }
+  a.blog-card:hover .blog-card-read { gap: 10px; }
+  .blog-card-footer-meta {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── NO FILTER RESULTS ── */
+  .no-results-msg {
+    display: none;
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 64px 20px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .no-results-msg.visible { display: block; }
+
+  /* ── POST COUNT BADGE ── */
+  .post-count-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--blue-dim);
+    border: 1px solid rgba(0,180,216,0.22);
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-left: 12px;
+    vertical-align: middle;
+    letter-spacing: 0.3px;
+    font-family: var(--font-body);
+  }
+
+  /* ── PAGINATION ── */
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 48px;
+  }
+  .page-btn {
+    min-width: 40px;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .page-btn:hover:not(:disabled) {
+    background: var(--blue-dim);
+    border-color: rgba(0,180,216,0.3);
+    color: var(--blue);
+  }
+  .page-btn.active {
+    background: var(--blue-dim);
+    border-color: rgba(0,180,216,0.45);
+    color: var(--blue);
+    font-weight: 700;
+  }
+  .page-btn:disabled {
+    opacity: 0.28;
+    cursor: not-allowed;
+  }
+  .page-info {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 8px;
+  }
+
+  /* ── SECTION BACKGROUND ALTERNATION ── */
+  .section-alt {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── MOBILE SPECIFIC (≤720px) — new components ── */
+  @media (max-width: 720px) {
+    /* Topic chips — keep 2-col, drop description to save height */
+    .topic-grid { grid-template-columns: 1fr 1fr; }
+    .topic-chip-desc { display: none; }
+    .topic-chip { padding: 12px; gap: 6px; border-radius: 14px; }
+    .panel-stat-row { padding-top: 10px; margin-top: 10px; }
+
+    /* Filter bar — horizontal scroll (like app tab bars) */
+    .filter-bar {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+      margin-right: -20px;
+      padding-right: 20px;
+      margin-top: 20px;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-bar-label { display: none; }
+    .filter-pill { flex-shrink: 0; padding: 7px 14px; }
+
+    /* Tighten grid and featured article spacing on mobile */
+    .blog-grid { margin-top: 20px; gap: 16px; }
+    .featured-article { margin-top: 20px; }
+
+    /* Blog card footer */
+    .blog-card-footer { padding: 10px 18px 16px; }
+    .blog-card-read { font-size: 12px; }
+    .blog-card-footer-meta { font-size: 11px; }
+  }
+
+  /* ── SMALL MOBILE (≤480px) ── */
+  @media (max-width: 480px) {
+    /* Hero heading and sub */
+    .hero h1 { font-size: clamp(26px, 9vw, 34px); letter-spacing: -0.8px; }
+    .hero-sub { font-size: 14px; }
+
+    /* Stack hero CTA buttons */
+    .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; }
+    .hero-actions a { text-align: center; justify-content: center; padding: 14px 20px; font-size: 14px; }
+
+    /* Post count badge too tight — hide it */
+    .post-count-badge { display: none; }
+
+    /* Further reduce section padding */
+    #featured, #all-posts { padding-top: 28px; padding-bottom: 28px; }
+
+    /* Featured article */
+    .featured-article-content { padding: 20px 16px; gap: 10px; }
+    .featured-article-title { font-size: 18px; }
+    .featured-article-summary { font-size: 14px; }
+
+    /* Tighter hero panel */
+    .hero-panel { padding: 20px 18px; border-radius: 20px; }
+    .topic-chip { padding: 10px 12px; }
+    .topic-chip-icon { width: 26px; height: 26px; border-radius: 6px; }
+    .topic-chip-name { font-size: 12px; }
+    .topic-chip-count { font-size: 9px; padding: 1px 6px; }
+
+    /* Section label */
+    .section-label { font-size: 10px; letter-spacing: 2px; }
+
+    /* Blog card */
+    .blog-card h3 { font-size: 18px; }
+    .blog-body { padding: 18px 18px 16px; }
+
+    /* Footer */
+    footer { padding-left: 16px; padding-right: 16px; }
+  }
 </style>
 </head>
 <body>
@@ -1203,13 +1497,58 @@
       </div>
 
       <aside class="hero-panel">
-        <div class="panel-kicker">What We Cover</div>
-        <ul class="panel-list">
-          <li><strong>B2B Content Systems</strong> — how to build inbound engines that generate qualified leads consistently.</li>
-          <li><strong>Website &amp; Conversion</strong> — fixing the messaging, proof, and flow before spending on traffic.</li>
-          <li><strong>Founder Branding</strong> — making your expertise visible in a way that builds trust at scale.</li>
-          <li><strong>Performance Marketing</strong> — what to tighten before increasing ad spend.</li>
-        </ul>
+        <div class="panel-kicker">Topics We Cover</div>
+        <div class="topic-grid">
+
+          <a href="#all-posts" class="topic-chip">
+            <div class="topic-chip-top">
+              <div class="topic-chip-icon">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 5h8M4 8h8M4 11h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <span class="topic-chip-count">4 articles</span>
+            </div>
+            <span class="topic-chip-name">B2B Content Systems</span>
+            <span class="topic-chip-desc">Inbound engines &amp; content strategy</span>
+          </a>
+
+          <a href="#all-posts" class="topic-chip">
+            <div class="topic-chip-top">
+              <div class="topic-chip-icon">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 6.5h12" stroke="currentColor" stroke-width="1.5"/></svg>
+              </div>
+              <span class="topic-chip-count">3 articles</span>
+            </div>
+            <span class="topic-chip-name">Website &amp; Conversion</span>
+            <span class="topic-chip-desc">Fix before spending on traffic</span>
+          </a>
+
+          <a href="#all-posts" class="topic-chip">
+            <div class="topic-chip-top">
+              <div class="topic-chip-icon">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 13.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <span class="topic-chip-count">3 articles</span>
+            </div>
+            <span class="topic-chip-name">Founder Branding</span>
+            <span class="topic-chip-desc">Visibility that builds trust at scale</span>
+          </a>
+
+          <a href="#all-posts" class="topic-chip">
+            <div class="topic-chip-top">
+              <div class="topic-chip-icon">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 12l4-5 3 3.5 5-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="topic-chip-count">2 articles</span>
+            </div>
+            <span class="topic-chip-name">Performance Marketing</span>
+            <span class="topic-chip-desc">Before scaling your ad spend</span>
+          </a>
+
+        </div>
+        <div class="panel-stat-row">
+          <span>12 articles published</span>
+          <strong>Updated April 2026</strong>
+        </div>
       </aside>
     </section>
 
@@ -1234,37 +1573,6 @@
         </div>
       </a>
 
-      <div class="secondary-grid">
-        <a class="secondary-card reveal reveal-delay-1" href="blogs/why-your-website-should-support-sales-conversations.html">
-          <div class="secondary-card-image">
-            <div class="secondary-card-image-inner" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80');"></div>
-          </div>
-          <div class="secondary-card-body">
-            <div class="card-tag">Growth</div>
-            <h4 class="secondary-card-title">Why your website should support sales conversations, not just look polished.</h4>
-            <div class="secondary-card-meta">April 12, 2026 &middot; 6 min read</div>
-            <span class="secondary-card-cta">
-              Read Article
-              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="secondary-card reveal reveal-delay-2" href="blogs/what-personal-branding-means-for-founders-in-b2b-services.html">
-          <div class="secondary-card-image">
-            <div class="secondary-card-image-inner" style="background-image:url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=900&q=80');"></div>
-          </div>
-          <div class="secondary-card-body">
-            <div class="card-tag">Brand</div>
-            <h4 class="secondary-card-title">What personal branding actually means for founders in B2B services.</h4>
-            <div class="secondary-card-meta">April 8, 2026 &middot; 7 min read</div>
-            <span class="secondary-card-cta">
-              Read Article
-              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-          </div>
-        </a>
-      </div>
     </section>
 
     <div class="newsletter-strip">
@@ -1283,60 +1591,250 @@
 
     <section id="all-posts">
       <div class="section-label reveal">All Posts</div>
-      <h2 class="section-title reveal reveal-delay-1">Every article, in one place.</h2>
+      <h2 class="section-title reveal reveal-delay-1">
+        Every article, in one place.
+        <span class="post-count-badge">12 articles</span>
+      </h2>
       <p class="section-sub reveal reveal-delay-2">
         Practical strategy for B2B founders and growth leads. Each piece is built around a single idea and written to be actionable — not just readable.
       </p>
 
-      <div class="blog-grid">
-        <article class="blog-card reveal">
+      <div class="filter-bar reveal reveal-delay-3">
+        <span class="filter-bar-label">Filter</span>
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="b2b-marketing">B2B Marketing</button>
+        <button class="filter-pill" data-filter="linkedin">LinkedIn</button>
+        <button class="filter-pill" data-filter="performance">Performance</button>
+        <button class="filter-pill" data-filter="growth">Growth</button>
+        <button class="filter-pill" data-filter="brand">Brand</button>
+        <button class="filter-pill" data-filter="content">Content</button>
+        <button class="filter-pill" data-filter="strategy">Strategy</button>
+      </div>
+
+      <div class="blog-grid" id="blog-grid">
+
+        <a class="blog-card reveal" href="blogs/why-most-service-websites-fail-before-traffic.html" data-cat="b2b-marketing">
           <div class="blog-thumb">
             <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80');"></div>
           </div>
           <div class="blog-body">
             <div class="card-tag">B2B Marketing</div>
             <h3>Why most service websites fail before traffic even becomes the problem.</h3>
-            <div class="card-meta">
-              <span>April 10, 2026</span>
-              <span>6 min read</span>
-            </div>
             <p>Message clarity, trust placement, and a clear next step — fix these before you even think about getting more visitors.</p>
-            <a href="blogs/why-most-service-websites-fail-before-traffic.html" class="read-link">Read More</a>
           </div>
-        </article>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">April 10 · 6 min</span>
+          </div>
+        </a>
 
-        <article class="blog-card reveal reveal-delay-1">
+        <a class="blog-card reveal reveal-delay-1" href="blogs/founder-led-content-workflow.html" data-cat="linkedin">
           <div class="blog-thumb">
             <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80');"></div>
           </div>
           <div class="blog-body">
             <div class="card-tag">LinkedIn</div>
             <h3>A founder-led content workflow that does not take over your calendar.</h3>
-            <div class="card-meta">
-              <span>April 5, 2026</span>
-              <span>5 min read</span>
-            </div>
-            <p>Build a repeatable content engine from voice notes, sales calls, and one weekly strategy session — without daily posting pressure.</p>
-            <a href="blogs/founder-led-content-workflow.html" class="read-link">Read More</a>
+            <p>Build a repeatable content engine from voice notes, sales calls, and one weekly session — without daily posting pressure.</p>
           </div>
-        </article>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">April 5 · 5 min</span>
+          </div>
+        </a>
 
-        <article class="blog-card reveal reveal-delay-2">
+        <a class="blog-card reveal reveal-delay-2" href="blogs/what-to-fix-before-spending-more-on-ads.html" data-cat="performance">
           <div class="blog-thumb">
             <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1516321165247-4aa89a48be28?auto=format&fit=crop&w=900&q=80');"></div>
           </div>
           <div class="blog-body">
             <div class="card-tag">Performance</div>
             <h3>What to fix before spending more on ads for a high-ticket service business.</h3>
-            <div class="card-meta">
-              <span>March 29, 2026</span>
-              <span>7 min read</span>
-            </div>
             <p>Paid traffic amplifies what already exists. If your offer, landing page, and qualification flow are unclear, more budget makes it worse.</p>
-            <a href="blogs/what-to-fix-before-spending-more-on-ads.html" class="read-link">Read More</a>
           </div>
-        </article>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">Mar 29 · 7 min</span>
+          </div>
+        </a>
+
+        <a class="blog-card reveal" href="blogs/why-your-website-should-support-sales-conversations.html" data-cat="growth">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
+          <div class="blog-body">
+            <div class="card-tag">Growth</div>
+            <h3>Why your website should support sales conversations, not just look polished.</h3>
+            <p>A strong B2B website reduces explanation time, surfaces trust signals, and helps the right buyers arrive at your call already oriented.</p>
+          </div>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">April 12 · 6 min</span>
+          </div>
+        </a>
+
+        <a class="blog-card reveal reveal-delay-1" href="blogs/what-personal-branding-means-for-founders-in-b2b-services.html" data-cat="brand">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
+          <div class="blog-body">
+            <div class="card-tag">Brand</div>
+            <h3>What personal branding actually means for founders in B2B services.</h3>
+            <p>The useful version is quieter and more durable — making your thinking visible to the specific people who might hire you.</p>
+          </div>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">April 8 · 7 min</span>
+          </div>
+        </a>
+
+        <a class="blog-card reveal reveal-delay-2" href="blogs/how-b2b-companies-turn-content-into-repeatable-inbound-system.html" data-cat="b2b-marketing">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
+          <div class="blog-body">
+            <div class="card-tag">B2B Marketing</div>
+            <h3>How B2B companies can turn content into a repeatable inbound system.</h3>
+            <p>A practical framework for using your blog, LinkedIn, and service pages as one coordinated system that creates trust before a sales call.</p>
+          </div>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">April 15 · 8 min</span>
+          </div>
+        </a>
+
+        <a class="blog-card reveal" href="blogs/why-b2b-companies-attract-wrong-leads.html" data-cat="b2b-marketing">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
+          <div class="blog-body">
+            <div class="card-tag">B2B Marketing</div>
+            <h3>Why B2B companies keep attracting the wrong leads — and how to fix it.</h3>
+            <p>A full pipeline of bad-fit leads is worse than a thin pipeline of good ones. Fix starts with positioning, not qualification.</p>
+          </div>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">Apr 3 · 6 min</span>
+          </div>
+        </a>
+
+        <a class="blog-card reveal reveal-delay-1" href="blogs/how-to-write-b2b-case-studies-that-close-deals.html" data-cat="content">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
+          <div class="blog-body">
+            <div class="card-tag">Content</div>
+            <h3>How to write B2B case studies that actually help close deals.</h3>
+            <p>Case studies are the highest-trust content you can publish — but only when written around the questions buyers actually ask.</p>
+          </div>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">Apr 11 · 7 min</span>
+          </div>
+        </a>
+
+        <a class="blog-card reveal reveal-delay-2" href="blogs/linkedin-lead-generation-for-b2b-service-businesses.html" data-cat="linkedin">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
+          <div class="blog-body">
+            <div class="card-tag">LinkedIn</div>
+            <h3>LinkedIn lead generation for B2B service businesses: what actually works.</h3>
+            <p>Most teams use LinkedIn like a broadcast channel. The ones generating pipeline treat it as a trust-building engine.</p>
+          </div>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">Apr 14 · 8 min</span>
+          </div>
+        </a>
+
+        <a class="blog-card reveal" href="blogs/how-to-measure-b2b-marketing-roi.html" data-cat="strategy">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
+          <div class="blog-body">
+            <div class="card-tag">Strategy</div>
+            <h3>How to measure B2B marketing ROI without getting lost in vanity metrics.</h3>
+            <p>Impressions and follower counts feel like progress. Here's the framework that connects marketing activity to revenue.</p>
+          </div>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">Mar 25 · 7 min</span>
+          </div>
+        </a>
+
+        <a class="blog-card reveal reveal-delay-1" href="blogs/seo-for-b2b-service-businesses.html" data-cat="growth">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
+          <div class="blog-body">
+            <div class="card-tag">Growth</div>
+            <h3>SEO for B2B service businesses: what actually moves the needle in 2026.</h3>
+            <p>Most SEO advice is written for e-commerce. Here's what works for service businesses trying to attract high-value clients organically.</p>
+          </div>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">Mar 20 · 8 min</span>
+          </div>
+        </a>
+
+        <a class="blog-card reveal reveal-delay-2" href="blogs/b2b-demand-generation-vs-lead-generation.html" data-cat="strategy">
+          <div class="blog-thumb">
+            <div class="blog-thumb-inner" style="background-image:url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=80');"></div>
+          </div>
+          <div class="blog-body">
+            <div class="card-tag">Strategy</div>
+            <h3>Demand generation vs lead generation: what B2B service businesses actually need.</h3>
+            <p>They target different buyer stages and produce different results. Choosing the wrong one for your stage wastes time and budget.</p>
+          </div>
+          <div class="blog-card-footer">
+            <span class="blog-card-read">
+              Read Article
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 7h11M8 2.5 12.5 7 8 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="blog-card-footer-meta">Mar 15 · 6 min</span>
+          </div>
+        </a>
+
+        <p class="no-results-msg" id="no-results">No articles in this category yet.</p>
+
       </div>
+
+      <div class="pagination" id="pagination"></div>
+
     </section>
   </main>
 
@@ -1368,7 +1866,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 Anexis Labs. All rights reserved.</p>
+      <p>&copy; 2026 Anexis Labs. All rights reserved.</p>
       <p>Bangalore, India &middot; Global Clients</p>
       <p><a href="privacy-policy.html">Privacy Policy</a></p>
     </div>
@@ -1415,6 +1913,88 @@
       document.body.classList.add('light');
     }
     updateThemeToggleIcons();
+
+    // ── PAGINATED FILTER ──
+    var POSTS_PER_PAGE = 9;
+    var currentPage = 1;
+    var currentFilter = 'all';
+
+    function getAllCards() {
+      return Array.from(document.querySelectorAll('#blog-grid .blog-card[data-cat]'));
+    }
+
+    function getFilteredCards() {
+      return getAllCards().filter(function(card) {
+        return currentFilter === 'all' || card.getAttribute('data-cat') === currentFilter;
+      });
+    }
+
+    function renderPage() {
+      var allCards = getAllCards();
+      var filtered = getFilteredCards();
+      var start = (currentPage - 1) * POSTS_PER_PAGE;
+      var end = start + POSTS_PER_PAGE;
+      var pageCards = filtered.slice(start, end);
+
+      // Hide all cards first
+      allCards.forEach(function(card) { card.style.display = 'none'; });
+
+      // Show only current page cards
+      pageCards.forEach(function(card) { card.style.display = ''; });
+
+      // No results message
+      var noResults = document.getElementById('no-results');
+      if (noResults) noResults.classList.toggle('visible', filtered.length === 0);
+
+      // Render pagination controls
+      renderPagination(filtered.length);
+    }
+
+    function renderPagination(total) {
+      var container = document.getElementById('pagination');
+      if (!container) return;
+      var totalPages = Math.ceil(total / POSTS_PER_PAGE);
+      if (totalPages <= 1) { container.innerHTML = ''; return; }
+
+      var html = '';
+
+      // Prev
+      html += '<button class="page-btn" onclick="goToPage(' + (currentPage - 1) + ')"' + (currentPage === 1 ? ' disabled' : '') + '>';
+      html += '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L5 7l4 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      html += '</button>';
+
+      // Page numbers
+      for (var i = 1; i <= totalPages; i++) {
+        html += '<button class="page-btn' + (i === currentPage ? ' active' : '') + '" onclick="goToPage(' + i + ')">' + i + '</button>';
+      }
+
+      // Next
+      html += '<button class="page-btn" onclick="goToPage(' + (currentPage + 1) + ')"' + (currentPage === totalPages ? ' disabled' : '') + '>';
+      html += '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l4 5-4 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      html += '</button>';
+
+      container.innerHTML = html;
+    }
+
+    function goToPage(page) {
+      currentPage = page;
+      renderPage();
+      document.getElementById('all-posts').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Filter pill click
+    document.querySelectorAll('.filter-pill').forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        currentFilter = this.getAttribute('data-filter');
+        currentPage = 1;
+        document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
+        this.classList.add('active');
+        renderPage();
+      });
+    });
+
+    // Initial render
+    renderPage();
 
     // Scroll reveal
     var revealObserver = new IntersectionObserver(function(entries) {
