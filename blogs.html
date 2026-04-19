@@ -43,7 +43,7 @@
     --faint: #a0aab4;
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
     background: var(--bg);
@@ -929,14 +929,16 @@
   .mobile-nav {
     display: none;
     position: fixed;
-    top: 78px; left: 0; right: 0;
-    background: var(--nav-bg);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 20px 32px 24px;
+    top: 68px; left: 0; right: 0; bottom: 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 20px 28px 24px;
     z-index: 99;
     flex-direction: column;
     gap: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
   .mobile-nav.open { display: flex; }
   .mobile-nav a {
@@ -1045,6 +1047,7 @@
 
     /* 2-col blog grid → 1 col */
     .blog-grid { grid-template-columns: 1fr; }
+    .featured-grid { grid-template-columns: 1fr; }
 
     /* secondary cards → 1 col */
     .secondary-grid { grid-template-columns: 1fr; }

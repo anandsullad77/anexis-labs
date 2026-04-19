@@ -1292,7 +1292,21 @@ body.light .svc-check-item.checked { border-color: rgba(0,144,176,0.35); }
 .stats-strip-inner, .steps-row { border-color: var(--border); }
 .stat-item { background: var(--bg2); border-color: var(--border); }
 
-.btn-outline { border-color: var(--border2); color: var(--text); }
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 16px 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
 .btn-outline:hover { background: var(--blue-dim); border-color: var(--blue); color: var(--blue); }
 
 footer {
@@ -1940,6 +1954,15 @@ footer {
     z-index: 1;
   }
 
+  .final-cta-case .final-cta-btns {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
   .final-cta-case h2 {
     margin-bottom: 16px;
   }
@@ -1998,9 +2021,12 @@ footer {
     .case-meta-strip,
     .cards-2,
     .cards-3,
-    .metric-grid,
     .deliverables-grid {
       grid-template-columns: 1fr;
+    }
+
+    .metric-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .timeline-step {
@@ -2024,6 +2050,173 @@ footer {
     .case-proof-section {
       padding-top: 56px;
     }
+  }
+
+  /* ── HERO CTA BUTTON ─────────────────────────────────────────────── */
+  .hero-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 28px;
+    padding: 12px 22px;
+    border-radius: 100px;
+    background: var(--blue);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.1px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    min-height: 44px;
+  }
+  .hero-cta-btn:hover {
+    background: #00cff5;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0,180,216,0.35);
+  }
+  .hero-cta-btn svg {
+    width: 14px; height: 14px;
+    stroke: currentColor; stroke-width: 2.2;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+
+  /* ── METRIC TREND INDICATOR ───────────────────────────────────────── */
+  .metric-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .metric-trend svg {
+    width: 12px; height: 12px;
+    stroke: currentColor; stroke-width: 2.4;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+  body.light .metric-trend { color: var(--green); }
+
+  /* ── PROOF PLATFORM BADGE ─────────────────────────────────────────── */
+  .proof-platform-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px 5px 6px;
+    border-radius: 999px;
+    background: rgba(10,102,194,0.12);
+    border: 1px solid rgba(10,102,194,0.2);
+    color: #0a66c2;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  body:not(.light) .proof-platform-badge {
+    background: rgba(10,102,194,0.15);
+    border-color: rgba(10,102,194,0.25);
+    color: #4a9fd4;
+  }
+  .proof-platform-badge svg {
+    width: 16px; height: 16px;
+    display: block; flex-shrink: 0;
+  }
+
+  /* ── CTA TRUST SIGNAL ─────────────────────────────────────────────── */
+  .cta-trust-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .cta-trust-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,180,216,0.35);
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--blue);
+    font-family: var(--font-display);
+    flex-shrink: 0;
+  }
+  .cta-trust-info { text-align: left; }
+  .cta-trust-name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .cta-trust-role {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+  .cta-trust-divider {
+    width: 1px; height: 28px;
+    background: var(--border2);
+    flex-shrink: 0;
+  }
+  .cta-trust-quote {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+    max-width: 280px;
+    line-height: 1.5;
+  }
+
+  /* ── HIDE BREADCRUMB ON TINY PHONES ──────────────────────────────── */
+  @media (max-width: 360px) {
+    .case-breadcrumb { display: none; }
+  }
+
+  /* ── SMALL PHONE (≤ 480px) ─────────────────────────────────────────── */
+  @media (max-width: 480px) {
+    .nav-wrapper { top: 0; width: 100%; max-width: 100%; transform: none; left: 0; }
+    nav { border-radius: 0; min-height: 60px; padding: 0 16px; }
+    .mobile-nav { top: 60px; padding: 16px 20px 20px; }
+    .logo img { height: 32px; }
+    .case-detail-hero { padding: 84px 16px 36px; }
+    .case-detail-hero h1 { font-size: clamp(26px, 9vw, 36px); letter-spacing: -1px; }
+    .case-subcopy { font-size: 14px; line-height: 1.75; }
+    .case-kicker { font-size: 10px; padding: 6px 12px; }
+    .case-breadcrumb { font-size: 11px; }
+    .case-hero-rail { grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+    .case-hero-pill { padding: 14px 16px; border-radius: 14px; }
+    .stats-row { flex-direction: column; margin-top: 32px; }
+    .stat-pill { border-right: none; border-bottom: 1px solid var(--border); padding: 16px 18px; }
+    .stat-pill:last-child { border-bottom: none; }
+    .stat-pill-num { font-size: 26px; }
+    .case-content-wrap, .final-cta-case { padding-left: 16px; padding-right: 16px; }
+    .case-content-wrap { padding-bottom: 56px; }
+    .section-label { font-size: 10px; }
+    .section-heading { font-size: clamp(22px, 7vw, 30px); letter-spacing: -0.8px; }
+    .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .metric-card { padding: 16px 14px; }
+    .metric-value { font-size: clamp(22px, 7vw, 30px); margin-bottom: 6px; }
+    .metric-note { font-size: 12px; line-height: 1.55; }
+    .timeline-step { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
+    .timeline-phase { font-size: 11px; }
+    .timeline-copy { font-size: 14px; }
+    .deliverable-card { padding: 18px 16px; }
+    .final-cta-case .final-cta-inner { padding: 24px 16px; border-radius: 16px; }
+    .final-cta-case .final-cta-title { font-size: clamp(20px, 6vw, 26px); }
+    .final-cta-case .final-cta-btns { flex-direction: column; }
+    .final-cta-case .btn-primary, .final-cta-case .btn-outline { width: 100%; text-align: center; }
+    .case-section, .case-proof-section { padding-top: 44px; }
+    .cards-2, .cards-3, .deliverables-grid { grid-template-columns: 1fr; }
+    .case-meta-strip { grid-template-columns: 1fr 1fr; gap: 10px; }
   }
 
 </style>
@@ -2131,6 +2324,11 @@ footer {
             <p>Built around people actively searching for mattresses and bedding nearby.</p>
           </div>
         </div>
+
+        <a href="#metrics" class="hero-cta-btn">
+          See the full results
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </a>
       </div>
     </div>
 
@@ -2190,7 +2388,7 @@ footer {
     </div>
   </section>
 
-  <section class="case-section">
+  <section class="case-section" id="metrics">
     <div class="section-head">
       <div class="section-index">04</div>
       <h2 class="section-title">Key metrics / outcomes</h2>
@@ -2198,21 +2396,25 @@ footer {
     <p class="section-copy">The campaign translated a small Google Search budget into meaningful local buying signals. Instead of chasing vanity traffic, the account generated actions tied to real shopping intent such as calls, directions, engagement, and page views.</p>
     <div class="metric-grid">
       <div class="metric-card">
+        <div class="metric-trend"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>Campaign total</div>
         <div class="metric-label">Results</div>
         <div class="metric-value">49</div>
         <div class="metric-note">Total tracked results from Google Search on just $178.59 in spend.</div>
       </div>
       <div class="metric-card">
+        <div class="metric-trend"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>Campaign clicks</div>
         <div class="metric-label">Clicks</div>
         <div class="metric-value">57</div>
         <div class="metric-note">High-intent interactions generated from a tightly scoped local keyword set.</div>
       </div>
       <div class="metric-card">
+        <div class="metric-trend"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>Ad impressions</div>
         <div class="metric-label">Impressions</div>
         <div class="metric-value">949</div>
         <div class="metric-note">Relevant visibility in a competitive local retail search environment.</div>
       </div>
       <div class="metric-card">
+        <div class="metric-trend"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>Click-through rate</div>
         <div class="metric-label">CTR</div>
         <div class="metric-value">6%</div>
         <div class="metric-note">Healthy click-through rate for local shoppers already showing intent.</div>
@@ -2289,6 +2491,10 @@ footer {
     </div>
     <div class="proof-layout">
       <div class="proof-visual">
+        <div class="proof-platform-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Google Ads
+        </div>
         <h3>Primary Google Search result panel</h3>
         <img class="proof-image" src="mattress-today-search-ads-results.png" alt="Google Search ads results panel for Mattress Today">
         <p class="proof-note">This panel matches the core campaign story from the PDF: 949 impressions, 57 clicks, 49 total results, and $178.59 in spend, with tracked actions spread across contact, engagement, directions, and page views.</p>
@@ -2319,6 +2525,15 @@ footer {
 <section class="final-cta-case">
   <div class="final-cta-inner">
     <span class="section-eyebrow">Need this for your business?</span>
+    <div class="cta-trust-row">
+      <div class="cta-trust-avatar">MT</div>
+      <div class="cta-trust-info">
+        <div class="cta-trust-name">Mattress Today</div>
+        <div class="cta-trust-role">Mattress Retail · Conroe, Texas</div>
+      </div>
+      <div class="cta-trust-divider"></div>
+      <p class="cta-trust-quote">"Google Ads drove consistent in-store results on a tight budget."</p>
+    </div>
     <h2>Want a pipeline like this for your <em style="font-style:normal;color:var(--blue);">own niche?</em></h2>
     <p>If you run a local business and need more high-intent leads, calls, and store visits, we can build a search campaign that captures real buyer demand instead of wasting budget on vanity traffic.</p>
     <div class="final-cta-btns">

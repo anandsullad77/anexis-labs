@@ -45,7 +45,7 @@
     --nav-bg:   rgba(245,246,248,0.9);
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
     background: var(--bg);
@@ -1339,7 +1339,10 @@ footer {
   .hamburger { display:flex; }
   .mobile-nav { top: 68px; }
   .page-hero { padding: 128px 24px 44px; }
+  .filter-cluster-wrap { padding: 32px 24px 0; }
+  .cases-section { padding: 48px 24px 80px; }
   .case-grid { grid-template-columns: 1fr; }
+  .case-card { padding: 24px; }
   .contact-section { padding: 48px 24px 64px; }
   .steps-section { padding: 64px 24px; }
   .stats-strip { padding: 48px 24px; }
@@ -1349,6 +1352,39 @@ footer {
   .footer-inner { flex-direction: column; gap: 32px; }
   .footer-links { gap: 32px; flex-wrap: wrap; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .page-hero { padding: 100px 16px 36px; }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 36px;
+  }
+  .stat-pill {
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 16px;
+  }
+  .stat-pill:nth-child(2),
+  .stat-pill:nth-child(4) { border-right: none; }
+  .stat-pill:nth-child(3),
+  .stat-pill:nth-child(4) { border-bottom: none; }
+  .stat-pill-num { font-size: 26px; }
+
+  .filter-cluster-wrap { padding: 24px 16px 0; }
+  .filter-btn { font-size: 12px; padding: 8px 14px; }
+
+  .cases-section { padding: 32px 16px 64px; }
+  .case-card { padding: 20px 18px; }
+  .case-card-client { font-size: 17px; }
+  .case-card-result-value { font-size: 16px; }
+
+  .service-group-header h2 { font-size: clamp(18px, 4vw, 22px); }
 }
 
 
