@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Branding | Anexis Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b1015;
+    --surface: #101821;
+    --border: rgba(255,255,255,0.08);
+    --text: #eef2f7;
+    --muted: #94a3b8;
+    --blue: #00b4d8;
+    --font-display: 'Manrope', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(circle at top, #1a2430 0%, var(--bg) 46%);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    padding: 32px 20px 64px;
+  }
+  .page { max-width: 980px; margin: 0 auto; }
+  .back-link,
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  .back-link:hover,
+  .cta:hover { border-color: var(--blue); color: var(--blue); }
+  .hero { padding: 72px 0 40px; }
+  .eyebrow {
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  h1, h2 {
+    font-family: var(--font-display);
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4.4rem);
+    margin-bottom: 18px;
+  }
+  .hero p {
+    max-width: 720px;
+    color: var(--muted);
+    font-size: 18px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 32px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px;
+  }
+  .card h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .card p,
+  .card li { color: var(--muted); }
+  ul {
+    margin-left: 18px;
+    display: grid;
+    gap: 8px;
+  }
+  .proof {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+    font-weight: 600;
+  }
+  .cta-row {
+    margin-top: 28px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero { padding-top: 48px; }
+    .hero p { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <a href="Homepage.html#solutions" class="back-link">Back to Homepage</a>
+
+    <section class="hero">
+      <div class="eyebrow">Personal Branding</div>
+      <h1>Authority-building content for founders and professionals.</h1>
+      <p>We help people show up online with more clarity, more consistency and stronger positioning so the right audience takes them seriously faster.</p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>What we handle</h2>
+        <ul>
+          <li>Profile positioning and audit</li>
+          <li>Content themes built around expertise</li>
+          <li>Publishing rhythm across LinkedIn or Instagram</li>
+          <li>Growth tracking across reach, visits and engagement</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>How we work</h2>
+        <ul>
+          <li>Positioning first, content second</li>
+          <li>Messaging that is specific to your strengths</li>
+          <li>Consistent publishing with measurable output</li>
+          <li>Reporting that stays practical and easy to use</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Best fit</h2>
+        <p>Best for founders, leaders and specialists who want stronger visibility without turning content creation into a full-time job.</p>
+      </article>
+
+      <article class="card">
+        <h2>Proof point</h2>
+        <p class="proof">Stars Healthcare grew from 100 followers to 9K in 3 months, with 1.5M+ accounts reached in 90 days.</p>
+      </article>
+    </section>
+
+    <div class="cta-row">
+      <a href="Homepage.html#contact" class="cta">Talk to a Strategist</a>
+      <a href="Homepage.html#work" class="cta">See Case Studies</a>
+    </div>
+  </div>
+</body>
+</html>
