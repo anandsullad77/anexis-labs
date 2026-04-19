@@ -2219,6 +2219,73 @@ footer {
     .case-meta-strip { grid-template-columns: 1fr 1fr; gap: 10px; }
   }
 
+
+  /* ── NEWSLETTER STRIP ── */
+  .newsletter-strip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg3);
+    position: relative;
+    overflow: hidden;
+  }
+  .newsletter-strip::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,180,216,0.09) 0%, transparent 65%);
+    right: -100px; top: -200px;
+    pointer-events: none;
+  }
+  .newsletter-strip-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 52px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .newsletter-strip-text { flex: 1 1 340px; }
+  .newsletter-strip-text h3 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.5vw, 30px);
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+  .newsletter-strip-text p { font-size: 15px; color: var(--muted); max-width: 400px; }
+  .newsletter-strip .newsletter-form { flex: 1 1 340px; margin-top: 0; }
+  .newsletter-form { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+  .newsletter-form input {
+    flex: 1 1 220px; min-width: 0;
+    padding: 15px 16px; border-radius: 14px;
+    border: 1px solid var(--border2);
+    background: transparent; color: var(--text); font: inherit;
+  }
+  .newsletter-form input:focus {
+    outline: none; border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0,180,216,0.14);
+  }
+  .newsletter-form button {
+    border: 0; cursor: pointer;
+    padding: 15px 20px; border-radius: 14px; font: inherit;
+    background: var(--blue); color: #001018; font-weight: 700;
+    transition: background 0.2s, transform 0.18s, box-shadow 0.18s;
+  }
+  .newsletter-form button:hover {
+    background: #00cff5;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0,180,216,0.28);
+  }
+  @media (max-width: 900px) {
+    .newsletter-strip-inner { padding: 36px 20px; flex-direction: column; gap: 24px; justify-content: flex-start; }
+    .newsletter-strip-text { flex: 0 0 auto; }
+    .newsletter-strip .newsletter-form { flex: 0 0 auto; width: 100%; flex-direction: column; }
+    .newsletter-strip .newsletter-form input { flex-basis: auto; width: 100%; }
+    .newsletter-strip .newsletter-form button { width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -2541,6 +2608,24 @@ footer {
   </div>
 </section>
 
+<!-- NEWSLETTER -->
+<div class="newsletter-strip">
+  <div class="newsletter-strip-inner">
+    <div class="newsletter-strip-text">
+      <div class="section-label" style="margin-bottom:12px;">Newsletter</div>
+      <h3>Stay ahead. One article, every two weeks.</h3>
+      <p>No roundups, no recycled content — only the frameworks we use with real B2B clients.</p>
+    </div>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" id="newsletterEmail" placeholder="Your work email" required>
+      <button type="submit" id="newsletterBtn">Subscribe</button>
+    </form>
+    <p id="newsletterSuccess" style="display:none; font-size:15px; color:var(--blue); margin-top:12px; font-weight:500;">
+      You're in. Expect sharp, no-fluff B2B insights in your inbox every two weeks.
+    </p>
+  </div>
+</div>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -2569,6 +2654,7 @@ footer {
   <div class="footer-bottom">
     <p>Â© 2025 Anexis Labs. All rights reserved.</p>
     <p>Bangalore, India Â· Global Clients</p>
+    <p><a href="../../privacy-policy.html">Privacy Policy</a></p>
   </div>
 </footer>
 <script>
@@ -2620,6 +2706,30 @@ footer {
   }, { threshold: 0.08 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  (function () {
+    const sb = window.supabase.createClient('https://saywqwlgamcltgbsmudk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNheXdxd2xnYW1jbHRnYnNtdWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDg0NzYsImV4cCI6MjA5MDk4NDQ3Nn0.kkyTj4mKV7yAXoEQK2r9PIQTwOhClQPoA-TXW2deUVk', { auth: { persistSession: false } });
+    const form = document.getElementById('newsletterForm');
+    const btn  = document.getElementById('newsletterBtn');
+    const succ = document.getElementById('newsletterSuccess');
+    if (!form) return;
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('newsletterEmail').value.trim();
+      if (!email) return;
+      btn.disabled = true;
+      btn.textContent = 'Subscribing…';
+      try {
+        const { error } = await sb.from('Newsletter').insert([{ email }]);
+        if (error) console.error('[Supabase]', error);
+      } catch(err) { console.error('[Supabase]', err); }
+      form.style.display = 'none';
+      succ.style.display = 'block';
+    });
+  })();
 </script>
 </body>
 </html>

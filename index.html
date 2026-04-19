@@ -2553,7 +2553,7 @@
     .why-proof-line { font-size: 12px !important; padding-top: 14px !important; line-height: 1.55 !important; }
     .why-mobile-preview { display: block !important; position: relative !important; top: auto !important; right: auto !important; z-index: 2 !important; order: -1 !important; margin-bottom: 2px !important; }
     .why-stage { display: none !important; }
-    .why-vector { min-height: 388px !important; border-radius: 12px !important; }
+    .why-vector { min-height: 520px !important; border-radius: 12px !important; }
     .why-vector-window { inset: 70px 14px 14px !important; border-radius: 14px !important; }
     .why-vector-chip { top: 14px !important; left: 14px !important; font-size: 10px !important; padding: 7px 10px !important; }
     .why-vector-ai .why-prompt-card { left: 16px !important; right: 16px !important; top: 20px !important; font-size: 12px !important; padding: 12px 14px !important; }
@@ -2572,7 +2572,7 @@
                     
     .why-mobile-preview .why-mini-card {
       width: 100% !important;
-      height: 132px !important;
+      height: 220px !important;
       border-radius: 14px !important;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 10px 24px rgba(0,0,0,0.24) !important;
     }
@@ -2712,15 +2712,18 @@
   .mobile-nav {
     display: none;
     position: fixed;
-    top: 78px; left: 0; right: 0;
-    background: var(--nav-bg);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 20px 32px 24px;
+    top: 68px; left: 0; right: 0; bottom: 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 20px 28px 24px;
     z-index: 99;
     flex-direction: column;
     gap: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
+  body.menu-open { overflow: hidden; }
   .mobile-nav.open { display: flex; }
   .mobile-nav a {
     color: var(--muted);
@@ -3516,7 +3519,7 @@
     }
 
     .why-mobile-preview .why-mini-card {
-      height: 144px !important;
+      height: 240px !important;
       border-radius: 16px !important;
     }
 
@@ -3580,6 +3583,80 @@
       height: 26px !important;
       font-size: 8px !important;
     }
+  }
+
+  /* ── GLOBAL NETWORK: small phones — flat grid replaces hub-and-spoke ── */
+  @media (max-width: 480px) {
+    .why-vector-global { min-height: auto !important; }
+    .why-vector-global .why-vector-window {
+      position: relative !important;
+      inset: auto !important;
+      margin: 56px 12px 12px !important;
+      border-radius: 16px !important;
+      overflow: visible !important;
+      padding: 12px !important;
+    }
+    .why-vector-global .why-global-network {
+      position: relative !important;
+      inset: auto !important;
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 8px !important;
+      align-items: stretch !important;
+    }
+    .why-vector-global .why-global-route { display: none !important; }
+    .why-vector-global .why-global-hub {
+      position: relative !important;
+      left: auto !important; top: auto !important;
+      transform: none !important;
+      width: 100% !important;
+      padding: 12px 14px !important;
+      border-radius: 14px !important;
+      text-align: left !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+    }
+    .why-vector-global .why-global-hub span { font-size: 15px !important; }
+    .why-vector-global .why-global-hub small { font-size: 10px !important; margin-top: 0 !important; flex: 1 !important; }
+    .why-vector-global .why-global-market {
+      position: relative !important;
+      left: auto !important; top: auto !important; right: auto !important; bottom: auto !important;
+      width: calc(50% - 4px) !important;
+      padding: 10px 12px !important;
+      border-radius: 12px !important;
+    }
+    .why-vector-global .why-global-market strong { font-size: 13px !important; }
+    .why-vector-global .why-global-market span { font-size: 10px !important; display: block !important; margin-top: 2px !important; }
+    .why-global-caption {
+      position: relative !important;
+      left: auto !important; right: auto !important; bottom: auto !important;
+      margin-top: 4px !important;
+      font-size: 12px !important;
+      text-align: left !important;
+    }
+
+    /* Global mini card — clean corner layout */
+    .why-mini-global .why-mini-route { display: none !important; }
+    .why-mini-global .why-mini-hub {
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 56px !important;
+      height: 56px !important;
+      font-size: 13px !important;
+      border-radius: 16px !important;
+    }
+    .why-mini-global .why-mini-market {
+      width: 36px !important;
+      height: 36px !important;
+      font-size: 9px !important;
+      border-radius: 10px !important;
+    }
+    .why-mini-global .m1 { top: 36px !important; left: 16px !important; }
+    .why-mini-global .m2 { top: 36px !important; right: 16px !important; left: auto !important; }
+    .why-mini-global .m3 { bottom: 20px !important; left: 16px !important; top: auto !important; }
+    .why-mini-global .m4 { bottom: 20px !important; right: 16px !important; left: auto !important; top: auto !important; }
   }
 
 
@@ -5850,6 +5927,7 @@ body.light .hero.hero-editorial .hero-bridge-deck--base-center {
   <div class="footer-bottom">
     <p>© 2025 Anexis Labs. All rights reserved.</p>
     <p>Bangalore, India · Global Clients</p>
+    <p><a href="privacy-policy.html">Privacy Policy</a></p>
   </div>
 </footer>
 

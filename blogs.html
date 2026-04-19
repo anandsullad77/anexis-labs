@@ -1708,10 +1708,13 @@
           <h3>Stay ahead. One article, every two weeks.</h3>
           <p>No roundups, no recycled content — only the frameworks we use with real B2B clients.</p>
         </div>
-        <form class="newsletter-form" onsubmit="return false;">
-          <input type="email" placeholder="Your work email">
-          <button type="submit" class="btn-primary">Subscribe</button>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" id="newsletterEmail" placeholder="Your work email" required>
+          <button type="submit" id="newsletterBtn" class="btn-primary">Subscribe</button>
         </form>
+        <p id="newsletterSuccess" style="display:none; font-size:15px; color:var(--blue); margin-top:12px; font-weight:500;">
+          You're in. Expect sharp, no-fluff B2B insights in your inbox every two weeks.
+        </p>
       </div>
     </div>
 
@@ -2124,6 +2127,40 @@
     document.querySelectorAll('.reveal').forEach(function(el) {
       revealObserver.observe(el);
     });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (function () {
+      const SUPABASE_URL  = 'https://saywqwlgamcltgbsmudk.supabase.co';
+      const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNheXdxd2xnYW1jbHRnYnNtdWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MDg0NzYsImV4cCI6MjA5MDk4NDQ3Nn0.kkyTj4mKV7yAXoEQK2r9PIQTwOhClQPoA-TXW2deUVk';
+      const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, { auth: { persistSession: false } });
+
+      const form    = document.getElementById('newsletterForm');
+      const btn     = document.getElementById('newsletterBtn');
+      const success = document.getElementById('newsletterSuccess');
+
+      if (!form) return;
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const email = document.getElementById('newsletterEmail').value.trim();
+        if (!email) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing…';
+
+        try {
+          const { error } = await sb.from('Newsletter').insert([{ email }]);
+          if (error) console.error('[Supabase]', error);
+        } catch (err) {
+          console.error('[Supabase]', err);
+        }
+
+        form.style.display = 'none';
+        success.style.display = 'block';
+      });
+    })();
   </script>
 </body>
 </html>
