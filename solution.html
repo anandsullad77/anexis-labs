@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You — Anexis Labs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080b0f;
+      --bg2:      #0e1318;
+      --bg3:      #141c24;
+      --border:   rgba(255,255,255,0.06);
+      --border2:  rgba(255,255,255,0.12);
+      --blue:     #00B4D8;
+      --blue-dim: rgba(0,180,216,0.1);
+      --blue-mid: rgba(0,180,216,0.2);
+      --green:    #22c97b;
+      --amber:    #e8a020;
+      --text:     #eef2f7;
+      --muted:    #7a8fa6;
+      --faint:    #3a4a5c;
+      --nav-bg:   rgba(8,11,15,0.85);
+      --font-display: 'Manrope', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    /* LIGHT MODE */
+    body.light {
+      --bg:       #f5f6f8;
+      --bg2:      #ffffff;
+      --bg3:      #eceef2;
+      --border:   rgba(0,0,0,0.07);
+      --border2:  rgba(0,0,0,0.13);
+      --blue:     #0090b0;
+      --blue-dim: rgba(0,144,176,0.08);
+      --blue-mid: rgba(0,144,176,0.15);
+      --green:    #1a9e5f;
+      --amber:    #c47d0a;
+      --text:     #0d1117;
+      --muted:    #5a6a7a;
+      --faint:    #a0aab4;
+      --nav-bg:   rgba(245,246,248,0.9);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body.light::before { opacity: 0.1; }
+    body.light::after {
+      background-image:
+        linear-gradient(rgba(0,144,176,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,144,176,0.05) 1px, transparent 1px);
+    }
+
+    * { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      height: 72px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      display: inline-block;
+      box-shadow: 0 0 12px var(--blue);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--blue);
+      color: #000 !important;
+      font-weight: 500 !important;
+      padding: 9px 22px;
+      border-radius: 6px;
+      font-size: 14px !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+
+    .nav-cta:hover {
+      background: #00cff5 !important;
+      color: #000 !important;
+      transform: translateY(-1px);
+    }
+
+    /* THEME TOGGLE */
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toggle-icon {
+      font-size: 14px;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .theme-toggle {
+      width: 44px; height: 24px;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: 100px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s, border-color 0.3s;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--blue);
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    body.light .theme-toggle::after {
+      transform: translateX(20px);
+      background: var(--blue);
+    }
+
+    /* ── MAIN CONTENT ── */
+    .thank-you-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 60px 80px;
+      text-align: center;
+    }
+
+    /* Success icon */
+    .success-icon {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(34, 201, 123, 0.1);
+      border: 2px solid rgba(34, 201, 123, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 36px;
+      font-size: 36px;
+      animation: fadeUp 0.6s ease forwards 0.2s;
+      opacity: 0;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .ty-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.3s;
+    }
+
+    .ty-label::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--green);
+    }
+
+    .ty-label::after {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--green);
+    }
+
+    .ty-headline {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 72px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -2px;
+      color: var(--text);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+
+    .ty-sub {
+      font-size: clamp(15px, 1.6vw, 18px);
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 520px;
+      line-height: 1.7;
+      margin: 0 auto 48px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.55s;
+    }
+
+    /* What happens next card */
+    .next-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 860px;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.7s;
+    }
+
+    .next-step {
+      background: var(--bg2);
+      padding: 36px 28px;
+      border-right: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .next-step:last-child { border-right: none; }
+
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-num::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--blue);
+      opacity: 0.4;
+    }
+
+    .next-step h4 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .next-step p {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    /* Actions */
+    .ty-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.85s;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #000;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 15px;
+      padding: 14px 32px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      background: #00cff5;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 15px;
+      padding: 14px 32px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid var(--border2);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--blue);
+      background: var(--blue-dim);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 60px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 60px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--faint);
+      margin-top: 12px;
+      font-style: italic;
+      font-weight: 300;
+      max-width: 240px;
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 60px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .footer-col a {
+      display: block;
+      color: var(--faint);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 300;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--text); }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--faint);
+      font-weight: 300;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE (≤768px) — mirrors index.html exactly ── */
+    @media (max-width: 768px) {
+      html, body { overflow-x: hidden; width: 100%; }
+      * { max-width: 100%; word-break: break-word; }
+
+      /* Nav */
+      nav { padding: 0 20px !important; height: 64px; }
+      .nav-links li:not(:last-child) { display: none; }
+      .logo { font-size: 17px; }
+      .toggle-wrap .toggle-icon { display: none; }
+
+      /* Main content */
+      .thank-you-page {
+        padding: 96px 20px 56px !important;
+        min-height: auto;
+      }
+
+      .success-icon {
+        width: 64px; height: 64px;
+        font-size: 28px;
+        margin-bottom: 24px;
+      }
+
+      .ty-label {
+        font-size: 10px;
+        margin-bottom: 16px;
+      }
+
+      .ty-headline {
+        font-size: 32px !important;
+        letter-spacing: -0.5px !important;
+        line-height: 1.15 !important;
+        margin-bottom: 16px;
+      }
+
+      .ty-sub {
+        font-size: 15px !important;
+        margin-bottom: 32px;
+        max-width: 100% !important;
+      }
+
+      /* Next steps — stack vertically */
+      .next-steps {
+        grid-template-columns: 1fr !important;
+        border-radius: 8px;
+        margin-bottom: 32px;
+        max-width: 100%;
+      }
+
+      .next-step {
+        border-right: none !important;
+        border-bottom: 1px solid var(--border) !important;
+        padding: 24px 20px !important;
+      }
+
+      .next-step:last-child { border-bottom: none !important; }
+
+      .next-step h4 { font-size: 15px !important; margin-bottom: 6px; }
+      .next-step p { font-size: 13px !important; }
+      .step-num { font-size: 10px; }
+
+      /* Action buttons — full width stacked */
+      .ty-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 14px 20px !important;
+        font-size: 14px !important;
+        box-sizing: border-box;
+      }
+
+      /* Footer */
+      footer { padding: 48px 20px !important; }
+      .footer-inner { flex-direction: column !important; gap: 32px; }
+      .footer-brand p { max-width: 100%; }
+      .footer-links { flex-wrap: wrap; gap: 32px; }
+      .footer-col { min-width: 120px; }
+      .footer-bottom {
+        flex-direction: column !important;
+        gap: 6px;
+        text-align: center;
+        margin-top: 28px;
+        padding-top: 24px;
+      }
+      .footer-bottom p { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">
+    <span class="logo-dot"></span>
+    Anexis Labs
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#solutions">Solutions</a></li>
+    <li><a href="/#work">Case Studies</a></li>
+    <li><a href="/#process">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+    <li>
+      <div class="toggle-wrap">
+        <span class="toggle-icon">🌙</span>
+        <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()"></div>
+        <span class="toggle-icon">☀️</span>
+      </div>
+    </li>
+    <li><a href="/" class="nav-cta">Back Home</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="thank-you-page">
+  <div class="success-icon">✅</div>
+  <div class="ty-label">Inquiry Received</div>
+  <h1 class="ty-headline">We'll be in touch<br>within 24 hours.</h1>
+  <p class="ty-sub">Thanks for reaching out. Our team will review your inquiry and come back to you with a data-backed perspective on how we can help.</p>
+
+  <!-- What happens next -->
+  <div class="next-steps">
+    <div class="next-step">
+      <div class="step-num">Step 01</div>
+      <h4>Consultation Call</h4>
+      <p>We'll schedule a short call to understand your business, goals, and current challenges.</p>
+    </div>
+    <div class="next-step">
+      <div class="step-num">Step 02</div>
+      <h4>Strategy Analysis</h4>
+      <p>Our team digs into your data, market, and competitors to build a clear, honest strategy.</p>
+    </div>
+    <div class="next-step">
+      <div class="step-num">Step 03</div>
+      <h4>Execution</h4>
+      <p>We implement, test, measure, and scale what works. You always know what's happening.</p>
+    </div>
+  </div>
+
+  <div class="ty-actions">
+    <a href="/" class="btn-primary">Back to Home →</a>
+    <a href="/#work" class="btn-secondary">See Our Work</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="logo">
+        <span class="logo-dot"></span>
+        Anexis Labs
+      </a>
+      <p>Data-first. Process-driven. Engineer-built.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <a href="#">Performance Marketing</a>
+        <a href="#">B2B Digital Marketing</a>
+        <a href="#">LinkedIn Marketing</a>
+        <a href="#">Personal Branding</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">Case Studies</a>
+        <a href="#">About</a>
+        <a href="#">Process</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Anexis Labs. All rights reserved.</p>
+    <p>Bangalore, India · Global Clients</p>
+  </div>
+</footer>
+
+<script>
+  function toggleTheme() {
+    document.body.classList.toggle('light');
+    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  }
+
+  // Load saved preference
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light');
+  }
+</script>
+</body>
+</html>
