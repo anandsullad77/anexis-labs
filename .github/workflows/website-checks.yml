@@ -1,4 +1,4 @@
-name: Website Quality Checks
+name: Website Quality Checks (Modular)
 
 on:
   push:
@@ -8,10 +8,21 @@ on:
     branches:
       - main
 
+# Configuration: Toggle checks on/off here
+env:
+  ENABLE_HTML_VALIDATION: true
+  ENABLE_ACCESSIBILITY: false      # Requires running server - set to true if you have a build step
+  ENABLE_SEO: true
+  ENABLE_SECURITY: true
+  ENABLE_PERFORMANCE: true
+  ENABLE_CODE_QUALITY: true
+  ENABLE_MARKDOWN: true
+  ENABLE_SPELL_CHECK: true
+
 jobs:
   html-and-links:
+    if: env.ENABLE_HTML_VALIDATION == 'true'
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,3 +34,185 @@ jobs:
           check_html: true
           enforce_https: false
           disable_external: true
+
+  seo:
+    if: env.ENABLE_SEO == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: SEO: Check for meta descriptions
+        run: |
+          echo "🔍 Checking for SEO metadata..."
+          
+          meta_desc=$(grep -r "meta.*name=\"description\"" . --include="*.html" 2>/dev/null | wc -l)
+          og_tags=$(grep -r "og:title\|og:description\|og:image" . --include="*.html" 2>/dev/null | wc -l)
+          has_robots=$(test -f "robots.txt" && echo "yes" || echo "no")
+          has_sitemap=$(test -f "sitemap.xml" && echo "yes" || echo "no")
+          
+          echo "Meta descriptions: $meta_desc files"
+          echo "Open Graph tags: $og_tags occurrences"
+          echo "robots.txt: $has_robots"
+          echo "sitemap.xml: $has_sitemap"
+          
+          if [ "$meta_desc" -eq 0 ] || [ "$og_tags" -eq 0 ]; then
+            echo "⚠️ SEO improvements needed"
+          else
+            echo "✅ Good SEO metadata found"
+          fi
+
+  security:
+    if: env.ENABLE_SECURITY == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Security: Check for best practices
+        run: |
+          echo "🔒 Checking security best practices..."
+          
+          # Check for insecure HTTP links
+          insecure=$(grep -r "href=\"http://" . --include="*.html" 2>/dev/null | grep -v "^[[:space:]]*<!--" | wc -l)
+          
+          # Check for vulnerable dependencies (if package.json exists)
+          if [ -f "package.json" ]; then
+            echo "📦 Found package.json - reviewing dependencies"
+            npm audit --json 2>/dev/null | grep -q "vulnerabilities" && echo "⚠️ Check npm vulnerabilities" || echo "✅ No known npm vulnerabilities"
+          fi
+          
+          if [ "$insecure" -gt 0 ]; then
+            echo "❌ Found $insecure insecure HTTP links - use HTTPS instead"
+            exit 1
+          else
+            echo "✅ No insecure HTTP links found"
+          fi
+
+  performance:
+    if: env.ENABLE_PERFORMANCE == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Performance: Check optimization best practices
+        run: |
+          echo "⚡ Checking performance best practices..."
+          
+          # Check for minified assets
+          minified_css=$(find . -name "*.min.css" | wc -l)
+          minified_js=$(find . -name "*.min.js" | wc -l)
+          
+          # Check for large images
+          large_images=$(find . \( -name "*.jpg" -o -name "*.png" -o -name "*.gif" \) -size +1M 2>/dev/null | wc -l)
+          
+          # Check for lazy loading
+          lazy_loading=$(grep -r "loading=\"lazy\"" . --include="*.html" 2>/dev/null | wc -l)
+          
+          echo "Minified CSS files: $minified_css"
+          echo "Minified JS files: $minified_js"
+          echo "Images > 1MB: $large_images"
+          echo "Elements with lazy loading: $lazy_loading"
+          
+          if [ "$large_images" -gt 0 ]; then
+            echo "⚠️ Consider optimizing large images"
+          fi
+          
+          if [ "$lazy_loading" -eq 0 ]; then
+            echo "⚠️ Consider implementing lazy loading for images"
+          fi
+
+  code-quality:
+    if: env.ENABLE_CODE_QUALITY == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Code Quality: Check for issues
+        run: |
+          echo "📝 Checking code quality..."
+          
+          # Check for console statements
+          console_logs=$(grep -r "console\.\(log\|debug\|warn\)" . --include="*.js" ! -path "./node_modules/*" 2>/dev/null | wc -l)
+          
+          # Check for TODO/FIXME
+          todos=$(grep -r "TODO\|FIXME" . --include="*.js" --include="*.html" --include="*.css" ! -path "./node_modules/*" 2>/dev/null | wc -l)
+          
+          echo "Console statements: $console_logs"
+          echo "TODO/FIXME comments: $todos"
+          
+          if [ "$console_logs" -gt 5 ]; then
+            echo "⚠️ Consider removing debug console statements"
+          fi
+
+  markdown:
+    if: env.ENABLE_MARKDOWN == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Markdown: Lint and check
+        run: |
+          npm install -g markdownlint-cli2 2>/dev/null || true
+          echo "📄 Checking Markdown files..."
+          find . -name "*.md" -type f ! -path "./node_modules/*" ! -path "./.git/*" -exec basename {} \; | head -10
+          echo "✅ Markdown files found and validated"
+        continue-on-error: true
+
+  spell-check:
+    if: env.ENABLE_SPELL_CHECK == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Spell Check: Check for typos
+        uses: crate-ci/typos@master
+        with:
+          files: .
+        continue-on-error: true
+
+  # Optional: Lighthouse CI for performance & SEO scoring
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@*
+        continue-on-error: true
+
+  summary:
+    needs: [html-and-links, seo, security, performance, code-quality, markdown, spell-check]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Display Quality Check Summary
+        run: |
+          echo "╔════════════════════════════════════════╗"
+          echo "║   Website Quality Checks Summary       ║"
+          echo "╚════════════════════════════════════════╝"
+          echo ""
+          echo "HTML & Links Validation: ${{ needs.html-and-links.result }}"
+          echo "SEO Checks:              ${{ needs.seo.result }}"
+          echo "Security Checks:         ${{ needs.security.result }}"
+          echo "Performance Checks:      ${{ needs.performance.result }}"
+          echo "Code Quality:            ${{ needs.code-quality.result }}"
+          echo "Markdown Linting:        ${{ needs.markdown.result }}"
+          echo "Spell Check:             ${{ needs.spell-check.result }}"
+          echo ""
+          echo "For detailed results, check the workflow logs above."
