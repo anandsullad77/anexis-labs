@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(awk -F: '{if \\($2+0 > 5050 && $2+0 < 5340\\) print}')",
+      "Bash(sed -n '5323,5332p' \"c:/Users/anand/anexis-labs/index.html\")",
+      "Bash(sed -n '6028,6037p' \"c:/Users/anand/anexis-labs/index.html\")"
+    ]
+  }
+}
