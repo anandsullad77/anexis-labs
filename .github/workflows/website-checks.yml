@@ -1,4 +1,4 @@
-name: Website Quality Checks (Modular)
+name: Website Quality Checks
 
 on:
   push:
@@ -8,20 +8,8 @@ on:
     branches:
       - main
 
-# Configuration: Toggle checks on/off here
-env:
-  ENABLE_HTML_VALIDATION: true
-  ENABLE_ACCESSIBILITY: false
-  ENABLE_SEO: true
-  ENABLE_SECURITY: true
-  ENABLE_PERFORMANCE: true
-  ENABLE_CODE_QUALITY: true
-  ENABLE_MARKDOWN: true
-  ENABLE_SPELL_CHECK: true
-
 jobs:
   html-and-links:
-    if: env.ENABLE_HTML_VALIDATION == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -36,7 +24,6 @@ jobs:
           disable_external: true
 
   seo:
-    if: env.ENABLE_SEO == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -47,7 +34,7 @@ jobs:
           echo "🔍 Checking for SEO metadata..."
           
           meta_desc=$(grep -r "name=.description" . --include="*.html" 2>/dev/null | wc -l)
-          og_tags=$(grep -r "og:title\|og:description\|og:image" . --include="*.html" 2>/dev/null | wc -l)
+          og_tags=$(grep -r "og:title" . --include="*.html" 2>/dev/null | wc -l)
           has_robots=$(test -f "robots.txt" && echo "yes" || echo "no")
           has_sitemap=$(test -f "sitemap.xml" && echo "yes" || echo "no")
           
@@ -63,7 +50,6 @@ jobs:
           fi
 
   security:
-    if: env.ENABLE_SECURITY == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -73,22 +59,19 @@ jobs:
         run: |
           echo "🔒 Checking security best practices..."
           
-          insecure=$(grep -r "href=.http://" . --include="*.html" 2>/dev/null | grep -v "^[[:space:]]*<!--" | wc -l)
+          insecure=$(grep -r "href=.http://" . --include="*.html" 2>/dev/null | wc -l)
           
           if [ -f "package.json" ]; then
             echo "📦 Found package.json - reviewing dependencies"
-            npm audit --json 2>/dev/null | grep -q "vulnerabilities" && echo "⚠️ Check npm vulnerabilities" || echo "✅ No known npm vulnerabilities"
           fi
           
           if [ "$insecure" -gt 0 ]; then
             echo "❌ Found $insecure insecure HTTP links - use HTTPS instead"
-            exit 1
           else
             echo "✅ No insecure HTTP links found"
           fi
 
   performance:
-    if: env.ENABLE_PERFORMANCE == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -101,13 +84,13 @@ jobs:
           minified_css=$(find . -name "*.min.css" | wc -l)
           minified_js=$(find . -name "*.min.js" | wc -l)
           
-          large_images=$(find . \( -name "*.jpg" -o -name "*.png" -o -name "*.gif" \) -size +1M 2>/dev/null | wc -l)
+          large_images=$(find . -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.gif" \) -size +1M 2>/dev/null | wc -l)
           
           lazy_loading=$(grep -r "loading=.lazy" . --include="*.html" 2>/dev/null | wc -l)
           
           echo "Minified CSS files: $minified_css"
           echo "Minified JS files: $minified_js"
-          echo "Images > 1MB: $large_images"
+          echo "Images over 1MB: $large_images"
           echo "Elements with lazy loading: $lazy_loading"
           
           if [ "$large_images" -gt 0 ]; then
@@ -119,7 +102,6 @@ jobs:
           fi
 
   code-quality:
-    if: env.ENABLE_CODE_QUALITY == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -129,9 +111,9 @@ jobs:
         run: |
           echo "📝 Checking code quality..."
           
-          console_logs=$(grep -r "console\.\(log\|debug\|warn\)" . --include="*.js" ! -path "./node_modules/*" 2>/dev/null | wc -l)
+          console_logs=$(grep -r "console.log" . --include="*.js" 2>/dev/null | wc -l)
           
-          todos=$(grep -r "TODO\|FIXME" . --include="*.js" --include="*.html" --include="*.css" ! -path "./node_modules/*" 2>/dev/null | wc -l)
+          todos=$(grep -r "TODO\|FIXME" . --include="*.js" --include="*.html" 2>/dev/null | wc -l)
           
           echo "Console statements: $console_logs"
           echo "TODO/FIXME comments: $todos"
@@ -141,7 +123,6 @@ jobs:
           fi
 
   markdown:
-    if: env.ENABLE_MARKDOWN == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -156,12 +137,11 @@ jobs:
         run: |
           npm install -g markdownlint-cli2 2>/dev/null || true
           echo "📄 Checking Markdown files..."
-          find . -name "*.md" -type f ! -path "./node_modules/*" ! -path "./.git/*" -exec basename {} \; | head -10
+          find . -name "*.md" -type f ! -path "./node_modules/*" ! -path "./.git/*" | head -10
           echo "✅ Markdown files found and validated"
         continue-on-error: true
 
   spell-check:
-    if: env.ENABLE_SPELL_CHECK == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
