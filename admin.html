@@ -1236,7 +1236,7 @@
     }
   </style>
 </head>
-<body>
+<body class="light-mode">
 
 <!-- LOGIN -->
 <div id="loginScreen">
@@ -1557,10 +1557,10 @@
   function toggleTheme() {
     const isLight = document.body.classList.toggle('light-mode');
     document.getElementById('themeToggleBtn').textContent = isLight ? '🌙' : '☀️';
-    localStorage.setItem('_ax_theme', isLight ? 'light' : 'dark');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
   }
   (function initTheme() {
-    if (localStorage.getItem('_ax_theme') === 'light') {
+    if (localStorage.getItem('theme') !== 'dark') {
       document.body.classList.add('light-mode');
       const btn = document.getElementById('themeToggleBtn');
       if (btn) btn.textContent = '☀️';

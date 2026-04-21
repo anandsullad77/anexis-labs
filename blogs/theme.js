@@ -32,6 +32,15 @@ document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.remove('menu-open');
     });
   });
+
+  // Copy header logo image into footer logo (avoids duplicating the large base64 string)
+  var headerImg = document.querySelector('nav .logo img');
+  var footerLogoLink = document.querySelector('footer .logo');
+  if (headerImg && footerLogoLink) {
+    var cloned = headerImg.cloneNode(true);
+    footerLogoLink.innerHTML = '';
+    footerLogoLink.appendChild(cloned);
+  }
 });
 
 if (localStorage.getItem('theme') === 'dark') {

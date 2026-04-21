@@ -1644,6 +1644,221 @@
   }
   .why-mini-systems .why-mini-flow svg { width: 100%; height: 100%; display: block; }
 
+  /* AI static */
+  .wai-prompt {
+    position: absolute;
+    top: 36px; left: 14px; right: 14px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text);
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  .wai-orbit {
+    position: absolute;
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    border: 1px dashed rgba(0,180,216,0.28);
+    left: 50%; top: 130px;
+    transform: translateX(-50%) translateY(-50%);
+  }
+  .wai-orbit::before {
+    content: '';
+    position: absolute;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: #00B4D8;
+    box-shadow: 0 0 10px rgba(0,180,216,0.55);
+    top: -5px; left: 50%;
+    transform: translateX(-50%);
+  }
+  .wai-orbit::after {
+    content: '';
+    position: absolute;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(0,180,216,0.55);
+    box-shadow: 0 0 7px rgba(0,180,216,0.35);
+    bottom: 6px; right: 7px;
+  }
+  .wai-badge {
+    position: absolute;
+    left: 50%; top: 152px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(0,180,216,0.1);
+    border: 1px solid rgba(0,180,216,0.2);
+    color: #00B4D8;
+    font-size: 9px;
+    letter-spacing: 0.4px;
+  }
+  .wai-nodes {
+    position: absolute;
+    left: 14px; right: 14px; bottom: 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .wai-node {
+    padding: 10px 6px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(0,180,216,0.15);
+    text-align: center;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text);
+  }
+
+  /* Dashboard static */
+  .wdb-stat {
+    position: absolute;
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text);
+    line-height: 1.3;
+    z-index: 1;
+  }
+  .wdb-sa { top: 36px; left: 14px; }
+  .wdb-sb { top: 36px; right: 14px; }
+  .wdb-stat strong {
+    display: block;
+    font-size: 16px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: #00B4D8;
+  }
+  .wdb-stat span {
+    font-size: 9px;
+    color: var(--muted);
+  }
+  .wdb-line {
+    position: absolute;
+    left: 14px; right: 14px;
+    top: 106px; height: 40px;
+  }
+  .wdb-line svg { width: 100%; height: 100%; display: block; }
+  .wdb-bars {
+    position: absolute;
+    left: 14px; right: 14px;
+    bottom: 14px; height: 52px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    align-items: end;
+  }
+  .wdb-bars span {
+    display: block;
+    border-radius: 5px 5px 3px 3px;
+    background: linear-gradient(180deg, rgba(0,180,216,0.9), rgba(0,180,216,0.2));
+  }
+
+  /* Systems static */
+  .wsg-flow {
+    position: absolute;
+    inset: 34px 14px 58px;
+  }
+  .wsg-flow svg { width: 100%; height: 100%; display: block; }
+  .wsg-node {
+    position: absolute;
+    width: 54px; height: 54px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+  }
+  .wsg-num {
+    font-size: 16px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--blue);
+    line-height: 1;
+  }
+  .wsg-lbl {
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text);
+    line-height: 1;
+  }
+  .wsg-na { top: 34px; left: 14px; }
+  .wsg-nb { top: 34px; right: 14px; }
+  .wsg-nc { bottom: 34px; left: 14px; }
+  .wsg-nd { bottom: 34px; right: 14px; }
+  .wsg-caption {
+    position: absolute;
+    left: 14px; right: 14px; bottom: 10px;
+    font-size: 9px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* Global static */
+  .wgl-hub {
+    position: absolute;
+    left: 50%; top: 55%;
+    transform: translate(-50%, -50%);
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: rgba(0,180,216,0.12);
+    border: 1px solid rgba(0,180,216,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: var(--font-display);
+    color: #00B4D8;
+    z-index: 2;
+  }
+  .wgl-hub small {
+    font-size: 8px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: rgba(0,180,216,0.7);
+  }
+  .wgl-card {
+    position: absolute;
+    padding: 8px 10px;
+    border-radius: 11px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.09);
+    min-width: 68px;
+  }
+  .wgl-card strong {
+    display: block;
+    font-size: 11px;
+    font-family: var(--font-display);
+    color: var(--text);
+    font-weight: 600;
+    line-height: 1;
+  }
+  .wgl-card span {
+    display: block;
+    font-size: 8px;
+    color: var(--muted);
+    margin-top: 2px;
+    line-height: 1;
+  }
+  .wgl-c1 { top: 32px; left: 12px; }
+  .wgl-c2 { top: 32px; right: 12px; }
+  .wgl-c3 { bottom: 16px; left: 12px; }
+  .wgl-c4 { bottom: 16px; right: 12px; }
 
   @keyframes why-spin-mini {
     0% { transform: rotate(0deg); }
@@ -5227,10 +5442,15 @@ body.light .hero.hero-editorial .hero-bridge-deck--base-center {
           <div class="why-proof-line"><strong>Result:</strong> faster turnaround and cleaner execution.</div>
           <div class="why-mobile-preview" aria-hidden="true">
             <div class="why-mini-card why-mini-ai">
-              <div class="why-mini-chip">AI</div>
-              <div class="why-mini-prompt">Smarter campaigns. Faster execution.</div>
-              <div class="why-mini-orbit"></div>
-              <div class="why-mini-beam"></div>
+              <div class="why-mini-chip">AI Workflow</div>
+              <div class="wai-prompt">Create a smarter campaign system for a brand entering a new market.</div>
+              <div class="wai-orbit"></div>
+              <div class="wai-badge">Top 1% AI usage</div>
+              <div class="wai-nodes">
+                <div class="wai-node">Research</div>
+                <div class="wai-node">Strategy</div>
+                <div class="wai-node">Execution</div>
+              </div>
             </div>
           </div>
         </div>
@@ -5248,10 +5468,11 @@ body.light .hero.hero-editorial .hero-bridge-deck--base-center {
           <div class="why-proof-line"><strong>Tracked:</strong> leads, traffic, spend and CPL.</div>
           <div class="why-mobile-preview" aria-hidden="true">
             <div class="why-mini-card why-mini-dashboard">
-              <div class="why-mini-chip">Dashboards</div>
-              <div class="why-mini-stat"><strong>48%</strong>QL rate</div>
-              <div class="why-mini-line"><svg viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 C 12 23, 18 16, 28 18 S 46 28, 58 16 S 76 4, 100 8" fill="none" stroke="#00B4D8" stroke-width="2.5" stroke-linecap="round"/></svg></div>
-              <div class="why-mini-bars"><span style="height:42%"></span><span style="height:70%"></span><span style="height:56%"></span><span style="height:86%"></span><span style="height:64%"></span></div>
+              <div class="why-mini-chip">Live Dashboards</div>
+              <div class="wdb-stat wdb-sa"><strong>1.2K</strong><span>Tracked leads</span></div>
+              <div class="wdb-stat wdb-sb"><strong>48%</strong><span>Qualified rate</span></div>
+              <div class="wdb-line"><svg viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 C 12 23, 18 16, 28 18 S 46 28, 58 16 S 76 4, 100 8" fill="none" stroke="#00B4D8" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+              <div class="wdb-bars"><span style="height:42%"></span><span style="height:70%"></span><span style="height:56%"></span><span style="height:86%"></span><span style="height:64%"></span></div>
             </div>
           </div>
         </div>
@@ -5269,9 +5490,13 @@ body.light .hero.hero-editorial .hero-bridge-deck--base-center {
           <div class="why-proof-line"><strong>Built from:</strong> years of real execution.</div>
           <div class="why-mobile-preview" aria-hidden="true">
             <div class="why-mini-card why-mini-systems">
-              <div class="why-mini-chip">Systems</div>
-              <div class="why-mini-flow"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M18 24 L82 24 L82 76 L18 76 Z" fill="none" stroke="rgba(0,180,216,0.22)" stroke-width="1.5" stroke-dasharray="6 6"/><path d="M18 24 C 38 24, 38 24, 50 50 C 62 76, 62 76, 82 76" fill="none" stroke="#00B4D8" stroke-width="2.4" stroke-linecap="round"/></svg></div>
-              <div class="why-mini-node n1">01</div><div class="why-mini-node n2">02</div><div class="why-mini-node n3">03</div><div class="why-mini-node n4">04</div>
+              <div class="why-mini-chip">Process System</div>
+              <div class="wsg-flow"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M18 24 L82 24 L82 76 L18 76 Z" fill="none" stroke="rgba(0,180,216,0.2)" stroke-width="1.5" stroke-dasharray="5 5"/><path d="M18 24 C 38 24, 38 24, 50 50 C 62 76, 62 76, 82 76" fill="none" stroke="#00B4D8" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+              <div class="wsg-node wsg-na"><span class="wsg-num">01</span><span class="wsg-lbl">Research</span></div>
+              <div class="wsg-node wsg-nb"><span class="wsg-num">02</span><span class="wsg-lbl">Strategy</span></div>
+              <div class="wsg-node wsg-nc"><span class="wsg-num">03</span><span class="wsg-lbl">Launch</span></div>
+              <div class="wsg-node wsg-nd"><span class="wsg-num">04</span><span class="wsg-lbl">Refine</span></div>
+              <div class="wsg-caption">One connected workflow from first input to final optimisation.</div>
             </div>
           </div>
         </div>
@@ -5289,16 +5514,12 @@ body.light .hero.hero-editorial .hero-bridge-deck--base-center {
           <div class="why-proof-line"><strong>Proof:</strong> tested across 6+ countries.</div>
           <div class="why-mobile-preview" aria-hidden="true">
             <div class="why-mini-card why-mini-global">
-              <div class="why-mini-chip">Global</div>
-              <div class="why-mini-hub">Ops</div>
-              <div class="why-mini-route r1"></div>
-              <div class="why-mini-route r2"></div>
-              <div class="why-mini-route r3"></div>
-              <div class="why-mini-route r4"></div>
-              <div class="why-mini-market m1">IN</div>
-              <div class="why-mini-market m2">IE</div>
-              <div class="why-mini-market m3">US</div>
-              <div class="why-mini-market m4">UK</div>
+              <div class="why-mini-chip">Global Execution</div>
+              <div class="wgl-hub">Ops<small>Hub</small></div>
+              <div class="wgl-card wgl-c1"><strong>India</strong><span>Search demand</span></div>
+              <div class="wgl-card wgl-c2"><strong>Ireland</strong><span>B2B growth</span></div>
+              <div class="wgl-card wgl-c3"><strong>USA</strong><span>Paid campaigns</span></div>
+              <div class="wgl-card wgl-c4"><strong>UK</strong><span>Sales support</span></div>
             </div>
           </div>
         </div>

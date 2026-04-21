@@ -573,11 +573,11 @@
     }
   </style>
 </head>
-<body>
+<body class="light">
 
 <!-- NAV -->
 <nav>
-  <a href="/" class="logo">
+  <a href="index.html" class="logo">
     <span class="logo-dot"></span>
     Anexis Labs
   </a>
@@ -593,7 +593,7 @@
         <span class="toggle-icon">☀️</span>
       </div>
     </li>
-    <li><a href="/" class="nav-cta">Back Home</a></li>
+    <li><a href="index.html" class="nav-cta">Back Home</a></li>
   </ul>
 </nav>
 
@@ -624,7 +624,7 @@
   </div>
 
   <div class="ty-actions">
-    <a href="/" class="btn-primary">Back to Home →</a>
+    <a href="index.html" class="btn-primary">Back to Home →</a>
     <a href="/#work" class="btn-secondary">See Our Work</a>
   </div>
 </div>
@@ -633,7 +633,7 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="/" class="logo">
+      <a href="index.html" class="logo">
         <span class="logo-dot"></span>
         Anexis Labs
       </a>
@@ -670,7 +670,7 @@
   }
 
   // Load saved preference
-  if (localStorage.getItem('theme') === 'light') {
+  if (localStorage.getItem('theme') !== 'dark') {
     document.body.classList.add('light');
   }
 </script>

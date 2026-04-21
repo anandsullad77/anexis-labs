@@ -114,6 +114,17 @@
     align-items: center;
     gap: 10px;
   }
+  .logo img { height: 38px; width: auto; display: block; }
+  body:not(.light) .logo img { filter: brightness(0) invert(1); }
+  .logo-mark {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: inline-block;
+    box-shadow: 0 0 12px var(--blue);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
 
   .nav-right {
     display: flex;
@@ -2031,6 +2042,17 @@
       document.body.classList.add('light');
     }
     updateThemeToggleIcons();
+
+    // Copy header logo image into footer
+    document.addEventListener('DOMContentLoaded', function() {
+      var headerImg = document.querySelector('nav .logo img');
+      var footerLogoLink = document.querySelector('footer .logo');
+      if (headerImg && footerLogoLink) {
+        var cloned = headerImg.cloneNode(true);
+        footerLogoLink.innerHTML = '';
+        footerLogoLink.appendChild(cloned);
+      }
+    });
 
     // ── PAGINATED FILTER ──
     var POSTS_PER_PAGE = 9;
